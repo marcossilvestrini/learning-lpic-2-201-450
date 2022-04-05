@@ -1,0 +1,12 @@
+#ignore files general
+**/.vscode
+**/.log
+**/.vagrant
+workspace.code-workspace
+
+#security
+**/authorized_keys
+**/*.pub
+**/*.ppk
+**/*pk_centos
+**/*private*

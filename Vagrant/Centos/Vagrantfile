@@ -1,0 +1,50 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+# INSTALL PLUGIN RELLOAD
+unless Vagrant.has_plugin?("vagrant-reload")
+  puts 'Installing vagrant-reload Plugin...'
+  system('vagrant plugin install vagrant-reload')
+end
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "generic/centos8"
+
+  # VM srv01
+  config.vm.define "centos-lpic-102"  do |centos_lpic_102|
+
+    # VARIABLE HOSTNAME
+    APP_NAME= "centos-lpic-102"
+
+    # HOSTNAME
+    centos_lpic_102.vm.hostname = APP_NAME
+
+    # NETWORK
+    centos_lpic_102.vm.network "public_network" ,ip: "192.168.0.136",mode: "bridge",bridge: [
+    "ens32",
+    "Marvell AQtion 5Gbit Network Adapter"
+    ]
+
+    # MOUNTS
+    centos_lpic_102.vm.synced_folder ".", "/vagrant", disabled: true
+    centos_lpic_102.vm.synced_folder "./security", "/home/vagrant/security"
+    centos_lpic_102.vm.synced_folder "./configs", "/home/vagrant/configs"
+
+    # PROVIDER
+    centos_lpic_102.vm.provider "virtualbox" do |vb|
+      vb.linked_clone = true
+      vb.name = APP_NAME
+      vb.memory = 2048
+      vb.cpus = 1
+    end
+
+    # SHELL PROVISIONING
+    # SSH,FIREWALLD,SELINUX, UPDATES AND PROFILE
+    centos_lpic_102.vm.provision "shell", path: "scripts/install.sh"
+
+  end
+
+end

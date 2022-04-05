@@ -1,0 +1,49 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+# INSTALL PLUGIN RELLOAD
+unless Vagrant.has_plugin?("vagrant-reload")
+  puts 'Installing vagrant-reload Plugin...'
+  system('vagrant plugin install vagrant-reload')
+end
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "debian/bullseye64"
+
+  # VM Debian Server
+  config.vm.define "debian_lpic_102"  do |debian_lpic_102|
+
+    # VARIABLE HOSTNAME
+    APP_NAME= "debian-lpic-102"
+
+    # HOSTNAME
+    debian_lpic_102.vm.hostname = APP_NAME
+
+    # NETWORK
+    debian_lpic_102.vm.network "public_network" ,ip: "192.168.0.134",mode: "bridge" ,bridge: [
+    "ens32",
+    "Marvell AQtion 5Gbit Network Adapter"
+    ]
+
+    # MOUNTS
+    debian_lpic_102.vm.synced_folder ".", "/vagrant", disabled: true
+    debian_lpic_102.vm.synced_folder "./security", "/home/vagrant/security"
+    debian_lpic_102.vm.synced_folder "./configs", "/home/vagrant/configs"
+
+    # PROVIDER
+    debian_lpic_102.vm.provider "virtualbox" do |vb|
+      vb.linked_clone = true
+      vb.name = APP_NAME
+      vb.memory = 4096
+      vb.cpus = 3
+    end
+
+    # PROVISION
+    debian_lpic_102.vm.provision "shell", path: "scripts/install.sh"
+
+  end
+
+end

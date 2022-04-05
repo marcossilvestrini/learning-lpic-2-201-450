@@ -1,0 +1,50 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+# INSTALL PLUGIN RELLOAD
+unless Vagrant.has_plugin?("vagrant-reload")
+  puts 'Installing vagrant-reload Plugin...'
+  system('vagrant plugin install vagrant-reload')
+end
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "generic/opensuse42"
+
+  # VM OpenSUSE
+  config.vm.define "openSUSE_lpic_102_500"  do |openSUSE_lpic_102_500|
+
+    # VARIABLE HOSTNAME
+    APP_NAME= "openSUSE-lpic-102-500"
+
+    # HOSTNAME
+    openSUSE_lpic_102_500.vm.hostname = APP_NAME
+
+    # NETWORK
+    openSUSE_lpic_102_500.vm.network "public_network" ,ip: "192.168.0.140",mode: "bridge" ,bridge: [
+    "ens32",
+    "Marvell AQtion 5Gbit Network Adapter"
+    ]
+
+    # MOUNTS
+    openSUSE_lpic_102_500.vm.synced_folder ".", "/vagrant", disabled: true
+    openSUSE_lpic_102_500.vm.synced_folder "./security", "/home/vagrant/security"
+    openSUSE_lpic_102_500.vm.synced_folder "./configs", "/home/vagrant/configs"
+
+    # PROVIDER
+    openSUSE_lpic_102_500.vm.provider "virtualbox" do |vb|
+      vb.linked_clone = true
+      vb.name = APP_NAME
+      vb.memory = 2048
+      vb.cpus = 1
+    end
+
+   # SHELL PROVISIONING
+   # SSH,FIREWALLD,SELINUX, UPDATES AND PROFILE
+   openSUSE_lpic_102_500.vm.provision "shell", path: "scripts/install.sh"
+
+  end
+
+end

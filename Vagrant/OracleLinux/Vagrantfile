@@ -1,0 +1,87 @@
+#
+# LICENSE UPL 1.0
+#
+# Copyright (c) 1982-2020 Oracle and/or its affiliates. All rights reserved.
+#
+# Since: January, 2020
+# Author: gerald.venzl@oracle.com
+# Description: Creates an Oracle Linux virtual machine.
+#
+# DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+#
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+# Box metadata location and box name
+BOX_URL = "https://oracle.github.io/vagrant-projects/boxes"
+BOX_NAME = "oraclelinux/8"
+
+# INSTALL PLUGIN RELLOAD
+unless Vagrant.has_plugin?("vagrant-reload")
+  puts 'Installing vagrant-reload Plugin...'
+  system('vagrant plugin install vagrant-reload')
+end
+
+# INSTALL PLUGIN RELLOAD
+unless Vagrant.has_plugin?("vagrant-vbguest")
+  puts 'Installing vagrant-vbguest Plugin...'
+  system('vagrant plugin install vagrant-vbguest')
+end
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = BOX_NAME
+  config.vm.box_url = "#{BOX_URL}/#{BOX_NAME}.json"
+
+  # No update VBguest
+  config.vbguest.auto_update = false
+  config.vbguest.no_remote = true
+
+  # VM ol8_lpic_102
+  config.vm.define "ol8-lpic-102"  do |ol8_lpic_102|
+
+    # VARIABLE HOSTNAME
+   APP_NAME= "ol8-lpic-102"
+
+    # HOSTNAME
+    ol8_lpic_102.vm.hostname =APP_NAME
+
+    # NETWORK
+    ol8_lpic_102.vm.network "public_network" ,ip: "192.168.0.135",mode: "bridge",bridge: [
+    "ens32",
+    "Marvell AQtion 5Gbit Network Adapter"
+    ]
+
+    # Forward Port
+    # ol8_lpic_102.vm.network "forwarded_port", guest: 8020, host: 9020, adapter: 1, guest_ip: "192.168.0.133" ,host_ip: "192.168.0.33"
+    # ol8_lpic_102.vm.network "forwarded_port", guest: 2234, host: 3234, adapter: 1, guest_ip: "192.168.0.133" ,host_ip: "192.168.0.33"
+
+    # MOUNTS
+    ol8_lpic_102.vm.synced_folder ".", "/vagrant", disabled: true
+    ol8_lpic_102.vm.synced_folder "./security", "/home/vagrant/security"
+    ol8_lpic_102.vm.synced_folder "./configs", "/home/vagrant/configs"
+
+    # PROVIDER
+    ol8_lpic_102.vm.provider "virtualbox" do |vb|
+      vb.linked_clone = true
+      vb.name =APP_NAME
+      vb.memory = 4096
+      vb.cpus = 3
+    end
+
+    # SHELL PROVISIONING
+    # SSH,FIREWALLD,SELINUX, UPDATES AND PROFILE
+    ol8_lpic_102.vm.provision "shell", path: "scripts/install.sh"
+
+    # ANSIBLE PROVISIONING
+    # ol8_lpic_102.vm.provision "ansible" do |ansible|
+    #   ansible.limit = "all"
+    #   ansible.inventory_path = "provisioning/hosts"
+    #   ansible.playbook = "provisioning/app.yml"
+    # end
+
+  end
+
+end
