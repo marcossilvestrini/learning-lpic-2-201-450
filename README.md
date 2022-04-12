@@ -17,6 +17,8 @@ Installation and configuration of some packages will also be covered\
 >Use vagrant for up machines and execute labs and practice content in this article.\
 >I have published in folder Vagrant a Vagrantfile with what is necessary for you to upload an environment for studies
 
+>Thanks Sue B.V., The Netherlands - Open Sourced 2021 for content of learning
+
 ## Authors
 
 - Marcos Silvestrini
