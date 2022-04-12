@@ -8,8 +8,8 @@ $check = $null
 $check = $out | Select-String -Pattern "untracked", "modified"
 If ($null -ne $check ) {
     Write-Host -ForegroundColor Red "Uncommitted files found"
-    $commit = Read-Host -Prompt "Enter comment for commit"
-    #$commit = "feat: Add new examples"
+    #$commit = Read-Host -Prompt "Enter comment for commit"
+    $commit = "Update files"
     git add .
     git commit -m $commit
     git push origin main
