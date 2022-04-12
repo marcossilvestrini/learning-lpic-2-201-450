@@ -111,16 +111,37 @@ Estimate throughput and identify bottlenecks in a system including networking
 #### 200.1 Important Commands
 
 **iostat**
+foo
+
 **netstat**
+foo
+
 **w**
+foo
+
 **top**
+foo
+
 **sar**
+foo
+
 **vmstat**
+foo
+
 **pstree**
+foo
+
 **ps**
+foo
+
 **Isof**
+foo
+
 **uptime**
+foo
+
 **swap**
+foo
 
 #### 200.1 Cited Objects
 
