@@ -1,6 +1,6 @@
-$project = "F:\CERTIFICACAO\lpic-1-102500\"
+$project = "F:\CERTIFICACAO\lpic-2-201-450"
 Set-Location $project
-git checkout master
+git checkout main
 git pull
 git status
 $out = git status
@@ -12,7 +12,7 @@ If ($null -ne $check ) {
     #$commit = "feat: Add new examples"
     git add .
     git commit -m $commit
-    git push origin master
+    git push origin main
     $out = git status
     $check = $null
     $check = $out | Select-String -Pattern "untracked"

@@ -21,7 +21,6 @@ apt install -y network-manager
 apt install -y iputils-tracepath
 apt install -y psmisc
 apt install -y nmap
-apt install -y xinetd
 apt install -y at
 
 # Set ssh
@@ -42,11 +41,6 @@ echo vagrant | $(su -c "ssh vagrant@192.168.0.135 gpg --import .gnupg/vagrant.pu
 apt install xserver-xorg -y
 Xorg -configure
 mv /root/xorg.conf.new /etc/X11/xorg.conf
-
-#install cups and drivers
-apt-get -y install cups cups-pdf
-cp configs/cupsd.conf /etc/cups/
-systemctl restart cups*
 
 #set prefered DNS servers
 apt install -y resolvconf

@@ -14,10 +14,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "generic/fedora28"
 
   # VM srv01
-  config.vm.define "fedora-lpic-102"  do |fedora_lic_102|
+  config.vm.define "fedora-lpic-201"  do |fedora_lic_102|
 
     # VARIABLE HOSTNAME
-    APP_NAME= "fedora-lpic-102"
+    APP_NAME= "fedora-lpic-201"
 
     # HOSTNAME
     fedora_lic_102.vm.hostname = APP_NAME

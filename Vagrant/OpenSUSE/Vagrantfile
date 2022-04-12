@@ -17,7 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "openSUSE_lpic_102_500"  do |openSUSE_lpic_102_500|
 
     # VARIABLE HOSTNAME
-    APP_NAME= "openSUSE-lpic-102-500"
+    APP_NAME= "openSUSE-lpic-201-500"
 
     # HOSTNAME
     openSUSE_lpic_102_500.vm.hostname = APP_NAME

@@ -87,7 +87,7 @@ Installation and configuration of some packages will also be covered\
 - [LPIC-2 201-450 Objectives](https://www.lpi.org/our-certifications/exam-201-objectives)
 - [LPIC-2 201-450 Wiki](https://wiki.lpi.org/wiki/LPIC-2_Objectives_V4.5#Objectives:_Exam_201)
 - [LPIC-2 201-450 Learning Material](https://lpic2book.github.io/src/)
-- [LPIC-2 201-450 Simulated Exam By ITexams](https://www.itexams.com/exam/201-400)
+- [LPIC-2 201-450 Simulated Exam By ITexams](https://www.itexams.com/exam/201-450)
 
 ## Topic 200: Capacity Planning
 

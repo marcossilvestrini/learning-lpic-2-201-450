@@ -14,10 +14,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "gusztavvargadr/ubuntu-desktop"
 
   # VM ubuntu-desktop
-  config.vm.define "ubuntuDesktop-lpic-102"  do |ubuntuDesktop_lpic_102|
+  config.vm.define "ubuntuDesktop-lpic-201"  do |ubuntuDesktop_lpic_102|
 
     # VARIABLE HOSTNAME
-    APP_NAME= "ubuntu-desktop-lpic-102"
+    APP_NAME= "ubuntu-desktop-lpic-201"
 
     # HOSTNAME
     ubuntuDesktop_lpic_102.vm.hostname = APP_NAME

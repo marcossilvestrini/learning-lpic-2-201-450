@@ -17,7 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "debian_lpic_102"  do |debian_lpic_102|
 
     # VARIABLE HOSTNAME
-    APP_NAME= "debian-lpic-102"
+    APP_NAME= "debian-lpic-201"
 
     # HOSTNAME
     debian_lpic_102.vm.hostname = APP_NAME

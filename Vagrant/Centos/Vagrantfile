@@ -14,10 +14,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "generic/centos8"
 
   # VM srv01
-  config.vm.define "centos-lpic-102"  do |centos_lpic_102|
+  config.vm.define "centos-lpic-201"  do |centos_lpic_102|
 
     # VARIABLE HOSTNAME
-    APP_NAME= "centos-lpic-102"
+    APP_NAME= "centos-lpic-201"
 
     # HOSTNAME
     centos_lpic_102.vm.hostname = APP_NAME
