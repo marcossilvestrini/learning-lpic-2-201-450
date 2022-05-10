@@ -22,6 +22,8 @@ apt install -y iputils-tracepath
 apt install -y psmisc
 apt install -y nmap
 apt install -y at
+apt install -y sysstat
+apt install -y iotop
 
 # Set ssh
 cp -f configs/01-sshd-custom.conf /etc/ssh/sshd_config.d

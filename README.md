@@ -112,11 +112,107 @@ Estimate throughput and identify bottlenecks in a system including networking
 
 #### 200.1 Important Commands
 
-**iostat**
-foo
+##### iostat - Report Central Processing Unit (CPU) statistics and input/output statistics for devices and partitions.**
 
-**netstat**
-foo
+```sh
+#syntax
+iostat options interval count
+
+#show cpu and disk statistics
+iostat
+iostat -h
+iostat -t
+iostat --pretty
+iostat -o JSON
+iostat -p sda
+
+#show cpu and disk statistics with count
+iostat 1 3
+iostat 10 2
+
+#show cpu statistics
+iostat -c
+
+#show disk statistics
+iostat -d
+
+#show disk statistics in specific directory
+iostat -f /var/log
+```
+
+##### iotop - simple top-like I/O monitor
+
+```sh
+#View disk usage
+sudo iotop
+sudo iotop -u vagrant
+sudo iotop -b -u vagrant | head
+
+#View disk usage accumulated
+sudo iotop -a -u vagrant
+```
+
+##### vmstat - Report virtual memory statistics
+
+```sh
+#syntaxe
+vmstat options delay count
+
+#examples
+vmstat
+vmstat 2 3
+vmstat -S m
+
+```
+
+##### netstat - Print network connections, routing tables, interface statistics, masquerade connections, and multicast memberships
+
+```sh
+#syntaxe
+netstat address_family_options options
+
+#print route table
+netstat -r
+
+#IPv6/IPv4 Group Memberships
+netstat -g
+
+#lists all network interfaces
+netstat -i
+
+#lists a summary of statistics for each protocol, similar to SNMP output
+netstat -s
+
+#list tcp connections
+netstat -aln --tcp
+netstat -al --tcp
+```
+
+##### ss - another utility to investigate sockets
+
+```sh
+#syntaxe
+ss options filter
+
+#display all tcp sockets
+ss -t -a
+
+#display all udp sockets
+ss -u -a
+
+#Display all established ssh connections.
+ss -o state established '( dport = :ssh or sport = :ssh )'
+```
+
+##### iptraf - Interactive Colorful IP LAN Monitor
+
+```sh
+#show gui with option
+iptraf
+
+#init iptraf in specific interface
+iptraf -i eth1
+```
 
 **w**
 foo
@@ -125,9 +221,6 @@ foo
 foo
 
 **sar**
-foo
-
-**vmstat**
 foo
 
 **pstree**
@@ -148,8 +241,8 @@ foo
 #### 200.1 Cited Objects
 
 blocks in
-processes blocked on I/O
 blocks out
+processes blocked on I/O
 
 ### 200.2 Predict Future Resource Needs
 

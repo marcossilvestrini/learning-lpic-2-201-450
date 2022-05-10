@@ -25,6 +25,7 @@ dnf install -y lsof
 dnf install -y psmisc
 dnf install -y nmap
 dnf install -y at
+dnf install -y sysstat
 
 # SSH,FIREWALLD AND SELINUX
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
