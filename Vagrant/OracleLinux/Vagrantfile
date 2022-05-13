@@ -62,6 +62,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ol8_lpic_102.vm.synced_folder ".", "/vagrant", disabled: true
     ol8_lpic_102.vm.synced_folder "./security", "/home/vagrant/security"
     ol8_lpic_102.vm.synced_folder "./configs", "/home/vagrant/configs"
+    ol8_lpic_102.vm.synced_folder "../../Scripts/lpic2/", "/home/vagrant/scripts"
 
     # PROVIDER
     ol8_lpic_102.vm.provider "virtualbox" do |vb|

@@ -32,6 +32,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     debian_lpic_102.vm.synced_folder ".", "/vagrant", disabled: true
     debian_lpic_102.vm.synced_folder "./security", "/home/vagrant/security"
     debian_lpic_102.vm.synced_folder "./configs", "/home/vagrant/configs"
+    debian_lpic_102.vm.synced_folder "../../Scripts/lpic2/", "/home/vagrant/scripts"
 
     # PROVIDER
     debian_lpic_102.vm.provider "virtualbox" do |vb|

@@ -18,6 +18,7 @@ dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.r
 
 # Install packages
 dnf install -y vim
+dnf install -y python3-pip
 dnf install -y net-tools
 dnf install -y bind-utils
 dnf install -y traceroute
@@ -26,6 +27,7 @@ dnf install -y psmisc
 dnf install -y nmap
 dnf install -y at
 dnf install -y sysstat
+pip3 install iostat-tool
 
 # SSH,FIREWALLD AND SELINUX
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config

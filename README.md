@@ -91,6 +91,18 @@ Installation and configuration of some packages will also be covered\
 - [LPIC-2 201-450 Learning Material](https://lpic2book.github.io/src/)
 - [LPIC-2 201-450 Simulated Exam By ITexams](https://www.itexams.com/exam/201-450)
 
+## Inspect commands
+
+```sh
+type COMMAND
+apropos COMMAND
+whatis COMMAND --long
+whereis COMMAND
+COMMAND --help, --h
+man COMMAND
+
+```
+
 ## Topic 200: Capacity Planning
 
 ### 200.1 Measure and Troubleshoot Resource Usage

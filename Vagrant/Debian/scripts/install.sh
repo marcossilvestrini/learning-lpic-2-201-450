@@ -15,6 +15,8 @@ cp -f configs/.bashrc .
 # Install packages
 apt install -y sshpass
 apt install -y vim
+apt install -y python3-pip
+apt install python3-venv
 apt install -y tree
 apt install -y net-tools
 apt install -y network-manager
