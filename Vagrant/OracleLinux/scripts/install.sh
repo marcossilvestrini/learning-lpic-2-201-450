@@ -57,6 +57,6 @@ dnf install -y xorg-x11-server-Xorg.x86_64 xorg-x11-xauth.x86_64 \
     xorg-x11-server-utils.x86_64 xorg-x11-utils.x86_64 xorg-x11-apps.x86_64
 
 #Enable sadc collected system activity
-cp -f configs/ /etc/default/sysstat
+cp -f configs/sysstat /etc/default/
 systemctl start sysstat sysstat-collect.timer sysstat-summary.timer
 systemctl enable sysstat sysstat-collect.timer sysstat-summary.timer
