@@ -177,6 +177,18 @@ vmstat -S m
 
 ```
 
+##### mpstat - Report processors related statistics
+
+```sh
+#syntaxe
+mpstat options delay count
+
+#examples
+mpstat
+mpstat 2 3
+mpstat -o JSON
+```
+
 ##### netstat - Print network connections, routing tables, interface statistics, masquerade connections, and multicast memberships
 
 ```sh
@@ -226,14 +238,37 @@ iptraf
 iptraf -i eth1
 ```
 
-**w**
+##### w
+
 foo
 
-**top**
+##### top
+
 foo
 
-**sar**
-foo
+##### sar - Collect, report, or save system activity information
+
+```sh
+#syntaxe
+sar options delay count
+
+#show cpu infos
+sar
+sar -u
+
+#show memory infos
+sar -rh
+
+#show swap infos
+sar -Sh
+
+#show data of interfaces
+sar -n DEV
+
+#show disk infos
+sar -d
+
+```
 
 **pstree**
 foo

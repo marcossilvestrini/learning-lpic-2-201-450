@@ -27,7 +27,7 @@ dnf install -y psmisc
 dnf install -y nmap
 dnf install -y at
 dnf install -y sysstat
-pip3 install iostat-tool
+yum install -y stress
 
 # SSH,FIREWALLD AND SELINUX
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
@@ -55,3 +55,8 @@ dnf config-manager --set-enabled ol8_codeready_builder
 #dnf update -y
 dnf install -y xorg-x11-server-Xorg.x86_64 xorg-x11-xauth.x86_64 \
     xorg-x11-server-utils.x86_64 xorg-x11-utils.x86_64 xorg-x11-apps.x86_64
+
+#Enable sadc collected system activity
+cp -f configs/ /etc/default/sysstat
+systemctl start sysstat sysstat-collect.timer sysstat-summary.timer
+systemctl enable sysstat sysstat-collect.timer sysstat-summary.timer

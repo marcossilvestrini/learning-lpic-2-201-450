@@ -49,7 +49,7 @@ function iostat-formatted() {
 # main
 clear
 iostat-all
-iostat-cpu
-iostat-disk
-iostat-partition
-iostat-formatted
+# iostat-cpu
+# iostat-disk
+# iostat-partition
+# iostat-formatted

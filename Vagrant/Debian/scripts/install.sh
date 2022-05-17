@@ -26,6 +26,7 @@ apt install -y nmap
 apt install -y at
 apt install -y sysstat
 apt install -y iotop
+apt install -y stress
 
 # Set ssh
 cp -f configs/01-sshd-custom.conf /etc/ssh/sshd_config.d
@@ -53,3 +54,9 @@ systemctl start resolvconf.service
 cp -f configs/head /etc/resolvconf/resolv.conf.d/
 resolvconf --enable-updates
 resolvconf -u
+
+#Enable sadc collected system activity
+#sed -i 's/ENABLED="false"/ENABLED="true"/g' /etc/default/sysstat
+sed -i 's/false/true/g' /etc/default/sysstat
+systemctl start sysstat sysstat-collect.timer sysstat-summary.timer
+systemctl enable sysstat sysstat-collect.timer sysstat-summary.timer
