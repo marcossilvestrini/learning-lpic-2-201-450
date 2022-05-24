@@ -218,11 +218,29 @@ netstat -al --tcp
 #syntaxe
 ss options filter
 
+#display all listen connections
+ss -l
+
+#display all stab connections
+ss -tn
+
+#display connections by memory
+ss -m
+ss -tmn
+
+#display connections by process
+ss
+
 #display all tcp sockets
 ss -t -a
+ss -tln
 
 #display all udp sockets
 ss -u -a
+ss -uln
+
+#display connections by protocol
+ss -s
 
 #Display all established ssh connections.
 ss -o state established '( dport = :ssh or sport = :ssh )'
@@ -238,9 +256,15 @@ iptraf
 iptraf -i eth1
 ```
 
-##### w
+##### w - Show who is logged on and what they are doing
 
-foo
+```sh
+#show logins
+w
+
+#show logins short format
+w -s
+```
 
 ##### top
 
@@ -270,14 +294,63 @@ sar -d
 
 ```
 
-**pstree**
-foo
+##### pstree - display a tree of processes
 
-**ps**
-foo
+```sh
+#Show tree process full formatting
+pstree
 
-**Isof**
-foo
+#show tree process with PID
+pstree -p
+
+#show tree process with commandline args
+pstree -a
+
+#show tree process by PID
+pstree -a PID
+```
+
+##### ps
+
+Undertand RSS and VSZ
+
+RSS is the Resident Set Size and is used to show how much memory is allocated to that process and is in RAM.\
+It does not include memory that is swapped out.\
+It does include memory from shared libraries as long as the pages from those libraries are actually in memory.\
+It does include all stack and heap memory.\
+
+VSZ is the Virtual Memory Size.\
+It includes all memory that the process can access, including memory that is swapped out, memory that is allocated, but not used, and memory that is from shared libraries.
+
+```sh
+#Select all process full-format listing
+ps -ef
+
+#Select by state(S,I,R,D... D equal a block(b) in vmstat)
+ps -ely
+
+#To get info about threads:
+ps -eLf
+ps axms
+
+#get a process by name
+ps axu | grep vim
+```
+
+##### lsof - list open files
+
+```sh
+#list all open files
+lsof
+
+#list tree open file by specif process(PID)
+lsof -p PID
+
+#get of specific file
+lsof /home/vagrant/scripts/network/.ss.sh.swp
+
+```
+
 
 **uptime**
 foo

@@ -28,6 +28,7 @@ dnf install -y nmap
 dnf install -y at
 dnf install -y sysstat
 yum install -y stress
+yum install -y iptraf
 
 # SSH,FIREWALLD AND SELINUX
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config

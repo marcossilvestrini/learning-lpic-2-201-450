@@ -3,6 +3,7 @@
 **/.log
 **/.vagrant
 workspace.code-workspace
+**/*.vdi
 
 #security
 **/authorized_keys
