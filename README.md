@@ -310,7 +310,7 @@ pstree -a
 pstree -a PID
 ```
 
-##### ps
+##### ps - report a snapshot of the current processes
 
 Undertand RSS and VSZ
 
@@ -341,16 +341,69 @@ ps axu | grep vim
 
 ```sh
 #list all open files
-lsof
+sudo lsof
 
-#list tree open file by specif process(PID)
-lsof -p PID
-
-#get of specific file
+#List by filename
 lsof /home/vagrant/scripts/network/.ss.sh.swp
 
-```
+#List open files by username
+sudo lsof -u vagrant
+sudo lsof -t -u vagrant
+sudo lsof -u ^root
+sudo lsof -u vagrant -c bash #OR
+sudo lsof -u vagrant -c bash -a #AND
 
+#List open files by process
+sudo lsof -c vim
+
+# kill all process in specif user
+kill -9 `lsof -t -u {username}`
+
+#List open files by PID
+sudo lsof -p PID
+sudo lsof -p ^{process-id}
+
+#List open files containing directory
+sudo lsof +D /home
+sudo lsof +D /home -c bash -a
+
+#List open files containing directory not recursively
+sudo lsof +d /proc
+
+#list process ID open in specific folder
+sudo lsof | grep "FOLDER_NAME" | awk '{print $2}'
+
+#Repeat mode
+sudo lsof {arguments} -r{time-interval}
+sudo lsof -u vagrant -c bash +D /usr/lib -a -r10
+sudo lsof -u vagrant -c bash +D /usr/lib -a -r3
+
+#List open files with network protocol
+sudo lsof -i
+sudo lsof -i tcp
+sudo lsof -i udp
+
+#To list all network connections in use by a specific process-id or process name
+sudo lsof -i -a -p {process-id}
+sudo lsof -i -a -c {process-name}
+
+#List open files by port
+sudo lsof -i :22
+sudo lsof -i tcp:22
+sudo lsof -i udp:323
+
+#List open files by IPv4/IPv6
+sudo lsof -i4
+sudo lsof -i6
+
+# List open files on NFS
+sudo lsof -N
+sudo lsof -N -u vagrant -a
+
+# List locked deleted files
+sudo lsof {path} | grep deleted
+
+```
 
 **uptime**
 foo
