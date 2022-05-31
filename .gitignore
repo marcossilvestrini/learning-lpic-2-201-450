@@ -1,8 +1,8 @@
 #ignore files general
-**/.vscode
-**/.log
-**/.vagrant
-workspace.code-workspace
+**/*.vscode
+**/*.log
+**/*.vagrant
+*workspace.code-workspace
 **/*.vdi
 
 #security

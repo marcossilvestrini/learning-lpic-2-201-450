@@ -19,6 +19,7 @@ apt install -y python3-pip
 apt install python3-venv
 apt install -y tree
 apt install -y net-tools
+apt install -y stress
 apt install -y network-manager
 apt install -y iputils-tracepath
 apt install -y psmisc
@@ -27,7 +28,7 @@ apt install -y at
 apt install -y sysstat
 apt install -y iptraf
 apt install -y iotop
-apt install -y stress
+apt install -y htop
 
 # Set ssh
 cp -f configs/01-sshd-custom.conf /etc/ssh/sshd_config.d

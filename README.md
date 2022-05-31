@@ -402,7 +402,62 @@ sudo lsof -N -u vagrant -a
 
 # List locked deleted files
 sudo lsof {path} | grep deleted
+```
 
+##### top - display Linux processes
+
+```sh
+#Explaining the columns
+
+PID: Process ID.
+USER: The owner of the process.
+PR: Process priority.
+NI: The nice value of the process.
+VIRT: Amount of virtual memory used by the process.
+RES: Amount of resident memory used by the process.
+SHR: Amount of shared memory used by the process.
+S: Status of the process. (See the list below for the values this field can take).
+%CPU: The share of CPU time used by the process since the last update.
+%MEM: The share of physical memory used.
+TIME+: Total CPU time used by the task in hundredths of a second.
+COMMAND: The command name or command line (name + options).
+
+#The status of the process can be one of the following:
+
+D: Uninterruptible slee()
+R: Running
+S: Sleeping
+T: Traced (stopped)
+Z: Zombie
+
+#show all process
+top
+
+#show process by user
+top -u vagrant
+
+#exit Top Command After Specific repetition
+top -n 10
+
+#delay time : It tells delay time between screen updates.
+top -d seconds.tenths
+top -d 100 #delay of 10 seconds
+
+#top process by PID
+top -p PID
+```
+
+##### htop - interactive process viewer
+
+```sh
+#show all process
+htop
+
+#set delay between updates, in tenths of seconds
+htop -d 100
+
+#Show processes in tree view
+htop -t
 ```
 
 **uptime**
