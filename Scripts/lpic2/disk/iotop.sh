@@ -10,7 +10,7 @@ MULTILINE-COMMENT
 LANG=C
 
 # get all stats
-function iostat-all() {
+function iotop-all() {
     echo "$(tput setaf 4)GET STATS OF IO DISK$(tput sgr0)"
     sudo iotop
 }

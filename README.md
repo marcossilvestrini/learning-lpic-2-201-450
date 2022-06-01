@@ -280,6 +280,9 @@ sar options delay count
 sar
 sar -u
 
+#show load average
+sar -q
+
 #show memory infos
 sar -rh
 
@@ -291,6 +294,10 @@ sar -n DEV
 
 #show disk infos
 sar -d
+
+#show infos for specifc day
+sar -f /var/log/sysstat/saDAY
+sar -f  /var/log/sysstat/sa31
 
 ```
 
@@ -460,17 +467,33 @@ htop -d 100
 htop -t
 ```
 
-**uptime**
-foo
+##### uptime - Tell how long the system has been running
 
-**swap**
-foo
+```sh
+#show infos
+uptime
+uptime -p
+uptime -s
+```
+
+##### free - Display amount of free and used memory in the system
+
+```sh
+#show infos of memory
+free
+
+#output in human form
+free -h
+```
 
 #### 200.1 Cited Objects
 
+swap
 blocks in
 blocks out
 processes blocked on I/O
+/var/log/sysstat(debian)
+/var/log/sa (rhel)
 
 ### 200.2 Predict Future Resource Needs
 
