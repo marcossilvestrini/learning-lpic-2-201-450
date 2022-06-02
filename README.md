@@ -124,7 +124,7 @@ Estimate throughput and identify bottlenecks in a system including networking
 
 #### 200.1 Important Commands
 
-##### iostat - Report Central Processing Unit (CPU) statistics and input/output statistics for devices and partitions.**
+##### iostat - Report Central Processing Unit (CPU) statistics and input/output statistics for devices and partitions
 
 ```sh
 #syntax
@@ -229,7 +229,7 @@ ss -m
 ss -tmn
 
 #display connections by process
-ss
+ss -p
 
 #display all tcp sockets
 ss -t -a
@@ -265,10 +265,6 @@ w
 #show logins short format
 w -s
 ```
-
-##### top
-
-foo
 
 ##### sar - Collect, report, or save system activity information
 
@@ -324,7 +320,7 @@ Undertand RSS and VSZ
 RSS is the Resident Set Size and is used to show how much memory is allocated to that process and is in RAM.\
 It does not include memory that is swapped out.\
 It does include memory from shared libraries as long as the pages from those libraries are actually in memory.\
-It does include all stack and heap memory.\
+It does include all stack and heap memory.
 
 VSZ is the Virtual Memory Size.\
 It includes all memory that the process can access, including memory that is swapped out, memory that is allocated, but not used, and memory that is from shared libraries.
@@ -431,7 +427,7 @@ COMMAND: The command name or command line (name + options).
 
 #The status of the process can be one of the following:
 
-D: Uninterruptible slee()
+D: Uninterruptible sleep()
 R: Running
 S: Sleeping
 T: Traced (stopped)
@@ -509,6 +505,121 @@ Predict capacity break point of a configuration
 Observe growth rate of capacity usage
 Graph the trend of capacity usage
 Awareness of monitoring solutions such as Icinga2, Nagios, collectd, MRTG and Cacti
+
+#### Icinga2
+
+>Icinga is a monitoring system which checks the availability of your network resources, notifies users of outages, and generates performance data for reporting.
+
+##### [Install icinga2 in Debian](https://icinga.com/get-started/download/#community)
+
+```sh
+apt-get update
+apt-get -y install apt-transport-https wget gnupg
+
+wget -O - https://packages.icinga.com/icinga.key | apt-key add -
+
+DIST=$(awk -F"[)(]+" '/VERSION=/ {print $2}' /etc/os-release); \
+ echo "deb https://packages.icinga.com/debian icinga-${DIST} main" > \
+ /etc/apt/sources.list.d/${DIST}-icinga.list
+ echo "deb-src https://packages.icinga.com/debian icinga-${DIST} main" >> \
+ /etc/apt/sources.list.d/${DIST}-icinga.list
+
+apt-get update
+apt-get install -y icinga2
+```
+##### Install plugin monitor
+
+```sh
+apt-get install monitoring-plugins
+
+#Check if path of check plugins is ok
+find / -name check_load
+```
+
+![image](https://user-images.githubusercontent.com/62715900/171521688-90c82b39-ef6d-4db4-b32a-46cdc4e6f934.png)
+
+```sh
+vim /etc/icinga2/constants.conf
+```
+
+![image](https://user-images.githubusercontent.com/62715900/171521454-e79ece84-cab3-4277-9528-411fcec053b3.png)
+
+
+##### Set up Database
+
+```sh
+#Install MySQL Server
+apt-get install mariadb-server mariadb-client
+mysql_secure_installation
+
+#Install IDO Feature
+apt-get install icinga2-ido-mysql
+
+#Set up MySQL database
+mysql -u root -p
+GRANT SELECT, INSERT, UPDATE, DELETE, DROP, CREATE VIEW, INDEX, EXECUTE ON icinga.* TO 'icinga'@'localhost' IDENTIFIED BY 'icinga';
+quit
+mysql -u root -p icinga < /usr/share/icinga2-ido-mysql/schema/mysql.sql
+
+#Enable the IDO MySQL feature
+#The package provides a new configuration file that is installed in /etc/icinga2/features-available/ido-mysql.conf.\
+#You can update the database credentials in this file.
+
+icinga2 feature enable ido-mysql
+systemctl restart icinga2
+```
+
+##### Set up Icinga 2 REST API
+
+```sh
+icinga2 api setup
+vim /etc/icinga2/conf.d/api-users.conf
+```
+
+![image](https://user-images.githubusercontent.com/62715900/171523652-f0d922a9-e690-44d0-a840-0af79378a0ff.png)
+
+```sh
+systemctl restart icinga2
+```
+
+##### Install Icinga Web 2
+
+```sh
+#Install icingaweb2
+apt-get install icingaweb2 icingacli
+
+#Install Web server
+apt-get install nginx
+apt-get install php php-common
+
+#Generate token to configure icingaweb2
+icingacli setup token create
+
+#Show token
+icingacli setup token show
+
+#Create a database
+mysql -u root -p
+CREATE DATABASE icingaweb2;
+GRANT ALL ON icingaweb2.* TO icingaweb2@localhost IDENTIFIED BY 'CHANGEME';
+quit
+
+#Access setup
+http://YOUR_IP_OR_HOSTNAME/icingaweb2/setup
+
+```
+
+##### Icinga2 in vagrant
+
+<https://github.com/icinga/icinga-vagrant>
+
+#### Nagios
+
+#### collectd
+
+#### MRTG
+
+#### Cacti
 
 #### 200.2 Cited Objects
 
