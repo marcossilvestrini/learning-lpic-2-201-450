@@ -527,6 +527,7 @@ DIST=$(awk -F"[)(]+" '/VERSION=/ {print $2}' /etc/os-release); \
 apt-get update
 apt-get install -y icinga2
 ```
+
 ##### Install plugin monitor
 
 ```sh
@@ -613,7 +614,120 @@ http://YOUR_IP_OR_HOSTNAME/icingaweb2/setup
 
 <https://github.com/icinga/icinga-vagrant>
 
-#### Nagios
+#### [Nagios] (<https://computingforgeeks.com/install-and-configure-nagios-on-debian-10-buster/>)
+
+##### Install nagio core in debias
+
+###### Step 1: Update your System
+
+```sh
+apt update && apt -y full-upgrade
+```
+
+###### Step 2: Install the required packages
+
+```sh
+sudo apt install vim wget curl build-essential unzip openssl libssl-dev apache2 php libapache2-mod-php php-gd libgd-dev
+```
+
+###### Step 3: Fetch and extract Nagios Files
+
+```sh
+NAGIOS_VER=$(curl -s https://api.github.com/repos/NagiosEnterprises/nagioscore/releases/latest|grep tag_name | cut -d '"' -f 4)
+wget https://github.com/NagiosEnterprises/nagioscore/releases/download/$NAGIOS_VER/$NAGIOS_VER.tar.gz
+tar xvzf $NAGIOS_VER.tar.gz
+```
+
+###### Step 4: Compile the extracted files
+
+```sh
+cd $NAGIOS_VER
+./configure --with-httpd-conf=/etc/apache2/sites-enabled
+```
+
+###### Step 5: Create User And Group
+
+```sh
+sudo make install-groups-users
+sudo usermod -a -G nagios www-data
+```
+
+Compile and Install the main Nagios programs
+
+```sh
+sudo make all
+sudo make install
+```
+
+###### Step 6: Install Daemon
+
+```sh
+sudo make install-daemoninit
+```
+
+##### Step 7: Add Command Mode
+
+```sh
+sudo make install-commandmode
+```
+
+##### Step 8: Install Configuration Files
+
+```sh
+sudo make install-config
+```
+
+##### Step 9: Apache Webserver Configuration
+
+```sh
+sudo make install-webconf
+sudo a2enmod rewrite cgi
+```
+
+##### Step 10: Configure Nagios Apache Authentication
+
+```sh
+sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+sudo chown www-data:www-data /usr/local/nagios/etc/htpasswd.users
+sudo chmod 640 /usr/local/nagios/etc/htpasswd.users
+```
+
+##### Step 11: Install essential Nagios Plugins
+
+```sh
+VER=$(curl -s https://api.github.com/repos/nagios-plugins/nagios-plugins/releases/latest|grep tag_name | cut -d '"' -f 4|sed 's/release-//')
+wget https://github.com/nagios-plugins/nagios-plugins/releases/download/release-$VER/nagios-plugins-$VER.tar.gz
+tar xvf nagios-plugins-$VER.tar.gz
+cd nagios-plugins-$VER
+./configure --with-nagios-user=nagios --with-nagios-group=nagios
+sudo make
+sudo make install
+```
+
+##### Step 12: Allow ports on the firewall and start Nagios
+
+```sh
+sudo ufw allow 80
+sudo ufw reload
+sudo systemctl restart apache2
+sudo systemctl start nagios.service
+```
+
+##### Step 13: Log into Nagios Web Interface
+
+```sh
+http://<IP Address/FQDN>/nagios
+user: nagiosadmin
+pass: foo
+```
+
+##### Troubleshootings in Nagios Service
+
+- Nagios service not started
+Verify error in logs(/usr/local/nagios/var/nagios.log,/var/log/message,journalctl -xe)
+If error is "Caught SIGSEGV, shutting down...", possible no free memory ressource in server.
+For solution, add more memory ressources or set this value in nagios.cfg: check_for_updates=0
+Restart nagios service
 
 #### collectd
 
