@@ -1,12 +1,15 @@
 #!/bin/bash
 
-cd /home/vagrant
+cd /home/vagrant || exit
 
 #Set password account
 usermod --password $(echo vagrant | openssl passwd -1 -stdin) vagrant
 
 #Set profile in /etc/profile
 cp -f configs/profile /etc
+
+#Set vim profile
+cp -f configs/.vimrc .
 
 # Set bash session
 rm .bashrc
@@ -15,6 +18,7 @@ cp -f configs/.bashrc .
 # Install packages
 apt install -y sshpass
 apt install -y vim
+apt install -y tree
 apt install -y python3-pip
 apt install python3-venv
 apt install -y tree
@@ -29,6 +33,7 @@ apt install -y sysstat
 apt install -y iptraf
 apt install -y iotop
 apt install -y htop
+apt install -y collectd
 
 # Set ssh
 cp -f configs/01-sshd-custom.conf /etc/ssh/sshd_config.d

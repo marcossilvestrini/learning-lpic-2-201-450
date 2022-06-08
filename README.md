@@ -614,7 +614,7 @@ http://YOUR_IP_OR_HOSTNAME/icingaweb2/setup
 
 <https://github.com/icinga/icinga-vagrant>
 
-#### [Nagios] (<https://computingforgeeks.com/install-and-configure-nagios-on-debian-10-buster/>)
+#### [Nagios](<https://computingforgeeks.com/install-and-configure-nagios-on-debian-10-buster/>)
 
 ##### Install nagio core in debias
 
@@ -729,7 +729,169 @@ If error is "Caught SIGSEGV, shutting down...", possible no free memory ressourc
 For solution, add more memory ressources or set this value in nagios.cfg: check_for_updates=0
 Restart nagios service
 
-#### collectd
+#### [collectd](https://collectd.org/)
+
+##### [Install and Configure Collectd Monitoring on Linux in Debian](https://www.linuxsysadmins.com/install-collectd-monitoring-on-linux/)
+
+```sh
+#Install pre read and collecd in debian
+sudo apt install -y \
+git \
+apache2 \
+gzip \
+python \
+build-essential \
+emboss \
+bioperl \
+ncbi-blast+ \
+librrds-perl \
+libjson-perl \
+libhtml-parser-perl \
+libjson-perl \
+libtext-csv-perl \
+libfile-slurp-perl \
+liblwp-protocol-https-perl \
+libwww-perl \
+libconfig-general-perl \
+libregexp-common-perl \
+collectd
+
+#Enable the Web module
+sudo a2enmod cgi cgid
+sudo systemctl restart apache2
+
+#Installing Perl Modules
+sudo cpan jSON
+sudo cpan CGI
+
+#Enable CGI support for collectd
+sudo vim /etc/apache2/sites-available/000-default.conf
+
+<Directory /var/www/html/collectd-web/cgi-bin>
+Options Indexes ExecCGI
+AllowOverride All
+AddHandler cgi-script .cgi
+Require all granted
+</Directory>
+
+#Apache configuration
+sudo vim /etc/apache2/apache2.conf
+Include ports.conf
+
+sudo vim /etc/apache2/ports.conf
+Listen 0.0.0.0:80
+
+sudo systemctl restart apache2
+
+#Configuring Collectd
+sudo vim /etc/collectd/collectd.conf
+
+#Uncomment plugin for network
+
+LoadPlugin network
+
+#By following under network plugin section,
+#uncomment the server section and replace 127.0.0.1 to 0.0.0.0.
+
+<Plugin network>
+        # server setup:
+        Listen "0.0.0.0" "25826"
+</Plugin>
+
+sudo systemctl restart apache2
+
+#Enable Web Interface
+git clone https://github.com/httpdss/collectd-web.git
+cd collectd-web/cgi-bin/
+chmod +x graphdefs.cgi
+cd ..
+vim runserver.py
+
+#Replace 127.0.0.1 to 0.0.0.0 in below line.
+httpd = BaseHTTPServer.HTTPServer(("127.0.0.1", PORT), Handler)
+
+#It’s time to run the python script to start in background.
+./runserver.py &
+
+#Accessing Web UI of Collectd
+http://YOUR_IP:8888/
+```
+
+##### Client Setup
+
+```sh
+#Install packages Debian
+sudo apt install -y collectd python build-essential librrds-perl libjson-perl libhtml-parser-perl apache2
+
+#Install packages in RHEL
+sudo yum install -y collectd rrdtool rrdtool-perl perl-HTML-Parser perl-JSON
+
+#Modifying Configuration
+sudo vim /etc/collectd.conf
+
+#Below are the changes required in client side.
+
+Hostname    "prod-srv-02.linuxsysadmins.local"
+FQDNLookup   true
+LoadPlugin syslog
+
+<Plugin syslog>
+        LogLevel info
+</Plugin>
+
+#Enable the required plugins by removing “#”.
+
+LoadPlugin cpu
+LoadPlugin interface
+LoadPlugin load
+LoadPlugin memory
+LoadPlugin network
+
+#Enter the collectd server IP under network plugin and enable all other required plugins.
+
+<Plugin network>
+        # client setup:
+        Server "192.168.0.31" "25826"
+        <Server "192.168.0.31" "25826">
+        </Server>
+</Plugin>
+
+<Plugin load>
+        ReportRelative true
+</Plugin>
+
+<Plugin memory>
+        ValuesAbsolute true
+        ValuesPercentage false
+</Plugin>
+
+#Starting the Client Service
+#Finally, enable and start the service.
+
+sudo systemctl start collectd
+sudo systemctl enable collectd
+
+#Once service started on client system, switch back to collectd server and reload the interface.
+#Now we should get the newly added client in the list.
+
+```
+
+##### Some important files
+
+```sh
+#Config file debian
+/etc/collectd/collectd.conf
+
+#Conf file RHEL
+/etc/collectd.conf
+
+# RRD Files(Round Robin Database)
+/var/lib/collectd/rrd/HOST_NAME
+```
+
+##### Docker containers
+
+<https://hub.docker.com/r/puckel/docker-collectd>
 
 #### MRTG
 

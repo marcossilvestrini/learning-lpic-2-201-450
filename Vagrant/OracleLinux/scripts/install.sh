@@ -1,12 +1,15 @@
 #!/bin/bash
 
-cd /home/vagrant
+cd /home/vagrant || exit
 
 #Set password account
 usermod --password $(echo vagrant | openssl passwd -1 -stdin) vagrant
 
 #Set profile in /etc/profile
 cp -f configs/profile /etc
+
+#Set vim profile
+cp -f configs/.vimrc .
 
 # Set bash session
 rm .bashrc
