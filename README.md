@@ -734,7 +734,7 @@ Restart nagios service
 ##### [Install and Configure Collectd Monitoring on Linux in Debian](https://www.linuxsysadmins.com/install-collectd-monitoring-on-linux/)
 
 ```sh
-#Install pre read and collecd in debian
+#Install pre reqs and collecd in debian
 sudo apt install -y \
 git \
 apache2 \
@@ -795,7 +795,8 @@ LoadPlugin network
 
 <Plugin network>
         # server setup:
-        Listen "0.0.0.0" "25826"
+        <Listen "0.0.0.0" "25826">
+        </Listen>
 </Plugin>
 
 sudo systemctl restart apache2
@@ -827,12 +828,18 @@ sudo apt install -y collectd python build-essential librrds-perl libjson-perl li
 sudo yum install -y collectd rrdtool rrdtool-perl perl-HTML-Parser perl-JSON
 
 #Modifying Configuration
+
+#Debian
+sudo vim /etc/collectd/collectd.conf
+
+#RHEL
 sudo vim /etc/collectd.conf
 
 #Below are the changes required in client side.
 
-Hostname    "prod-srv-02.linuxsysadmins.local"
+Hostname    "debian-lpic1-201"
 FQDNLookup   true
+
 LoadPlugin syslog
 
 <Plugin syslog>
@@ -851,7 +858,6 @@ LoadPlugin network
 
 <Plugin network>
         # client setup:
-        Server "192.168.0.31" "25826"
         <Server "192.168.0.31" "25826">
         </Server>
 </Plugin>
@@ -893,7 +899,13 @@ sudo systemctl enable collectd
 
 <https://hub.docker.com/r/puckel/docker-collectd>
 
-#### MRTG
+#### [MRTG - The Multi Router Traffic Grapher](https://oss.oetiker.ch/mrtg/)
+
+##### [Install in Debian](https://www.debianhelp.co.uk/mrtg.htm)
+
+```sh
+sudo apt -y install mrtg snmpd
+```
 
 #### Cacti
 
