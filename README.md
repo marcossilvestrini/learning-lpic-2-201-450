@@ -952,23 +952,24 @@ EXIT
 #Open MariaDB file and add the lines below under [mysqld] section for an optimized database
 sudo vim /etc/mysql/mariadb.conf.d/50-server.cnf
 
-# Add the following under [mysqld]
-[mysqld]
-collation_server = utf8mb4_unicode_ci
-character_set_server  = utf8mb4
-max_heap_table_size = 128M
-tmp_table_size = 64M
-join_buffer_size = 128M
-innodb_doublewrite = OFF
-innodb_file_format = Barracuda
-innodb_large_prefix = 1
-innodb_buffer_pool_size = 1GB
-innodb_buffer_pool_instances = 10
-innodb_flush_log_at_timeout = 3
-innodb_read_io_threads = 32
-innodb_write_io_threads = 16
-innodb_io_capacity = 5000
-innodb_io_capacity_max = 10000
+# Add the following under [mariadb]
+[mariadb]
+
+innodb_file_format=Barracuda
+innodb_large_prefix=1
+collation-server=utf8mb4_unicode_ci
+character-set-server=utf8mb4
+innodb_doublewrite=OFF
+max_heap_table_size=128M
+tmp_table_size=128M
+join_buffer_size=128M
+innodb_buffer_pool_size=1G
+innodb_flush_log_at_timeout=3
+innodb_read_io_threads=32
+innodb_write_io_threads=16
+innodb_io_capacity=5000
+innodb_io_capacity_max=10000
+innodb_buffer_pool_instances=9
 
 #Restart MariaDB
 sudo systemctl restart mysql
