@@ -1109,20 +1109,62 @@ Candidates should be able to utilize kernel components that are necessary to spe
 
 Kernel 2.6.x, 3.x and 4.x documentation
 
+#### 201.1 Important Commands
+
+```sh
+#uname - get kernel version
+uname -r
+```
+
+Understand versions
+
+Example
+![image](https://user-images.githubusercontent.com/62715900/173958634-98537437-b03d-471b-9999-213803e93a66.png)
+5  - Version
+4  - Patch level(Major release)
+17 - Sub level(Minor release)
+2136.300.7 - Extraversion (Distro maintainer-controlled version)
+el8uek.x86_64 - Local Version (Distro maintainer-controlled version)
+
 #### 201.1 Cited Objects
 
-/usr/src/linux/
-/usr/src/linux/Documentation/
-zImage
-bzImage
-xz compression
+##### /usr/src/
+
+Folder with headers of kernel
+
+##### /usr/src/linux/
+
+Folder with actual source of kernel
+
+##### /usr/src/linux/Documentation/
+
+Folder with documentation of kernel
+
+##### /boot
+
+Folder with image of kernel
+
+##### /lib/modules
+
+Folder with modules of kernel
+
+##### zImage,bzImage
+
+zimage: Limited size(512kb), loading in lool memory
+bzimage: Not limeted size, loading in memory ram
+
+Compress method:
+gzip
+
+##### xz compression
+
+Compress method of kernel sources
 
 ### 201.2 Compiling a kernel
 
 **Weight:** 3
 
 **Description:**
-
 Candidates should be able to properly configure a kernel to include or disable specific features of the Linux kernel as necessary. This objective includes compiling and recompiling the Linux kernel as needed, updating and noting changes in a new kernel, creating an initrd image and installing new kernels.
 
 **Key Knowledge Areas:**
@@ -1154,6 +1196,79 @@ Awareness of dracut
 /usr/src/linux/.config
 /lib/modules/kernel-version/
 make targets (all, config, xconfig, menuconfig, gconfig, oldconfig, mrproper, zImage, bzImage, modules, modules_install, rpm-pkg, binrpm-pkg, deb-pkg)
+
+#### Compile Kernel in Debian
+
+##### Download latest kernel in kernel.org
+
+```sh
+#download latest version
+wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.18.4.tar.xz
+
+#extract files
+tar xJvf linux-5.18.4.tar.xz
+
+#create a simbolic link linux
+ln -s linux-5.18.4 linux
+```
+
+##### Install Packages
+
+```sh
+apt-get install -y build-essential flex bison pkg-config gtk+-2.0 gmodule-2.0 libgtk2.0-dev libglib2.0-dev libglade2-dev
+```
+
+##### Generate /usr/src/linux/.config
+
+###### Using make config
+
+```sh
+cd /usr/src/linux
+make config
+```
+
+![image](https://user-images.githubusercontent.com/62715900/173965683-16a117be-074e-44a2-8a71-7214f6be0016.png)
+
+###### Using make menuconfig
+
+```sh
+cd /usr/src/linux
+make menuconfig
+```
+
+![image](https://user-images.githubusercontent.com/62715900/173976333-a4aba941-8690-4780-b7f9-70130f858263.png)
+
+###### Using make oldconfig
+
+```sh
+#Copy your personalized .config for /usr/src/linux/.config
+
+#Then, execute command
+cd /usr/src/linux
+make oldconfig
+```
+
+![image](https://user-images.githubusercontent.com/62715900/173975648-4926db18-b2c1-4e9b-aed1-5746409859be.png)
+
+###### Using make xconfig
+
+```sh
+#First, enable one graphical environment(GNOME, for example)
+cd /usr/src/linux
+make xconfig
+```
+
+![image](https://user-images.githubusercontent.com/62715900/173973483-06d0dcf3-51cb-43ea-9077-808cd5c2016d.png)
+
+###### Using make gconfig
+
+```sh
+#First, enable one graphical environment(GNOME, for example)
+cd /usr/src/linux
+make gconfig
+```
+
+![image](https://user-images.githubusercontent.com/62715900/173975059-c4ee3568-94f2-4a54-824d-2ebf97acfd09.png)
 
 ### 201.3 Kernel runtime management and troubleshooting
 
