@@ -86,6 +86,7 @@ Installation and configuration of some packages will also be covered\
 - [Vim Tutorial](https://www.openvim.com/)
 - [Linux Shell Scripting Tutorial](https://bash.cyberciti.biz/guide/Main_Page)
 - [Commands Examples](https://www.geeksforgeeks.org/)
+- [Compile Your Kernel](https://wiki.linuxquestions.org/wiki/How_to_build_and_install_your_own_Linux_kernel)
 - [LPIC-2 201-450 Objectives](https://www.lpi.org/our-certifications/exam-201-objectives)
 - [LPIC-2 201-450 Wiki](https://wiki.lpi.org/wiki/LPIC-2_Objectives_V4.5#Objectives:_Exam_201)
 - [LPIC-2 201-450 Learning Material](https://lpic2book.github.io/src/)
@@ -1224,7 +1225,9 @@ ln -s linux-5.18.4 linux
 ##### Install Packages
 
 ```sh
-apt-get install -y build-essential flex bison pkg-config gtk+-2.0 gmodule-2.0 libgtk2.0-dev libglib2.0-dev libglade2-dev libncurses-dev
+apt-get install -y \
+build-essential libelf-dev libssl-dev bc flex bison pkg-config gtk+-2.0 \
+gmodule-2.0 libgtk2.0-dev libglib2.0-dev libglade2-dev libncurses-dev
 ```
 
 ##### Generate /usr/src/linux/.config
@@ -1287,10 +1290,48 @@ vim /usr/src/linux/Makefile
 
 ![image](https://user-images.githubusercontent.com/62715900/174914032-00a468f5-ede1-416a-b41c-5dc436317731.png)
 
-##### Compile Kernel
+##### Compile Kernel Image
 
 ```sh
+#For the best performance in compiling image, use your default kernel .config in this lab
+#Example: cp /boot/config-5.10.0-10-amd64 /usr/src/linux/.config
 
+#Path of new image:
+#/usr/src/linux/arch/x86/boot/bzImage
+
+#Certificate error debian/certs/debian-uefi-certs.pem
+#https://unix.stackexchange.com/questions/293642/attempting-to-compile-kernel-yields-a-certification-error
+
+# Set this line in .config
+# From: CONFIG_SYSTEM_TRUSTED_KEYS="debian/certs/debian-uefi-certs.pem"
+# To CONFIG_SYSTEM_TRUSTED_KEYS=""
+
+cd /usr/src/linux
+#make -j2 bzImage
+
+#Accept all questions
+make allyesconfig -j2
+```
+
+##### Compile Modules of Kernel
+
+```sh
+cd /usr/src/linux
+make -j2 modules
+```
+
+##### Cleanup Compile Files
+
+```sh
+#WARNNING!!! This process clear a image kernel and files generated in compilation
+
+#Clear kernel image\files
+cd /usr/src/linux
+make clean
+
+#Clear kernel images\files and .config
+cd /usr/src/linux
+make mrproper
 ```
 
 ### 201.3 Kernel runtime management and troubleshooting

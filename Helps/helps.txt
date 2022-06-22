@@ -1,3 +1,5 @@
+--------------------------------LINUX-----------------------------------
+
 #sync files
 rsync -avzh --exclude=.vagrant --exclude=.git --progress /mnt/projects/alura/alura-lpi/Debian_Ubuntu/boxes/Ubuntu/desktop/Vagrantfile /home/marcos.silvestrini/vagrant-ubuntu-desktop
 
@@ -6,6 +8,10 @@ vagrant scp ~/vagrant-protheus-core/install/license.zip ol8-protheus:/totvs/inst
 
 Set Timezone
 sudo timedatectl set-timezone America/Sao_Paulo
+
+Resize disk\partition
+sudo cfdisk /dev/sdd
+sudo resize2fs -p -F /dev/sdd1
 
 Permissões:
 
@@ -17,6 +23,8 @@ Permissões:
 5 - permissão de leitura e execução (101,r-x)
 6 - permissão de leitura e escrita (110,rw-)
 7 - todas as permissões (111,rwx)
+
+-------------------------------WINDÃO--------------------------------
 
 -----------------------------------------
 Windows - Open terminal tabs
