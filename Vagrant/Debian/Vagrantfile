@@ -26,6 +26,12 @@ unless Vagrant.has_plugin?("vagrant-reload")
   system('vagrant plugin install vagrant-reload')
 end
 
+# INSTALL PLUGIN DISKSIZE
+unless Vagrant.has_plugin?("vagrant-disksize")
+  puts 'Installing vagrant-disksize Plugin...'
+  system('vagrant plugin install vagrant-disksize')
+end
+
 Vagrant.configure("2") do |config|
 
   config.vm.box = "debian/bullseye64"
@@ -70,6 +76,9 @@ Vagrant.configure("2") do |config|
     end
   end
 
+  # SET SIZE OF SYSTEM DISK
+  config.disksize.size = '50GB'
+
   # VM Debian Server
   config.vm.define "debian_lpic_102"  do |debian_lpic_102|
 
@@ -95,8 +104,8 @@ Vagrant.configure("2") do |config|
     debian_lpic_102.vm.provider "virtualbox" do |vb|
       vb.linked_clone = true
       vb.name = APP_NAME
-      vb.memory = 4096
-      vb.cpus = 3
+      vb.memory = 8192
+      vb.cpus = 6
     end
 
     # PROVISION

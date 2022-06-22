@@ -1126,6 +1126,12 @@ Example
 2136.300.7 - Extraversion (Distro maintainer-controlled version)
 el8uek.x86_64 - Local Version (Distro maintainer-controlled version)
 
+Get size image of kernel
+
+```sh
+ls -lh /boot/vmlinuz-`uname -r`
+```
+
 #### 201.1 Cited Objects
 
 ##### /usr/src/
@@ -1193,9 +1199,11 @@ Awareness of dracut
 
 #### 201.2 Cited Objects
 
-/usr/src/linux/.config
-/lib/modules/kernel-version/
-make targets (all, config, xconfig, menuconfig, gconfig, oldconfig, mrproper, zImage, bzImage, modules, modules_install, rpm-pkg, binrpm-pkg, deb-pkg)
+/usr/src/linux/.config\
+/lib/modules/kernel-version/\
+make targets (all, config, xconfig, menuconfig, gconfig, oldconfig,\
+mrproper, zImage, bzImage, modules, modules_install, rpm-pkg, binrpm-pkg,\
+deb-pkg
 
 #### Compile Kernel in Debian
 
@@ -1203,6 +1211,7 @@ make targets (all, config, xconfig, menuconfig, gconfig, oldconfig, mrproper, zI
 
 ```sh
 #download latest version
+cd /usr/src/linux
 wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.18.4.tar.xz
 
 #extract files
@@ -1215,7 +1224,7 @@ ln -s linux-5.18.4 linux
 ##### Install Packages
 
 ```sh
-apt-get install -y build-essential flex bison pkg-config gtk+-2.0 gmodule-2.0 libgtk2.0-dev libglib2.0-dev libglade2-dev
+apt-get install -y build-essential flex bison pkg-config gtk+-2.0 gmodule-2.0 libgtk2.0-dev libglib2.0-dev libglade2-dev libncurses-dev
 ```
 
 ##### Generate /usr/src/linux/.config
@@ -1269,6 +1278,20 @@ make gconfig
 ```
 
 ![image](https://user-images.githubusercontent.com/62715900/173975059-c4ee3568-94f2-4a54-824d-2ebf97acfd09.png)
+
+##### Personalize your EXTRAVERSION AND LOCALVERSION
+
+```sh
+vim /usr/src/linux/Makefile
+```
+
+![image](https://user-images.githubusercontent.com/62715900/174914032-00a468f5-ede1-416a-b41c-5dc436317731.png)
+
+##### Compile Kernel
+
+```sh
+
+```
 
 ### 201.3 Kernel runtime management and troubleshooting
 
