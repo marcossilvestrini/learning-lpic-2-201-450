@@ -1212,7 +1212,7 @@ deb-pkg
 
 ```sh
 #download latest version
-cd /usr/src/linux
+cd /usr/src
 wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.18.4.tar.xz
 
 #extract files
@@ -1308,14 +1308,19 @@ vim /usr/src/linux/Makefile
 
 cd /usr/src/linux
 #make -j2 bzImage
-
-#Accept all questions
-make allyesconfig -j2
+make allyesconfig -j5 bzImage
 ```
 
 ##### Compile Modules of Kernel
 
 ```sh
+#If not swap enable:
+sudo fallocate -l 4G /swapfile
+chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+
+
 cd /usr/src/linux
 make -j2 modules
 ```
