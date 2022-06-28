@@ -1119,13 +1119,13 @@ uname -r
 
 Understand versions
 
-Example
-![image](https://user-images.githubusercontent.com/62715900/173958634-98537437-b03d-471b-9999-213803e93a66.png)
-5  - Version
-4  - Patch level(Major release)
-17 - Sub level(Minor release)
-2136.300.7 - Extraversion (Distro maintainer-controlled version)
-el8uek.x86_64 - Local Version (Distro maintainer-controlled version)
+Example\
+![image](https://user-images.githubusercontent.com/62715900/173958634-98537437-b03d-471b-9999-213803e93a66.png)\
+5  - Version\
+4  - Patch level(Major release)\
+17 - Sub level(Minor release)\
+2136.300.7 - Extraversion (Distro maintainer-controlled version)\
+el8uek.x86_64 - Local Version (Distro maintainer-controlled version)\
 
 Get size image of kernel
 
