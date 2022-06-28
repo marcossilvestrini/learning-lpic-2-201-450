@@ -1213,7 +1213,7 @@ deb-pkg
 ```sh
 #download latest version
 cd /usr/src
-wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.18.4.tar.xz
+wget  --progress=bar https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.18.4.tar.xz
 
 #extract files
 tar xJvf linux-5.18.4.tar.xz
@@ -1282,13 +1282,21 @@ make gconfig
 
 ![image](https://user-images.githubusercontent.com/62715900/173975059-c4ee3568-94f2-4a54-824d-2ebf97acfd09.png)
 
-##### Personalize your EXTRAVERSION AND LOCALVERSION
+##### Personalize your EXTRAVERSION
 
 ```sh
 vim /usr/src/linux/Makefile
 ```
 
-![image](https://user-images.githubusercontent.com/62715900/174914032-00a468f5-ede1-416a-b41c-5dc436317731.png)
+![image](https://user-images.githubusercontent.com/62715900/176060892-b6f8814b-4dc2-46bd-9803-3b59f80a8bde.png)
+
+##### Personalize your LOCALVERSION
+
+```sh
+vim /usr/src/linux/.config
+```
+
+![image](https://user-images.githubusercontent.com/62715900/176061046-0e394aa5-9ba3-49bf-823f-74a1e2e82cd2.png)
 
 ##### Compile Kernel Image
 
@@ -1301,28 +1309,64 @@ vim /usr/src/linux/Makefile
 
 #Certificate error debian/certs/debian-uefi-certs.pem
 #https://unix.stackexchange.com/questions/293642/attempting-to-compile-kernel-yields-a-certification-error
-
 # Set this line in .config
 # From: CONFIG_SYSTEM_TRUSTED_KEYS="debian/certs/debian-uefi-certs.pem"
 # To CONFIG_SYSTEM_TRUSTED_KEYS=""
 
+#If not swap enable:
+fallocate -l 4G /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+swapon -s
+
 cd /usr/src/linux
-#make -j2 bzImage
-make allyesconfig -j5 bzImage
+#make allyesconfig -j $(nproc) bzImage
+make -j $(nproc) bzImage
 ```
 
 ##### Compile Modules of Kernel
 
 ```sh
-#If not swap enable:
-sudo fallocate -l 4G /swapfile
-chmod 600 /swapfile
-sudo mkswap /swapfile
-sudo swapon /swapfile
-
-
 cd /usr/src/linux
-make -j2 modules
+make -j $(nproc) modules
+```
+
+##### Install Modules of Kernel
+
+```sh
+cd /usr/src/linux
+make  modules_install
+```
+
+##### Install Kernel
+
+###### Method 1 - Make Install
+
+```sh
+cd /usr/src/linux
+make  install
+```
+
+![image](https://user-images.githubusercontent.com/62715900/176065412-81c688af-be75-486e-bb60-922956be8c5d.png)
+
+###### Method 2 - Manual
+
+```sh
+#Copy image
+cp /usr/src/linux/arch/x86/boot/bzImage /boot/vmlinuz-5.18.4-1111-lpic-201-450
+
+#Generate initrd
+
+#Method 1:
+mkinitramfs -o /boot/initrd.img-5.18.41111-lpic-201-450 5.18.4-1111-lpic-201-450
+
+#Method 2:
+update-initramfs -c -k 5.18.4-1111-lpic-201-450
+
+#Update grub
+update-grub
+update-grub2
 ```
 
 ##### Cleanup Compile Files
@@ -1394,7 +1438,6 @@ Candidates should be able to query and modify the behaviour of system services a
 Systemd
 SysV init
 Linux Standard Base Specification (LSB)
-
 
 #### 202.1 Important Commands
 
