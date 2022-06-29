@@ -4,6 +4,7 @@ cd /home/vagrant || exit
 
 #Set password account
 usermod --password $(echo vagrant | openssl passwd -1 -stdin) vagrant
+usermod --password $(echo vagrant | openssl passwd -1 -stdin) root
 
 #Set profile in /etc/profile
 cp -f configs/profile /etc
@@ -20,7 +21,9 @@ dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.r
 # #dnf -y upgrade
 
 # Install packages
+dnf install -y bash-completion
 dnf install -y vim
+dnf install -y tree
 dnf install -y python3-pip
 dnf install -y net-tools
 dnf install -y bind-utils

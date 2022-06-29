@@ -1189,14 +1189,84 @@ Awareness of dracut
 
 #### 201.2 Important Commands
 
-**mkinitrd**
-**mkinitramfs**
-**make**
-**gzip**
-**bzip2**
-**module tools**
-**depmod**
-**dkms**
+##### mkinitrd - is a compat wrapper, which calls dracut to generate an initramfs
+
+```sh
+#Generate a initrd in RPM\RHEL
+#syntaxe: mkinitrd [ OPTIONS ] [<nitrd-image] <kernel-version>
+mkinitrd -f /boot/initrd.img-5.18.41111-lpic-201-450.img 5.18.4-1111-lpic-201-450
+```
+
+##### mkinitramfs - low-level tool for generating an initramfs image
+
+```sh
+#Generate a initrd in Debian
+mkinitramfs -o /boot/initrd.img-5.18.41111-lpic-201-450 5.18.4-1111-lpic-201-450
+```
+
+##### make - GNU make utility to maintain groups of programs
+
+```sh
+# Generate kernel image
+make -j $(nproc) bzImage
+
+# Compile kernel modules
+make -j $(nproc) bzImag
+
+# Install kernel modules
+make -j $(nproc) modules_install
+
+# Install kernel
+make install
+
+# Generate .deb kernel image
+make deb-pkg
+
+# Generate .rpm kernel image
+make rpm-pkg
+```
+
+##### gzip
+
+```sh
+#compress
+gzip -v scripts/script1.sh
+gzip -v1 scripts/script1.sh
+gzip -v9 scripts/script1.sh
+gzip -c scripts/script1.sh > scripts/script1.gz
+
+#descompress
+gzip -dv picture1.jpg.gz
+gunzip -v scripts/script1.gz
+
+#list infos
+gzip -l picture1.jpg.gz
+```
+
+##### bzip2
+
+```sh
+#compress
+bzip2 -v scripts/script1.sh
+bzip2 -v1 picture1.jpg
+bzip2 -v9 picture1.jpg
+
+#descompress
+bunzip2 -v picture1.jpg.bz2
+bzip2 -dv picture1.jpg.bz2
+```
+
+##### depmod - Generate modules.dep and map files
+
+```sh
+#Examples
+```
+
+##### dkms - Dynamic Kernel Module Support
+
+```sh
+#Examples
+```
 
 #### 201.2 Cited Objects
 
@@ -1204,23 +1274,10 @@ Awareness of dracut
 /lib/modules/kernel-version/\
 make targets (all, config, xconfig, menuconfig, gconfig, oldconfig,\
 mrproper, zImage, bzImage, modules, modules_install, rpm-pkg, binrpm-pkg,\
-deb-pkg
+module tools
 
-#### Compile Kernel in Debian
 
-##### Download latest kernel in kernel.org
-
-```sh
-#download latest version
-cd /usr/src
-wget  --progress=bar https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.18.4.tar.xz
-
-#extract files
-tar xJvf linux-5.18.4.tar.xz
-
-#create a simbolic link linux
-ln -s linux-5.18.4 linux
-```
+#### Compile Kernel in Debian(as root user)
 
 ##### Install Packages
 
@@ -1228,6 +1285,21 @@ ln -s linux-5.18.4 linux
 apt-get install -y \
 build-essential libelf-dev libssl-dev bc flex bison pkg-config gtk+-2.0 \
 gmodule-2.0 libgtk2.0-dev libglib2.0-dev libglade2-dev libncurses-dev
+```
+
+##### Download latest kernel in kernel.org
+
+```sh
+#download latest version
+cd /usr/src
+
+wget  --progress=bar https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.18.4.tar.xz
+
+#extract files
+tar xJvf linux-5.18.4.tar.xz
+
+#create a simbolic link linux
+ln -s linux-5.18.4 linux
 ```
 
 ##### Generate /usr/src/linux/.config
@@ -1301,7 +1373,7 @@ vim /usr/src/linux/.config
 ##### Compile Kernel Image
 
 ```sh
-#For the best performance in compiling image, use your default kernel .config in this lab
+#For the best performance in compiling image, use your default kernel .config
 #Example: cp /boot/config-5.10.0-10-amd64 /usr/src/linux/.config
 
 #Path of new image:

@@ -11,3 +11,6 @@
 **/*.ppk
 **/*pk_centos
 **/*private*
+
+#Linux kernel
+**/Kernel
