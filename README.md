@@ -1197,6 +1197,13 @@ Awareness of dracut
 mkinitrd -f /boot/initrd.img-5.18.41111-lpic-201-450.img 5.18.4-1111-lpic-201-450
 ```
 
+##### dracut - low-level tool for generating an initramfs/initrd image
+
+```sh
+#update initramfs
+dracut --force
+```
+
 ##### mkinitramfs - low-level tool for generating an initramfs image
 
 ```sh
@@ -1259,13 +1266,27 @@ bzip2 -dv picture1.jpg.bz2
 ##### depmod - Generate modules.dep and map files
 
 ```sh
-#Examples
+#Example of use
+
 ```
 
 ##### dkms - Dynamic Kernel Module Support
 
 ```sh
-#Examples
+#install package
+sudo apt install -y dkms
+
+#install zfs-dkms for test dkms command in this example
+apt install -y zfs-dkms
+
+#list status of dkms modules
+dkms status
+
+#remove dkms zfs module
+dkms remove zfs/2.0.3 --all
+
+# add dkms zfs module
+dkms add zfs/2.0.3 --all
 ```
 
 #### 201.2 Cited Objects
@@ -1275,7 +1296,6 @@ bzip2 -dv picture1.jpg.bz2
 make targets (all, config, xconfig, menuconfig, gconfig, oldconfig,\
 mrproper, zImage, bzImage, modules, modules_install, rpm-pkg, binrpm-pkg,\
 module tools
-
 
 #### Compile Kernel in Debian(as root user)
 
@@ -1446,11 +1466,11 @@ update-grub2
 ```sh
 #WARNNING!!! This process clear a image kernel and files generated in compilation
 
-#Clear kernel image\files
+#Clear kernel image\files generate in proccess of compile kernel
 cd /usr/src/linux
 make clean
 
-#Clear kernel images\files and .config
+#Clear kernel images\files and .config generate in proccess of compile kernel
 cd /usr/src/linux
 make mrproper
 ```
