@@ -1120,7 +1120,7 @@ uname -r
 Understand versions
 
 Example\
-![image](https://user-images.githubusercontent.com/62715900/177155847-171c142b-7fa3-4a25-8fc4-93d0c74e1e71.png)
+![image](https://user-images.githubusercontent.com/62715900/177155847-171c142b-7fa3-4a25-8fc4-93d0c74e1e71.png)\
 5  - Version\
 4  - Patch level(Major release)\
 17 - Sub level(Minor release)\
@@ -1226,11 +1226,14 @@ make -j $(nproc) modules_install
 # Install kernel
 make install
 
-# Generate .deb kernel image
+# Generate .deb kernel image and files
 make deb-pkg
 
-# Generate .rpm kernel image
+# Generate .rpm kernel image and files
 make rpm-pkg
+
+# Generate only .rpm kernel image
+make binrpm-pkg
 ```
 
 ##### gzip
@@ -1263,13 +1266,6 @@ bunzip2 -v picture1.jpg.bz2
 bzip2 -dv picture1.jpg.bz2
 ```
 
-##### depmod - Generate modules.dep and map files
-
-```sh
-#Example of use
-
-```
-
 ##### dkms - Dynamic Kernel Module Support
 
 ```sh
@@ -1291,6 +1287,7 @@ dkms add zfs/2.0.3 --all
 
 #### 201.2 Cited Objects
 
+depmod\
 /usr/src/linux/.config\
 /lib/modules/kernel-version/\
 make targets (all, config, xconfig, menuconfig, gconfig, oldconfig,\
@@ -1461,6 +1458,16 @@ update-grub
 update-grub2
 ```
 
+##### Optional: Generate .deb kernel image(portable kernel)
+
+```sh
+cd /usr/src/linux
+make -j $(nproc) deb-pkg
+# Install this kernel version in some other GNU\Linux DEbian with command dpkg -i image-xxx-xxx.deb
+```
+
+![image](https://user-images.githubusercontent.com/62715900/177171338-ebf81f6e-7bc9-453b-aedd-e645eab609eb.png)
+
 ##### Cleanup Compile Files
 
 ```sh
@@ -1480,7 +1487,10 @@ make mrproper
 **Weight:** 4
 
 **Description:**
-Candidates should be able to manage and/or query a 2.6.x, 3.x or 4.x kernel and its loadable modules. Candidates should be able to identify and correct common boot and run time issues. Candidates should understand device detection and management using udev. This objective includes troubleshooting udev rules.
+Candidates should be able to manage and/or query a 2.6.x, 3.x or 4.x kernel and its loadable modules.\
+Candidates should be able to identify and correct common boot and run time issues.\
+Candidates should understand device detection and management using udev.\
+This objective includes troubleshooting udev rules.
 
 **Key Knowledge Areas:**
 
@@ -1493,6 +1503,56 @@ Configure the system to load modules by names other than their file name.
 Content of /, /boot/ , and /lib/modules/
 Tools and utilities to analyze information about the available hardware
 udev rules
+
+#### 201.3 Important Commands
+
+##### uname - print system information
+
+```sh
+# Show all information
+uname -a
+
+# Show kernel name
+uname -s
+
+# Print kernel release
+uname -r
+
+# Display Kernel build version
+uname -v
+
+# Print machine hardware name
+uname -m
+
+# Print the network node hostname
+uname -n
+
+# Print the processor type (non-portable)
+uname -p
+
+# Print the hardware platform (non-portable)
+uname -i
+
+# Print the operating system
+uname -o
+```
+
+##### sysctl - configure kernel parameters at runtime
+
+```sh
+# List all runtime files\params
+sysctl -a
+
+# Set max open files in system
+cd /proc/sys/fs
+sysctl fs.file-max=400000
+
+# Set max open files in system permanent(after boot)
+vim /etc/sysctl.conf
+fs.file-max = 400000
+
+#Or put a custom file XX-sysctl.conf in /etc/sysctl.d/  with content fs.file-max = 400000
+```
 
 #### 201.3 Cited Objects
 

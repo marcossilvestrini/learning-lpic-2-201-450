@@ -1,19 +1,18 @@
 --------------------------------LINUX-----------------------------------
-
-#sync files
+# sync files
 rsync -avzh --exclude=.vagrant --exclude=.git --progress /mnt/projects/alura/alura-lpi/Debian_Ubuntu/boxes/Ubuntu/desktop/Vagrantfile /home/marcos.silvestrini/vagrant-ubuntu-desktop
 
 # Copy files vagrant machine
 vagrant scp ~/vagrant-protheus-core/install/license.zip ol8-protheus:/totvs/install
 
-Set Timezone
+# Set Timezone
 sudo timedatectl set-timezone America/Sao_Paulo
 
-Resize disk\partition
+# Resize disk\partition
 sudo cfdisk /dev/sdd
 sudo resize2fs -p -F /dev/sdd1
 
-Permissões:
+# Permions:
 
 0 - nenhuma permissão (-)
 1 - permissão de execução (001,--x)
@@ -27,26 +26,22 @@ Permissões:
 -------------------------------WINDÃO--------------------------------
 
 -----------------------------------------
-Windows - Open terminal tabs
+# Windows - Open terminal tabs
 wt -d "" -p "Command Promt" vagrant status ; split-pane -d "" vagrant status
 -----------------------------------------
 
 -----------------------------------------
-Windows - Folder of Apps Windows Store
+# Windows - Folder of Apps Windows Store
 shell:AppsFolder
 -----------------------------------------
 
-Windows  - list PackageFullName windows apps
+# Windows  - list PackageFullName windows apps
 get-appxpackage
 
-Windows - Open windows apps
+# Windows - Open windows apps
 start shell:appsFolder\[TARGET]!App
 
 Example open Google Chat:
 $target=(get-appxpackage | Where-Object {$_.Name -like "*google*"}).PackageFullName
 start "shell:appsFolder\mail.google.com-98783EC6_1.0.0.1_neutral__vq8mrer2vmnwe!Google Chat"
 ------------------------------------------
-
-Windows - profifa-pull-left
-cd $HOME
-notepad $PROFILE
