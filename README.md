@@ -1120,7 +1120,7 @@ uname -r
 Understand versions
 
 Example\
-![image](https://user-images.githubusercontent.com/62715900/173958634-98537437-b03d-471b-9999-213803e93a66.png)\
+![image](https://user-images.githubusercontent.com/62715900/177155847-171c142b-7fa3-4a25-8fc4-93d0c74e1e71.png)
 5  - Version\
 4  - Patch level(Major release)\
 17 - Sub level(Minor release)\
