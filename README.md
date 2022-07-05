@@ -546,7 +546,6 @@ vim /etc/icinga2/constants.conf
 
 ![image](https://user-images.githubusercontent.com/62715900/171521454-e79ece84-cab3-4277-9528-411fcec053b3.png)
 
-
 ##### Set up Database
 
 ```sh
@@ -1593,23 +1592,98 @@ lsusb -t
 lsusb -vd $id
 ```
 
-##### lsdev
+##### lsdev - display information about installed hardware
 
 ```sh
-
+#List all devices infos
+lsdev
 ```
 
-##### dmesg
+##### dmesg - print or control the kernel ring buffer
 
 ```sh
+# Show messages of kernel ring buffer
+dmesg
 
+# Clear the ring buffer
+dmesg -C
 ```
 
-#### 201.3 Cited Objects
+##### depmod - Generate modules.dep and map files
 
-/lib/modules/kernel-version/modules.dep
+```sh
+# Probe all modules
+depmod -a
+
+# Warn on duplicate dependencies, aliases, symbol versions
+depmod -w
+```
+
+##### lsmod -  Show the status of modules in the Linux Kernel
+
+```sh
+#show all modules
+lsmod
+```
+
+##### modinfo - Show information about a Linux Kernel module
+
+```sh
+#show all info
+modinfo video
+
+#show resume info
+modinfo -p video
+```
+
+##### insmod - Simple program to insert a module into the Linux Kernel
+
+```sh
+# Up module in kernel
+insmod /lib/modules/5.4.17-2136.300.7.el8uek.x86_64/misc/vboxsf.ko
+```
+
+##### rmmod - Simple program to remove a module from the Linux Kernel
+
+```sh
+# Down module in kernel
+rmmod /lib/modules/5.4.17-2136.300.7.el8uek.x86_64/misc/vboxsf.ko
+```
+
+##### modprobe - Add and remove modules from the Linux Kernel
+
+```sh
+# Down module in kernel
+modprobe -r snd-hda-intel
+
+#Up module in kernel
+modprobe snd-hda-intel
+```
+
+##### Setup\Configure modules
+
+```sh
+# Old(deprecied)
+/etc/modules.conf
+
+# New
+/etc/modprobe.d
+```
+
+##### Load modules in boot
+
+```sh
+/etc/modules
+/etc/modules-load.d/
+```
+
+##### 201.3 Cited Objects
+
 module configuration files in /etc/
+/lib/modules/kernel-version/modules.dep
+/etc/sysctl.conf, /etc/sysctl.d/
 /proc/sys/kernel/
+/sbin/sysctl
 /sbin/depmod
 /sbin/rmmod
 /sbin/modinfo
@@ -1621,8 +1695,6 @@ module configuration files in /etc/
 /sbin/insmod
 /bin/uname
 /usr/bin/lsusb
-/etc/sysctl.conf, /etc/sysctl.d/
-/sbin/sysctl
 udevmonitor
 udevadm monitor
 /etc/udev/
