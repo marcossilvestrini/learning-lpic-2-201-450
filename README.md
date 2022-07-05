@@ -1550,8 +1550,59 @@ sysctl fs.file-max=400000
 # Set max open files in system permanent(after boot)
 vim /etc/sysctl.conf
 fs.file-max = 400000
-
 #Or put a custom file XX-sysctl.conf in /etc/sysctl.d/  with content fs.file-max = 400000
+```
+
+##### lspci - list all PCI devices
+
+```sh
+
+#get some device for examples
+id=`lspci | cut -c 1-8 | tail -n 1`
+
+#show all devices connected
+lspci
+
+#show detail for specific device
+lspci -s $id -v
+
+#show kernel drivers for all devices connected
+lspci -k
+
+#show kernel driver for specific device
+lspci -s $id -k
+```
+
+##### lsusb - list USB devices
+
+```sh
+#install
+sudo apt-get install usbutils
+sudo yum install usbutils
+
+#get some device for examples
+id=`lsusb | cut -c 24-32 | head -n 1`
+
+#show all usb devices connected
+lsusb
+
+#show USB device hierarchy as a tree
+lsusb -t
+
+#show detail for specific device
+lsusb -vd $id
+```
+
+##### lsdev
+
+```sh
+
+```
+
+##### dmesg
+
+```sh
+
 ```
 
 #### 201.3 Cited Objects

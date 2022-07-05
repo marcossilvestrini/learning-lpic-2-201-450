@@ -21,7 +21,9 @@ dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.r
 # #dnf -y upgrade
 
 # Install packages
+dnf install -y lshw
 dnf install -y bash-completion
+dnf install -y usbutils
 dnf install -y vim
 dnf install -y tree
 dnf install -y python3-pip

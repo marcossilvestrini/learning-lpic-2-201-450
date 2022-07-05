@@ -15,7 +15,16 @@ cp -f configs/.vimrc .
 rm .bashrc
 cp -f configs/.bashrc .
 
+# Set Swap memory
+fallocate -l 4G /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+
 # Install packages
+apt install -y procinfo
+apt install -y rsync
+apt install -y lshw
 apt install -y sshpass
 apt install -y vim
 apt install -y tree
