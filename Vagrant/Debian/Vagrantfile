@@ -106,6 +106,23 @@ Vagrant.configure("2") do |config|
       vb.name = APP_NAME
       vb.memory = 8192
       vb.cpus = 6
+
+      #USB
+      vb.customize ["modifyvm", :id, "--usb", "on"]
+      vb.customize ["modifyvm", :id, "--usbehci", "on"]
+      vb.customize ["modifyvm", :id, "--usbxhci", "on"]
+      vb.customize [
+        "usbfilter", "add", "0",
+        "--active","yes",
+        "--remote","no",
+        "--target", :id,
+	      "--vendorid","0x0781",
+	      "--productid","0x5567",
+        "--serialnumber","4C530201201202122120",
+        "--manufacturer","SanDisk",
+        "--name", "Pen Driver",
+        "--product", "Cruzer Blade"
+    ]
     end
 
     # PROVISION

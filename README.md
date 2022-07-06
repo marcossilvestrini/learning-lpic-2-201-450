@@ -1660,24 +1660,44 @@ modprobe -r snd-hda-intel
 modprobe snd-hda-intel
 ```
 
-##### Setup\Configure modules
+##### udevadm - udev management tool
 
 ```sh
-# Old(deprecied)
-/etc/modules.conf
+# Show infos about device
+udevadm info /dev/sda
 
-# New
+# Monitoring all kernel solicitations
+udevadm monitor
+```
+
+![udeadm-monitor](https://user-images.githubusercontent.com/62715900/177624006-32ccdb02-8387-4be8-9004-219c841d6551.gif)
+
+#### Configurations files of modules
+
+```sh
+/etc/modules.conf #(deprecied)
 /etc/modprobe.d
 ```
 
-##### Load modules in boot
+#### Load modules in boot
 
 ```sh
 /etc/modules
 /etc/modules-load.d/
 ```
 
-##### 201.3 Cited Objects
+#### About udev - Device Manager
+
+```sh
+# Configuration file
+/etc/udev/udev.conf
+
+# Configuration Rules
+/etc/udev/rules.d/ #(depreciated in new distros, but active)
+/lib/udev/rules.d
+```
+
+#### 201.3 Cited Objects
 
 module configuration files in /etc/
 /lib/modules/kernel-version/modules.dep
