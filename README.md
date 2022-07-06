@@ -1542,9 +1542,11 @@ uname -o
 # List all runtime files\params
 sysctl -a
 
-# Set max open files in system
-cd /proc/sys/fs
+# Example 1: Set max open files in system
 sysctl fs.file-max=400000
+
+# Example 2: Disable ping
+echo 1 > /proc/sys/net/ipv4/icmp_echo_ignore_all
 
 # Set max open files in system permanent(after boot)
 vim /etc/sysctl.conf
@@ -1658,6 +1660,9 @@ modprobe -r snd-hda-intel
 
 #Up module in kernel
 modprobe snd-hda-intel
+
+# Set parameter of module
+modprobe psmouse resync_time=10
 ```
 
 ##### udevadm - udev management tool
@@ -1686,7 +1691,7 @@ udevadm monitor
 /etc/modules-load.d/
 ```
 
-#### About udev - Device Manager
+#### About udev - Dynamic Device Management
 
 ```sh
 # Configuration file
