@@ -80,28 +80,28 @@ Vagrant.configure("2") do |config|
   config.disksize.size = '50GB'
 
   # VM Debian Server
-  config.vm.define "debian_lpic_102"  do |debian_lpic_102|
+  config.vm.define "debian_lpic_201"  do |debian_lpic_201|
 
     # VARIABLE HOSTNAME
     APP_NAME= "debian-lpic-201"
 
     # HOSTNAME
-    debian_lpic_102.vm.hostname = APP_NAME
+    debian_lpic_201.vm.hostname = APP_NAME
 
     # NETWORK
-    debian_lpic_102.vm.network "public_network" ,ip: "192.168.0.134",mode: "bridge" ,bridge: [
+    debian_lpic_201.vm.network "public_network" ,ip: "192.168.0.134",mode: "bridge" ,bridge: [
     "ens32",
     "Marvell AQtion 5Gbit Network Adapter"
     ]
 
     # MOUNTS
-    debian_lpic_102.vm.synced_folder ".", "/vagrant", disabled: true
-    debian_lpic_102.vm.synced_folder "./security", "/home/vagrant/security"
-    debian_lpic_102.vm.synced_folder "./configs", "/home/vagrant/configs"
-    debian_lpic_102.vm.synced_folder "../../Scripts/lpic2/", "/home/vagrant/scripts"
+    debian_lpic_201.vm.synced_folder ".", "/vagrant", disabled: true
+    debian_lpic_201.vm.synced_folder "./security", "/home/vagrant/security"
+    debian_lpic_201.vm.synced_folder "./configs", "/home/vagrant/configs"
+    debian_lpic_201.vm.synced_folder "../../Scripts/lpic2/", "/home/vagrant/scripts"
 
     # PROVIDER CUSTOMIZATIONS
-    debian_lpic_102.vm.provider "virtualbox" do |vb|
+    debian_lpic_201.vm.provider "virtualbox" do |vb|
       vb.linked_clone = true
       vb.name = APP_NAME
       vb.memory = 8192
@@ -126,7 +126,7 @@ Vagrant.configure("2") do |config|
     end
 
     # PROVISION
-    debian_lpic_102.vm.provision "shell", path: "scripts/install.sh"
+    debian_lpic_201.vm.provision "shell", path: "scripts/install.sh"
 
   end
 

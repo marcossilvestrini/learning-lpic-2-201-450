@@ -1749,13 +1749,28 @@ Linux Standard Base Specification (LSB)
 
 #### 202.1 Important Commands
 
-##### systemctl
+##### runlevel - Print previous and current SysV runlevel
+
+```sh
+# Show current runlevel(in /etc/inittab, line id:2:initdefault:)
+runlevel
+```
+
+##### init, telinit - process control initialization
+
+```sh
+# Set runlevel
+init 3
+telinit 5
+```
+
+##### systemctl - Control the systemd system and service manager
 
 ```sh
 
 ```
 
-##### systemd-delta
+##### systemd-delta - Find overridden configuration files
 
 ```sh
 
@@ -1764,8 +1779,22 @@ Linux Standard Base Specification (LSB)
 ##### chkconfig
 
 ```sh
+# Show all process scripts
+chkconfig
 
+# Set script a specific process for off
+chkconfig --level 4 network off
+
+# Set script a specific process for on
+chkconfig --level 4 network on
 ```
+
+```sh
+# Show a specific process
+chkconfig --list network
+```
+
+![image](https://user-images.githubusercontent.com/62715900/177885798-afba0cc1-5394-4c25-ad9c-94d655278454.png)
 
 #### About Sysv Init
 
@@ -1848,6 +1877,12 @@ find  /etc/rc*.d/*collectd* | xargs rm
 # Generate new symbolic links with new levels
 update-rc.d collectd start 10 2 3 4 5 . stop 90 0 1 6 .
 ```
+
+#### About systemd
+
+##### Systemd units type
+
+![image](https://user-images.githubusercontent.com/62715900/177888696-08d30465-7bde-4795-ba35-c6bad74afb92.png)
 
 #### 202.1 Cited Objects
 
