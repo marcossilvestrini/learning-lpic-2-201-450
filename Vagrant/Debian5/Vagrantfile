@@ -1,0 +1,48 @@
+require 'fileutils'
+
+# INSTALL PLUGIN RELLOAD
+unless Vagrant.has_plugin?("vagrant-reload")
+  puts 'Installing vagrant-reload Plugin...'
+  system('vagrant plugin install vagrant-reload')
+end
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "normation/debian-5-64"
+  config.vm.box_version = "1.0"
+
+  # VM Debian Server
+  config.vm.define "debian5_lpic_102"  do |debian5_lpic_102|
+
+    # VARIABLE HOSTNAME
+    APP_NAME= "debian5-lpic-201"
+
+    # HOSTNAME
+    debian5_lpic_102.vm.hostname = APP_NAME
+
+    # NETWORK
+    debian5_lpic_102.vm.network "public_network" ,ip: "192.168.0.133",mode: "bridge" ,bridge: [
+      "ens32",
+      "Marvell AQtion 5Gbit Network Adapter"
+    ]
+
+    # MOUNTS
+    debian5_lpic_102.vm.synced_folder ".", "/vagrant", disabled: true
+    debian5_lpic_102.vm.synced_folder "./security", "/home/vagrant/security"
+    debian5_lpic_102.vm.synced_folder "./configs", "/home/vagrant/configs"
+    debian5_lpic_102.vm.synced_folder "../../Scripts/lpic2/", "/home/vagrant/scripts"
+
+    # PROVIDER CUSTOMIZATIONS
+    debian5_lpic_102.vm.provider "virtualbox" do |vb|
+      vb.linked_clone = true
+      vb.name = APP_NAME
+      vb.memory = 2048
+      vb.cpus = 1
+    end
+
+    # PROVISION
+    debian5_lpic_102.vm.provision "shell", path: "scripts/install.sh"
+
+  end
+
+end

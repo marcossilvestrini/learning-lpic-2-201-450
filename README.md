@@ -485,12 +485,14 @@ free -h
 
 #### 200.1 Cited Objects
 
+```sh
 swap
 blocks in
 blocks out
 processes blocked on I/O
 /var/log/sysstat(debian)
 /var/log/sa (rhel)
+```
 
 ### 200.2 Predict Future Resource Needs
 
@@ -1092,9 +1094,11 @@ http:// IP or FQDN /cacti
 
 #### 200.2 Cited Objects
 
+```sh
 diagnose
 predict growth
 resource exhaustion
+```
 
 ## Topic 201: Linux Kernel
 
@@ -1286,12 +1290,14 @@ dkms add zfs/2.0.3 --all
 
 #### 201.2 Cited Objects
 
-depmod\
-/usr/src/linux/.config\
-/lib/modules/kernel-version/\
-make targets (all, config, xconfig, menuconfig, gconfig, oldconfig,\
-mrproper, zImage, bzImage, modules, modules_install, rpm-pkg, binrpm-pkg,\
+```sh
+depmod
+/usr/src/linux/.config
+/lib/modules/kernel-version/
+make targets (all, config, xconfig, menuconfig, gconfig, oldconfig,
+mrproper, zImage, bzImage, modules, modules_install, rpm-pkg, binrpm-pkg,
 module tools
+```
 
 #### Compile Kernel in Debian(as root user)
 
@@ -1704,6 +1710,7 @@ udevadm monitor
 
 #### 201.3 Cited Objects
 
+```sh
 module configuration files in /etc/
 /lib/modules/kernel-version/modules.dep
 /etc/sysctl.conf, /etc/sysctl.d/
@@ -1723,6 +1730,7 @@ module configuration files in /etc/
 udevmonitor
 udevadm monitor
 /etc/udev/
+```
 
 ## Topic 202: System Startup
 
@@ -1735,26 +1743,124 @@ Candidates should be able to query and modify the behaviour of system services a
 
 **Key Knowledge Areas:**
 
-Systemd
 SysV init
+Systemd
 Linux Standard Base Specification (LSB)
 
 #### 202.1 Important Commands
 
-**systemctl**
-**systemd-delta**
-**chkconfig**
+##### systemctl
+
+```sh
+
+```
+
+##### systemd-delta
+
+```sh
+
+```
+
+##### chkconfig
+
+```sh
+
+```
+
+#### About Sysv Init
+
+##### Undertand scripts used by  SysV-Init runlevels
+
+Folder of symbolic links: /etc/rc[RUN_LEVEL_NUMBER].d/\
+Folder of scripts: /etc/init.d/\
+S = Start process(Example: S16ssh)\
+K = Kill process(Example: K90rsyslog)\
+Number between[S,K][script]: Order of execution script
+
+![image](https://user-images.githubusercontent.com/62715900/177839456-bfe976ed-82e8-409e-b288-5a2121bf969a.png)
+
+##### [Sysv Init Run levels](https://likegeeks.com/linux-runlevels/)
+
+**Runlevel 0**
+Shuts down the system.
+![image](https://user-images.githubusercontent.com/62715900/177832946-4dfb2d85-9a43-4036-a67a-319571474aee.png)
+
+**Runlevel 1**
+Is a single-user mode, which is used for maintenance or administrative tasks.\
+You may also see this mode referred to as runlevel S (the S stands for single-user).
+![image](https://user-images.githubusercontent.com/62715900/177833047-b0860b8a-ad3a-4c9c-bf4f-269abc12ddef.png)
+
+**Runlevel 2**
+Is a multi-user mode.\
+This runlevel does not use any networking services.
+![image](https://user-images.githubusercontent.com/62715900/177833549-e2e80f97-d2af-459a-9d5a-9e3aaaded75d.png)
+
+**Runlevel 3**
+Is a multi-user mode with networking.\
+This is the normal runlevel you are used to if you use a system that doesn’t boot into a GUI (graphical user interface).
+![image](https://user-images.githubusercontent.com/62715900/177834089-886ef91c-d7f1-4edf-bf21-0aecf9903b98.png)
+
+**Runlevel 4**
+Is not used.\
+The user can customize this runlevel for their own purposes (which we will cover how to do later in the article).
+
+**Runlevel 5**
+Is the same as runlevel 3, but it also starts a display manager.\
+This is the runlevel you are using if you use a system that boots into a GUI.
+
+**Runlevel 6**
+Reboots the system.
+![image](https://user-images.githubusercontent.com/62715900/177834826-5d62c2f3-31b7-4216-905b-1424a67edc73.png)
+
+**Runlevel S**
+Equal a level 1.\
+The S stands for single-user
+![image](https://user-images.githubusercontent.com/62715900/177835583-fa036b9d-23f1-4a2c-8135-45d04df87581.png)
+
+##### Management runlevel scripts process
+
+Manually set the RunLevel to Start and Kill a service
+
+###### Example Generate defaults links
+
+```sh
+# Remove symbolic links before
+find  /etc/rc*.d/*collectd* | xargs rm
+update-rc.d collectd defaults
+```
+
+###### Example Disable script in runlevel 5 for processs collectd
+
+```sh
+# Remove symbolic links before
+find  /etc/rc*.d/*collectd* | xargs rm
+
+# Generate new symbolic links with new levels
+update-rc.d collectd start 10 2 3 4 . stop 90 0 1 5 6 .
+```
+
+###### Example Enable script in runlevel 5 for processs collectd
+
+```sh
+# Remove symbolic links before
+find  /etc/rc*.d/*collectd* | xargs rm
+
+# Generate new symbolic links with new levels
+update-rc.d collectd start 10 2 3 4 5 . stop 90 0 1 6 .
+```
 
 #### 202.1 Cited Objects
 
-/usr/lib/systemd/
-/etc/systemd/
-/run/systemd/
+```sh
 /etc/inittab
 /etc/init.d/
 /etc/rc.d/
+/usr/lib/systemd/
+/etc/systemd/
+/run/systemd/
 update-rc.d
 init and telinit
+```
 
 ### 202.2 System Recovery
 
@@ -1786,6 +1892,7 @@ Use systemd rescue and emergency modes.
 
 #### 202.2 Cited Objects
 
+```sh
 inittab, telinit and init with SysV init
 The contents of /boot/, /boot/grub/ and /boot/efi/
 EFI System Partition (ESP)
@@ -1794,6 +1901,7 @@ initrd, initramfs
 Master boot record
 systemctl
 UEFI shell
+```
 
 ### 202.3 Alternate Bootloaders
 
@@ -1810,6 +1918,7 @@ Awareness of systemd-boot and U-Boot
 
 #### 202.3 Cited Objects
 
+```sh
 syslinux
 extlinux
 isolinux.bin
@@ -1820,6 +1929,7 @@ pxelinux.0
 pxelinux.cfg/
 uefi/shim.efi
 uefi/grubx64.efi
+```
 
 ## Topic 203: Filesystem and Devices
 
@@ -1846,10 +1956,12 @@ swapoff
 
 #### 203.1 Cited Objects
 
+```sh
 /etc/fstab
 /etc/mtab
 /proc/mounts
 mount and umount
+```
 
 ### 203.2 Maintaining a Linux filesystem​
 
@@ -1867,6 +1979,7 @@ Awareness of ZFS
 
 #### 203.2 Cited Objects
 
+```sh
 mkfs (mkfs.*)
 mkswap
 fsck (fsck.*)
@@ -1874,6 +1987,7 @@ tune2fs, dumpe2fs and debugfs
 btrfs, btrfs-convert
 xfs_info, xfs_check, xfs_repair, xfsdump and xfsrestore
 smartd, smartctl
+```
 
 ### 203.3 Creating and configuring filesystem options
 
@@ -1893,10 +2007,12 @@ Basic feature knowledge of data encryption (dm-crypt / LUKS)
 
 #### 203.3 Cited Objects
 
+```sh
 /etc/auto.master
 /etc/auto.[dir]
 mkisofs
 cryptsetup
+```
 
 ## Topic 204: Advanced Storage Device Administration
 
@@ -1913,10 +2029,12 @@ Software raid configuration files and utilities
 
 #### 204.1 Cited Objects
 
+```sh
 mdadm.conf
 mdadm
 /proc/mdstat
 partition type 0xFD
+```
 
 #### 204.2 Adjusting Storage Device Access
 
@@ -1936,6 +2054,7 @@ Awareness of SAN, including relevant protocols (AoE, FCoE)
 
 #### 204.2 Cited Objects
 
+```sh
 hdparm, sdparm
 nvme
 tune2fs
@@ -1944,6 +2063,7 @@ sysctl
 /dev/hd*, /dev/sd*, /dev/nvme*
 iscsiadm, scsi_id, iscsid and iscsid.conf
 WWID, WWN, LUN numbers
+```
 
 ### 204.3 Logical Volume Manager
 
@@ -2008,6 +2128,7 @@ Utilities to monitor and analyze the TCP/IP traffic
 
 #### 205.2 Cited Objects
 
+```sh
 ip
 ifconfig
 route
@@ -2019,6 +2140,7 @@ ping, ping6
 nc
 tcpdump
 nmap
+```
 
 ### 205.3 Troubleshooting Network Issues
 
@@ -2040,6 +2162,7 @@ Awareness of NetworkManager and its impact on network configuration
 
 #### 205.3 Cited Objects
 
+```sh
 ip
 ifconfig
 route
@@ -2056,6 +2179,7 @@ dmesg
 /etc/hosts
 /etc/hostname, /etc/HOSTNAME
 /etc/hosts.allow, /etc/hosts.deny
+```
 
 ## Topic 206: System Maintenance
 
@@ -2075,6 +2199,7 @@ Know where sources are stored by default
 
 #### 206.1 Cited Objects
 
+```sh
 /usr/src/
 gunzip
 gzip
@@ -2086,6 +2211,7 @@ make
 uname
 install
 patch
+```
 
 ### 206.2 Backup operations
 
@@ -2105,12 +2231,14 @@ Partially or fully restore backups.
 
 #### 206.2 Cited Objects
 
+```sh
 /bin/sh
 dd
 tar
 /dev/st*and /dev/nst*
 mt
 rsync
+```
 
 #### 206.3 Notify users on system-related issues
 
