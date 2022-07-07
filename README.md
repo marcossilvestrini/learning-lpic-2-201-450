@@ -1808,25 +1808,29 @@ Number between[S,K][script]: Order of execution script
 
 ![image](https://user-images.githubusercontent.com/62715900/177839456-bfe976ed-82e8-409e-b288-5a2121bf969a.png)
 
-##### [Sysv Init Run levels](https://likegeeks.com/linux-runlevels/)
+##### [Sysv Init Run levels](https://likegeeks.com/linux-runlevels/)\
 
 **Runlevel 0**
 Shuts down the system.
+
 ![image](https://user-images.githubusercontent.com/62715900/177832946-4dfb2d85-9a43-4036-a67a-319571474aee.png)
 
 **Runlevel 1**
 Is a single-user mode, which is used for maintenance or administrative tasks.\
 You may also see this mode referred to as runlevel S (the S stands for single-user).
+
 ![image](https://user-images.githubusercontent.com/62715900/177833047-b0860b8a-ad3a-4c9c-bf4f-269abc12ddef.png)
 
 **Runlevel 2**
 Is a multi-user mode.\
 This runlevel does not use any networking services.
+
 ![image](https://user-images.githubusercontent.com/62715900/177833549-e2e80f97-d2af-459a-9d5a-9e3aaaded75d.png)
 
 **Runlevel 3**
 Is a multi-user mode with networking.\
 This is the normal runlevel you are used to if you use a system that doesn’t boot into a GUI (graphical user interface).
+
 ![image](https://user-images.githubusercontent.com/62715900/177834089-886ef91c-d7f1-4edf-bf21-0aecf9903b98.png)
 
 **Runlevel 4**
@@ -1839,11 +1843,13 @@ This is the runlevel you are using if you use a system that boots into a GUI.
 
 **Runlevel 6**
 Reboots the system.
+
 ![image](https://user-images.githubusercontent.com/62715900/177834826-5d62c2f3-31b7-4216-905b-1424a67edc73.png)
 
 **Runlevel S**
 Equal a level 1.\
 The S stands for single-user
+
 ![image](https://user-images.githubusercontent.com/62715900/177835583-fa036b9d-23f1-4a2c-8135-45d04df87581.png)
 
 ##### Management runlevel scripts process
