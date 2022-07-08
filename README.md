@@ -2024,10 +2024,9 @@ Use systemd rescue and emergency modes.
 
 ```
 
-##### Linux Bootup Sequence in MBR
+#### Linux Bootup Sequence in MBR
 
 ![image](https://user-images.githubusercontent.com/62715900/178044815-cbc0e4eb-5f12-4906-a0bc-38e71552f30c.png)
-
 
 ##### Stage-1 BIOS
 
@@ -2037,13 +2036,13 @@ The processor will execute the codes contained in BIOS [Basic Input and Output S
 
 MBR stands for Master Boot Record. It is located in the 1st sector of the bootable disk. Typically /dev/hda or /dev/sda, MBR is less than 512 bytes in size. This has three components:-
 
-1) primary boot loader info in 1st 446 bytes.
-2) partition table info in next 64 bytes.
-3) mbr validation check in last 2 bytes.
+1) primary boot loader info in 1st 446 bytes.\
+2) partition table info in next 64 bytes.\
+3) mbr validation check in last 2 bytes.\
 
 It contains information about GRUB (or LILO in old systems). So, in simple terms MBR loads and executes the GRUB boot loader. When a boot device is found (let’s assume that it’s a hard disk), the hardware is told to go to the 0th (first) sector (cylinder 0, head 0, sector 0), then load and execute the instructions there. This is the master boot record, or MBR . So, in simple terms BIOS loads and executes the MBR boot loader.
 
-###### Stage-3 Grub
+##### Stage-3 Grub
 
 LILO or GRUB allows the root user to set up the boot process as menu-driven or command-line, and permits the user to choose from amongst several boot options. It also allows for a default boot option after a configurable timeout, and current versions are designed to allow booting from broken Level 1  (mirrored) RAID arrays. It has the ability to create a highly configurable, “GUI-fied” boot menu, or a simple, text-only, command-line prompt.
 
@@ -2079,24 +2078,24 @@ Next, it initializes virtual devices related to the file system, such as LVM or 
 
 Looks at the /etc/inittab file to decide the Linux run level, Following are the available run levels
 
-0 – halt
-1 – Single user mode
-2 – Multiuser, without NFS
-3 – Full multiuser mode
-4 – unused
-5 – X11
+0 – halt\
+1 – Single user mode\
+2 – Multiuser, without NFS\
+3 – Full multiuser mode\
+4 – unused\
+5 – X11\
 6 – reboot
 
 Init identifies the default initlevel from /etc/inittab and uses that to load all appropriate program. Execute ‘grep initdefault /etc/inittab’ on your system to identify the default run level If you want to get into trouble, you can set the default run level to 0 or 6. Since you know what 0 and 6 means, probably you might not do that. Typically you would set the default run level to either 3 or 5.
 
 The first thing the kernel does after completing the boot process is to execute init program. The /sbin/init program (also called init) coordinates the rest of the boot process and configures the environment for the user. Init is the root/parent of all processes executing on Linux which becomes process number 1.
 
-The first few process Ids are given below:-
-1 – Init Process
-2 – kflushd(bdflush) : Started by update – does a more imperfect sync more frequently
-3 – kupdate : Does a sync every 30 seconds
-4 – kpiod
-5 – kswapd
+The first few process Ids are given below:\
+1 – Init Process\
+2 – kflushd(bdflush) : Started by update – does a more imperfect sync more frequently\
+3 – kupdate : Does a sync every 30 seconds\
+4 – kpiod\
+5 – kswapd\
 6 – mdrecoveryd
 
 Processes 2, 3, 4, 5 and 6 are kernel daemons. The kernel daemons are started after init, so they get process numbers like normal processes do. But their code and data lives in the kernel’s part of the memory.
@@ -2111,12 +2110,12 @@ Mdrecoveryd :- mdrecoveryd is part of the Multiple Devices package used for soft
 
 When the Linux system is booting up, you might see various services getting started. For example, it might say “starting sendmail …. OK”. Those are the runlevel programs, executed from the run level directory as defined by your run level. Depending on your default init level setting, the system will execute the programs from one of the following directories.
 
-Run level 0 – /etc/rc.d/rc0.d/
-Run level 1 – /etc/rc.d/rc1.d/
-Run level 2 – /etc/rc.d/rc2.d/
-Run level 3 – /etc/rc.d/rc3.d/
-Run level 4 – /etc/rc.d/rc4.d/
-Run level 5 – /etc/rc.d/rc5.d/
+Run level 0 – /etc/rc.d/rc0.d/\
+Run level 1 – /etc/rc.d/rc1.d/\
+Run level 2 – /etc/rc.d/rc2.d/\
+Run level 3 – /etc/rc.d/rc3.d/\
+Run level 4 – /etc/rc.d/rc4.d/\
+Run level 5 – /etc/rc.d/rc5.d/\
 Run level 6 – /etc/rc.d/rc6.d/
 
 ***Credit of this content about boot in MBR***
