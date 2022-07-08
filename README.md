@@ -2145,7 +2145,7 @@ Run level 6 – /etc/rc.d/rc6.d/
 /etc/default/grub.d
 ```
 
-##### Grub Disks references
+##### Grub Disks reference
 
 **Grub**                                                              **Grub Legacy**
 ![image](https://user-images.githubusercontent.com/62715900/178047620-f578aee7-168a-4542-9ea3-c2b310a94fd8.png)
