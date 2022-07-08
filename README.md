@@ -1767,13 +1767,68 @@ telinit 5
 ##### systemctl - Control the systemd system and service manager
 
 ```sh
+#Starts unit.
+systemctl start apache2.service
 
+#Stops unit.
+systemctl stop apache2.service
+
+#Restarts unit.
+systemctl restart apache2.service
+
+#Shows the state of unit, including if it is running or not.
+systemctl status apache2.service
+
+#Shows active if unit is running or inactive otherwise.
+systemctl is-active apache2.service
+
+#Enables unit, that is, unit will load during system initialization.
+systemctl enable apache2.service
+
+#unit will not start with the system.
+systemctl disable apache2.service
+
+#Verifies if unit starts with the system. The answer is stored in the variable $?.
+#The value 0 indicates that unit  starts with the system and the value 1 indicates
+#that unit does not starts with the system.
+systemctl is-enabled apache2.service
+
+#alter default runlevel \ default target
+systemctl set-default multi-user.target
+
+#determine what your system’s default boot target
+systemctl get-default
+
+#list all units available
+systemctl list-unit-files
+
+#list units available now
+systemctl list-units
+
+#list service units only
+systemctl list-unit-files --type service
+
+#shutdown system
+sudo systemctl poweroff
+
+#reboot system
+sudo systemctl reboot
 ```
 
 ##### systemd-delta - Find overridden configuration files
 
 ```sh
+# To see all local configuration:
+systemd-delta
 
+#To see all runtime configuration:
+systemd-delta /run
+
+#To see all system unit configuration changes:
+systemd-delta systemd/system
+
+#To see all runtime "drop-in" changes for system units:
+systemd-delta --type=extended /run/systemd/system
 ```
 
 ##### chkconfig
@@ -1889,6 +1944,18 @@ update-rc.d collectd start 10 2 3 4 5 . stop 90 0 1 6 .
 ##### Systemd units type
 
 ![image](https://user-images.githubusercontent.com/62715900/177888696-08d30465-7bde-4795-ba35-c6bad74afb92.png)
+
+##### Units of targets\runlevels
+
+![image](https://user-images.githubusercontent.com/62715900/177890240-e337ba59-19ae-4906-8b36-a93503fe3042.png)
+
+##### Systemd units files
+
+```sh
+/etc/systemd/system
+/lib/systemd/system
+/run/systemd/system
+```
 
 #### 202.1 Cited Objects
 
