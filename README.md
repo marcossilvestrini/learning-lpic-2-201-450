@@ -2034,11 +2034,11 @@ The processor will execute the codes contained in BIOS [Basic Input and Output S
 
 ##### Stage-2 MBR
 
-MBR stands for Master Boot Record. It is located in the 1st sector of the bootable disk. Typically /dev/hda or /dev/sda, MBR is less than 512 bytes in size. This has three components:-
+MBR stands for Master Boot Record. It is located in the 1st sector of the bootable disk. Typically /dev/hda or /dev/sda, MBR is less than 512 bytes in size. This has three components:
 
-1) primary boot loader info in 1st 446 bytes.\
-2) partition table info in next 64 bytes.\
-3) mbr validation check in last 2 bytes.\
+1) primary boot loader info in 1st 446 bytes.
+2) partition table info in next 64 bytes.
+3) mbr validation check in last 2 bytes.
 
 It contains information about GRUB (or LILO in old systems). So, in simple terms MBR loads and executes the GRUB boot loader. When a boot device is found (let’s assume that it’s a hard disk), the hardware is told to go to the 0th (first) sector (cylinder 0, head 0, sector 0), then load and execute the instructions there. This is the master boot record, or MBR . So, in simple terms BIOS loads and executes the MBR boot loader.
 
@@ -2118,8 +2118,29 @@ Run level 4 – /etc/rc.d/rc4.d/\
 Run level 5 – /etc/rc.d/rc5.d/\
 Run level 6 – /etc/rc.d/rc6.d/
 
-***Credit of this content about boot in MBR***
+***Credit of this content about boot in MBR***\
 <https://unixserveradmin.wordpress.com/2012/11/23/linux-bootup-sequence/>
+
+#### Grub \ Grub Legacy
+
+##### Important files
+
+```sh
+# config file grub legacy
+/boot/grub/menu.lst
+
+# grub
+/boot/grub/grub.cfg
+/etc/default/grub
+/etc/grub.d
+/etc/default/grub.d
+```
+
+##### Disks references
+
+**Grub**                                                              **Grub Legacy**
+
+![image](https://user-images.githubusercontent.com/62715900/178047620-f578aee7-168a-4542-9ea3-c2b310a94fd8.png)
 
 #### 202.2 Cited Objects
 
