@@ -12,7 +12,7 @@ sudo timedatectl set-timezone America/Sao_Paulo
 sudo cfdisk /dev/sdd
 sudo resize2fs -p -F /dev/sdd1
 
-# Permions:
+# Permissions:
 
 0 - nenhuma permissão (-)
 1 - permissão de execução (001,--x)
@@ -23,6 +23,10 @@ sudo resize2fs -p -F /dev/sdd1
 6 - permissão de leitura e escrita (110,rw-)
 7 - todas as permissões (111,rwx)
 
+# Enter in grub in VirtualBox machine
+Define  this lines in /etc/default/grub
+GRUB_TIMEOUT=30
+GRUB_CMDLINE_LINUX=""
 -------------------------------WINDÃO--------------------------------
 
 -----------------------------------------

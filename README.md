@@ -2024,6 +2024,15 @@ Use systemd rescue and emergency modes.
 
 ```
 
+##### update-grub, update-grub2 - stub for grub-mkconfig
+
+```sh
+# update configs of grub in file /boot/grub/grub.cfg
+update-grub
+grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+
 #### Linux Bootup Sequence in MBR
 
 ![image](https://user-images.githubusercontent.com/62715900/178044815-cbc0e4eb-5f12-4906-a0bc-38e71552f30c.png)
@@ -2136,11 +2145,20 @@ Run level 6 – /etc/rc.d/rc6.d/
 /etc/default/grub.d
 ```
 
-##### Disks references
+##### Grub Disks references
 
 **Grub**                                                              **Grub Legacy**
-
 ![image](https://user-images.githubusercontent.com/62715900/178047620-f578aee7-168a-4542-9ea3-c2b310a94fd8.png)
+
+##### Grub Commands
+
+**Grub**                                                              **Grub Legacy**
+![image](https://user-images.githubusercontent.com/62715900/178050396-fa7e2183-9db3-4818-ace7-a90baa42d422.png)
+
+##### Grub Parameters
+
+**Grub**                                                              **Grub Legacy**
+![image](https://user-images.githubusercontent.com/62715900/178050716-b2634b71-45a1-469e-9704-a0bb07ff7819.png)
 
 #### 202.2 Cited Objects
 
