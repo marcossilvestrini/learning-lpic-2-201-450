@@ -24,6 +24,7 @@ swapon /swapfile
 # Install packages
 apt install -y ntfs-3g
 apt install -y usbutils
+apt install -y efibootmgr
 apt install -y procinfo
 apt install -y rsync
 apt install -y lshw
