@@ -2003,8 +2003,11 @@ Use systemd rescue and emergency modes.
 ##### mount - mount a filesystem
 
 ```sh
-# remount partition with rw(in cases of partition state is ro)
+# remount partition with rw
 mount -o remount,rw /
+
+# remount partition with ro
+mount -o remount,ro /
 ```
 
 ##### fsck - check and repair a Linux filesystem
@@ -2023,7 +2026,8 @@ fsck /dev/sda3
 ##### efibootmgr - manipulate the UEFI Boot Manager
 
 ```sh
-
+#list uefi infos
+efibootmgr
 ```
 
 ##### update-grub, update-grub2 - stub for grub-mkconfig
@@ -2033,7 +2037,6 @@ fsck /dev/sda3
 update-grub
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
-
 
 #### Linux Bootup Sequence in MBR
 
@@ -2132,6 +2135,19 @@ Run level 6 – /etc/rc.d/rc6.d/
 ***Credit of this content about boot in MBR***\
 <https://unixserveradmin.wordpress.com/2012/11/23/linux-bootup-sequence/>
 
+#### About UEFI
+
+```sh
+#Partition table
+GPT
+
+#filesystem type
+vfat
+
+#mount point of ESP
+/boot/efi
+```
+
 #### Grub \ Grub Legacy
 
 ##### Important files
@@ -2161,6 +2177,38 @@ Run level 6 – /etc/rc.d/rc6.d/
 
 **Grub**                                                              **Grub Legacy**
 ![image](https://user-images.githubusercontent.com/62715900/178050716-b2634b71-45a1-469e-9704-a0bb07ff7819.png)
+
+##### Edit Grub menu for enter in single mode
+
+![grub-runlevel-1](https://user-images.githubusercontent.com/62715900/178344839-2e186e19-8fcc-4b3b-81bc-edff1e110ba9.gif)
+
+##### Edit Grub menu for boot in read only
+
+![grub-rescue](https://user-images.githubusercontent.com/62715900/178345692-77bbdf5b-b728-422a-8614-be7fe7f45a83.gif)
+
+##### Grub Shell - Execute boot manual
+
+```sh
+#find disks
+ls
+
+#find kernel images
+ls (hd0,msdos1)/
+
+#set root
+set root=(hd0,msdos1)
+
+#set kernel
+linux /vmlinuz-VERSION root=/dev/DISK
+
+#set initramfs\initrd
+initrd /initrd.img-VERSION
+
+#boot
+boot
+```
+
+![grub-boot](https://user-images.githubusercontent.com/62715900/178354936-1d57f645-7d7c-48ad-900f-e141ffbfd0fe.gif)
 
 #### 202.2 Cited Objects
 

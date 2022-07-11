@@ -25,8 +25,9 @@ sudo resize2fs -p -F /dev/sdd1
 
 # Enter in grub in VirtualBox machine
 Define  this lines in /etc/default/grub
-GRUB_TIMEOUT=30
+GRUB_TIMEOUT=10
 GRUB_CMDLINE_LINUX=""
+GRUB_TERMINAL_OUTPUT="console"
 -------------------------------WINDÃO--------------------------------
 
 -----------------------------------------
