@@ -2003,13 +2003,15 @@ Use systemd rescue and emergency modes.
 ##### mount - mount a filesystem
 
 ```sh
-
+# remount partition with rw(in cases of partition state is ro)
+mount -o remount,rw /
 ```
 
 ##### fsck - check and repair a Linux filesystem
 
 ```sh
-
+# check partition
+fsck /dev/sda3
 ```
 
 ##### grub-install - install GRUB to a device

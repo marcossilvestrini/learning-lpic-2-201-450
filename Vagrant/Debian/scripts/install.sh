@@ -22,29 +22,30 @@ mkswap /swapfile
 swapon /swapfile
 
 # Install packages
-apt install -y ntfs-3g
-apt install -y usbutils
-apt install -y efibootmgr
-apt install -y procinfo
-apt install -y rsync
-apt install -y lshw
-apt install -y sshpass
-apt install -y vim
-apt install -y tree
-apt install -y python3-pip
-apt install python3-venv
-apt install -y net-tools
-apt install -y stress
-apt install -y network-manager
-apt install -y iputils-tracepath
-apt install -y psmisc
-apt install -y nmap
-apt install -y at
-apt install -y sysstat
-apt install -y iptraf
-apt install -y iotop
-apt install -y htop
-apt install -y collectd
+apt-get update -y
+apt-get install -y ntfs-3g
+apt-get install -y usbutils
+apt-get install -y efibootmgr
+apt-get install -y procinfo
+apt-get install -y rsync
+apt-get install -y lshw
+apt-get install -y sshpass
+apt-get install -y vim
+apt-get install -y tree
+apt-get install -y python3-pip
+apt-get install python3-venv
+apt-get install -y net-tools
+apt-get install -y stress
+apt-get install -y network-manager
+apt-get install -y iputils-tracepath
+apt-get install -y psmisc
+apt-get install -y nmap
+apt-get install -y at
+apt-get install -y sysstat
+apt-get install -y iptraf
+apt-get install -y iotop
+apt-get install -y htop
+apt-get install -y collectd
 
 # Set ssh
 cp -f configs/01-sshd-custom.conf /etc/ssh/sshd_config.d
@@ -61,12 +62,12 @@ echo vagrant | $(su -c "scp .gnupg/vagrant.pub.key vagrant@192.168.0.135:/home/v
 echo vagrant | $(su -c "ssh vagrant@192.168.0.135 gpg --import .gnupg/vagrant.pub.key" -s /bin/bash vagrant)
 
 #Install X11 Server
-apt install xserver-xorg -y
+apt-get install xserver-xorg -y
 Xorg -configure
 mv /root/xorg.conf.new /etc/X11/xorg.conf
 
 #set prefered DNS servers
-apt install -y resolvconf
+apt-get install -y resolvconf
 systemctl enable resolvconf.service
 systemctl start resolvconf.service
 cp -f configs/head /etc/resolvconf/resolv.conf.d/
