@@ -1,8 +1,9 @@
 #Stop vagrant process
 Get-Process -Name *vagrant* | Stop-Process -Force
+Get-Process -Name *ruby* | Stop-Process -Force
 
-#Stop Virtualbox cli process
-Get-Process -Name *VBoxHeadless* | Stop-Process -Force
+# #Stop Virtualbox cli process
+# Get-Process -Name *VBoxHeadless* | Stop-Process -Force
 
 #Vagrant Boxes
 $debian = "F:\CERTIFICACAO\lpic-2-201-450\Vagrant\Debian"
