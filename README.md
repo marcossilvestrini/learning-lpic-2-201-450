@@ -2212,26 +2212,51 @@ boot
 
 #### Recovery System Examples
 
-##### Recovery corrupted kernel images
+##### Recovery corrupted kernel images with live CD
 
 In this example, we are going to corrupt the kernel image and recover it with a live cd.
 
 ```sh
 # Backup of image
-cp /boot/
+cp /boot/vmlinuz-5.18.9-1.0.0-silvestrini /home/vagrant
 
 # Corrupting the kernel image
-tail -n 10000
+tail -n 10000 /boot/vmlinuz-5.18.9-1.0.0-silvestrini > tmp
+cp tmp  /boot/vmlinuz-5.18.9-1.0.0-silvestrini
 
 # Boot for validate crash
 reboot
 
 # Rescue kernel image with debian live cd
+# Set your system to boot in live cd before this tasks
+
+# discovery disks
+fdisk -l
+
+# mount / for recovery
+mkdir /mnt/recovery
+mount /dev/sda1 /mnt/recovery
+
+# recovery backup of kernel image
+cp /mnt/recovery/home/vagrant/vmlinuz-5.18.9-1.0.0-silvestrini /mnt/recovery/boot/vmlinuz-5.18.9-1.0.0-silvestrini
 
 # Boot for validate rescue
+reboot
 
 # Cheers!!!
 ```
+
+![recovery-livecd](https://user-images.githubusercontent.com/62715900/178594081-6527eb26-bb60-4455-ad8a-da1fba79b6ce.gif)
+
+##### Recovery corrupted partiotions
+
+In this example, we are going to corrupt the fstab
+
+```sh
+# list mounts
+mount
+```
+
 
 #### 202.2 Cited Objects
 
