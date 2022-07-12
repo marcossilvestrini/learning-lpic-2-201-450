@@ -2186,7 +2186,7 @@ vfat
 
 ![grub-rescue](https://user-images.githubusercontent.com/62715900/178345692-77bbdf5b-b728-422a-8614-be7fe7f45a83.gif)
 
-##### Grub Shell - Execute boot manual
+##### Grub Shell - Execute manual boot
 
 ```sh
 #find disks
@@ -2199,7 +2199,7 @@ ls (hd0,msdos1)/
 set root=(hd0,msdos1)
 
 #set kernel
-linux /vmlinuz-VERSION root=/dev/DISK
+linux /vmlinuz-VERSION root=/dev/DISK_OR_LVM
 
 #set initramfs\initrd
 initrd /initrd.img-VERSION
@@ -2209,6 +2209,29 @@ boot
 ```
 
 ![grub-boot](https://user-images.githubusercontent.com/62715900/178354936-1d57f645-7d7c-48ad-900f-e141ffbfd0fe.gif)
+
+#### Recovery System Examples
+
+##### Recovery corrupted kernel images
+
+In this example, we are going to corrupt the kernel image and recover it with a live cd.
+
+```sh
+# Backup of image
+cp /boot/
+
+# Corrupting the kernel image
+tail -n 10000
+
+# Boot for validate crash
+reboot
+
+# Rescue kernel image with debian live cd
+
+# Boot for validate rescue
+
+# Cheers!!!
+```
 
 #### 202.2 Cited Objects
 
