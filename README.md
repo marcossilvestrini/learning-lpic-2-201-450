@@ -2248,15 +2248,31 @@ reboot
 
 ![recovery-livecd](https://user-images.githubusercontent.com/62715900/178594081-6527eb26-bb60-4455-ad8a-da1fba79b6ce.gif)
 
-##### Recovery corrupted partiotions
+##### Recovery corrupted partitions
 
-In this example, we are going to corrupt the fstab
+In this example, we are going to corrupt the fstab for crash / and /home partitions
 
 ```sh
-# list mounts
-mount
-```
+#list mount partitions
+df | grep sda[1-5]
 
+# edit fstab for cause crash (/ and /home partitions)
+vim /etc/fstab #(add some value in UUID of partitions for crash)
+
+# reboot system
+reboot
+
+# check mount partitions
+df | grep sda[1-5]
+
+# fix fstab (/ and /home partitions)
+mount -o remount,rw /dev/sda3 /
+vim /etc/fstab #(delete invalid value in UUID of partitions for fix)
+reboot
+
+# check mount partitions
+df | grep sda[1-5]
+```
 
 #### 202.2 Cited Objects
 
