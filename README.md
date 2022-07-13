@@ -2274,6 +2274,8 @@ reboot
 df | grep sda[1-5]
 ```
 
+![recovery-partitions](https://user-images.githubusercontent.com/62715900/178828072-30618985-980e-4412-8c5f-7a9c25c77ef2.gif)
+
 #### 202.2 Cited Objects
 
 ```sh
