@@ -2210,7 +2210,7 @@ boot
 
 ![grub-boot](https://user-images.githubusercontent.com/62715900/178354936-1d57f645-7d7c-48ad-900f-e141ffbfd0fe.gif)
 
-#### Recovery System Examples
+#### [Recovery System Examples](https://help.ubuntu.com/community/Grub2/Installing)
 
 ##### Recovery corrupted kernel images with live CD
 
@@ -2275,6 +2275,57 @@ df | grep sda[1-5]
 ```
 
 ![recovery-partitions](https://user-images.githubusercontent.com/62715900/178828072-30618985-980e-4412-8c5f-7a9c25c77ef2.gif)
+
+##### Recovery corrupted MBR partition
+
+***warnning: Not execute this tutorial in production environment!!!***
+
+```sh
+#1 - Causing the problem
+
+#list partiotions
+fdisk -l
+
+#delete mbr bytes
+dd if=/dev/zero of=/dev/sda bs=512 count=1
+
+#reboot system
+reboot
+
+#2 - Recovery MBR partition
+
+#boot system with live cd
+
+#list partiotions
+fdisk -l
+
+#install testdisk
+apt-get install -y testdisk
+
+#use testdisk for recovery\write MRB partition table
+
+#3 - Recovery grub
+
+#boot system with live cd
+
+#mount /boot (X=disk,Y=partition of /boot)
+mount /dev/sdXY /mnt
+
+#recovery grub in partition /boot
+grub-install --root-directory=/mnt/boot /dev/sdXY
+
+#reboot system
+reboot
+
+#4 - Reinstall grub
+grub-install /dev/sdXY
+update-grub
+reboot
+
+#Cheers!!!
+```
+
+![recovery-mbr-partition](https://user-images.githubusercontent.com/62715900/179061532-a2f298e3-f8d1-440a-b582-04301753109a.gif)
 
 #### 202.2 Cited Objects
 
