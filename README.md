@@ -2327,6 +2327,12 @@ reboot
 
 ![recovery-mbr-partition](https://user-images.githubusercontent.com/62715900/179061532-a2f298e3-f8d1-440a-b582-04301753109a.gif)
 
+#### About NVMe
+
+Mount point
+
+![image](https://user-images.githubusercontent.com/62715900/179075113-544751c0-d46d-4552-b369-a22fd230f2d7.png)
+
 #### 202.2 Cited Objects
 
 ```sh
