@@ -618,7 +618,7 @@ http://YOUR_IP_OR_HOSTNAME/icingaweb2/setup
 
 #### [Nagios](<https://computingforgeeks.com/install-and-configure-nagios-on-debian-10-buster/>)
 
-##### Install nagio core in debias
+##### Install nagio core in debian
 
 ###### Step 1: Update your System
 
