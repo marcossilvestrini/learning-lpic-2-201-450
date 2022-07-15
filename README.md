@@ -34,40 +34,30 @@ Installation and configuration of some packages will also be covered\
 - [GNU/Linux FAQ by Richard Stallman](https://www.gnu.org/gnu/gnu-linux-faq.html)
 - [GNU](https://www.gnu.org/)
 - [GNU Operating System](https://www.gnu.org/gnu/thegnuproject.html)
-- [GNU Packages](https://www.gnu.org/software/)
-- [Collection GNU/Linux](https://directory.fsf.org/wiki/Collection:GNU/Linux)
-- [Hurd](https://www.gnu.org/software/hurd/hurd/what_is_the_gnu_hurd.html)
 - [GCC Compiler](https://gcc.gnu.org/wiki/History)
 - [GNU Tar](https://www.gnu.org/software/tar/)
 - [GNU Make](https://www.gnu.org/software/make/)
 - [GNU Emacs](https://en.wikipedia.org/wiki/Emacs)
+- [GNU Packages](https://www.gnu.org/software/)
+- [GNU/Linux Collection](https://directory.fsf.org/wiki/Collection:GNU/Linux)
+- [GNU Grub Bootloader](https://www.gnu.org/software/grub/)
+- [GNU Hurd](https://www.gnu.org/software/hurd/hurd/what_is_the_gnu_hurd.html)
 - [Kernel](https://www.kernel.org/)
-- [List Linux Distribution](https://en.wikipedia.org/wiki/List_of_Linux_distributions)
-- [Distro Watch](https://distrowatch.com/)
-- [Comparison Linux Distributions](https://en.wikipedia.org/wiki/Comparison_of_Linux_distributions)
+- [Linux Kernel Man Pages](https://www.kernel.org/doc/man-pages/)
 - [Linux Standard Base](https://en.wikipedia.org/wiki/Linux_Standard_Base)
-- [Linux Man Pages](https://www.kernel.org/doc/man-pages/)
 - [Filesystem Hierarchy Standard](https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard)
 - [File Hierarchy Structure](https://refspecs.linuxfoundation.org/FHS_3.0/fhs-3.0.pdf)
-- [FSF](https://www.fsf.org/campaigns/)
-- [Debian Free Software Guidelines](https://www.debian.org/social_contract#guidelines)
+- [FSF](https://www.fsf.org)
 - [Free Software Directory](https://directory.fsf.org/wiki/Free_Software_Directory:Free_software_replacements)
 - [Free Software](https://www.gnu.org/philosophy/free-sw.html)
 - [Copyleft](https://www.gnu.org/licenses/copyleft.en.html)
 - [GPL](https://www.gnu.org/licenses/quick-guide-gplv3.html)
+- [GNU Lesser General Public License](https://www.gnu.org/licenses/lgpl-3.0.html)
 - [BSD](https://opensource.org/licenses/BSD-3-Clause)
 - [Open Source Initiative](https://opensource.org/)
 - [Creative Commons](https://creativecommons.org/)
-- [GNU Lesser General Public License](https://www.gnu.org/licenses/lgpl-3.0.html)
 - [License LTS](https://en.wikipedia.org/wiki/Long-term_support)
-- [Bourne Again Shell](https://www.gnu.org/software/bash/manual/)
-- [Shebang](https://bash.cyberciti.biz/guide/Shebang)
-- [Environment Variables](https://linuxize.com/post/how-to-set-and-list-environment-variables-in-linux/)
-- [GNU Globbing](https://man7.org/linux/man-pages/man7/glob.7.html)
-- [Globbing](https://linuxhint.com/bash_globbing_tutorial/)
-- [Quoting](https://www.gnu.org/software/bash/manual/html_node/Quoting.html)
-- [Regular Expressions](https://www.gnu.org/software/grep/manual/html_node/Regular-Expressions.html)
-- [NTP](https://www.ntppool.org/en/)
+- [Debian Free Software Guidelines](https://www.debian.org/social_contract#guidelines)
 - [X11 Org](https://www.x.org/wiki/)
 - [Wayland](https://wayland.freedesktop.org/)
 - [GNU GNOME](https://www.gnu.org/press/gnome-1.0.html)
@@ -76,6 +66,17 @@ Installation and configuration of some packages will also be covered\
 - [KDE Plasma](https://kde.org/plasma-desktop/)
 - [Harmony](https://en.wikipedia.org/wiki/Harmony_(toolkit))
 - [xRDP](https://bytexd.com/xrdp-centos/)
+- [NTP](https://www.ntppool.org/en/)
+- [Bourne Again Shell](https://www.gnu.org/software/bash/manual/)
+- [Shebang](https://bash.cyberciti.biz/guide/Shebang)
+- [Environment Variables](https://linuxize.com/post/how-to-set-and-list-environment-variables-in-linux/)
+- [GNU Globbing](https://man7.org/linux/man-pages/man7/glob.7.html)
+- [Globbing](https://linuxhint.com/bash_globbing_tutorial/)
+- [Quoting](https://www.gnu.org/software/bash/manual/html_node/Quoting.html)
+- [Regular Expressions](https://www.gnu.org/software/grep/manual/html_node/Regular-Expressions.html)
+- [List Linux Distribution](https://en.wikipedia.org/wiki/List_of_Linux_distributions)
+- [Distro Watch](https://distrowatch.com/)
+- [Comparison Linux Distributions](https://en.wikipedia.org/wiki/Comparison_of_Linux_distributions)
 - [Download Packages](https://pkgs.org/)
 - [Bugzila](https://bugzilla.kernel.org/)
 - [Command Not Found](https://command-not-found.com/)
@@ -1960,8 +1961,8 @@ update-rc.d collectd start 10 2 3 4 5 . stop 90 0 1 6 .
 
 ```sh
 /etc/systemd/system
-/lib/systemd/system
 /run/systemd/system
+/lib/systemd/system
 ```
 
 #### 202.1 Cited Objects
@@ -2000,16 +2001,6 @@ Use systemd rescue and emergency modes.
 
 #### 202.2 Important Commands
 
-##### mount - mount a filesystem
-
-```sh
-# remount partition with rw
-mount -o remount,rw /
-
-# remount partition with ro
-mount -o remount,ro /
-```
-
 ##### fsck - check and repair a Linux filesystem
 
 ```sh
@@ -2020,7 +2011,11 @@ fsck /dev/sda3
 ##### grub-install - install GRUB to a device
 
 ```sh
+#install grub
+grub-install /dev/sda
 
+#install grub in mount partition(rescue)
+grub-install --root-directory=/mnt /dev/sda
 ```
 
 ##### efibootmgr - manipulate the UEFI Boot Manager
@@ -2359,6 +2354,61 @@ SYSLINUX, ISOLINUX, PXELINUX
 Understanding of PXE for both BIOS and UEFI
 Awareness of systemd-boot and U-Boot
 
+#### Syslinux
+
+SYSLINUX is a boot loader for the Linux operating system which runs on an MS-DOS/Windows FAT filesystem.\
+Used in recovery flash drives
+
+#### Isolinux
+
+ISOLINUX is a boot loader for Linux/i386 that operates off ISO 9660/El Torito CD-ROMs in "no emulation" mode.\
+Used in creating live cd\dvd
+
+folder: /boot/isolinux\
+config: isolinux.cfg\
+file bootloader: isolinux.bin
+
+#### Extlinux
+
+Used in native linux filesystems(ext*,brtfs,xfs)
+
+folder: /boot/extlinux or /cdrom/isolinux
+config: extlinux.cnf
+
+#### PXELinux
+
+PXELINUX is a Syslinux derivative, for booting from a network server using a network\
+ROM conforming to the Intel PXE (Pre-Execution Environment) specification
+
+tftp folders:
+/tftpboot/pxelinux.0
+/tftpboot/pxelinux.cfg
+
+#### systemd-boot
+
+systemd-boot, previously called gummiboot (German for: "rubber dinghy"),\
+is a simple UEFI boot manager which executes configured EFI images.
+
+command: bootctl
+
+#### Das U-Boot - Universal Boot Loader
+
+U-Boot is both a first-stage and second-stage bootloader.\
+It is loaded by the system's ROM (e.g. onchip ROM of the ARM CPU) from a supported boot device,\
+such as an SD card, SATA drive, NOR or NAND flash.
+
+Used in embedded systems
+
+#### UEFI secure boot
+
+Secure Boot is a UEFI firmware security feature developed by the UEFI Consortium\
+that ensures only immutable and signed software are loaded during the boot time.\
+Secure Boot leverages digital signatures to validate the authenticity, source, and integrity of the code that is loaded
+
+files:
+uefi/shim.efi
+uefi/grubx64.efi
+
 #### 202.3 Cited Objects
 
 ```sh
@@ -2392,10 +2442,51 @@ Understanding of systemd mount units
 
 #### 203.1 Importat Commands
 
-blkid
-sync
-swapon
-swapoff
+##### mount - mount a filesystem
+
+```sh
+# mount all partitions with auto in /etc/fstab
+mount -a
+
+# remount partition with rw
+mount -o remount,rw /
+mount -o remount,rw /dev/sda1 /
+
+# remount partition with ro
+mount -o remount,ro /
+mount -o remount,ro /dev/sda1 /
+```
+
+##### umount - unmount filesystems
+
+```sh
+#umount partition
+umount /mnt/test
+```
+
+##### blkid - locate/print block device attributes
+
+```sh
+
+```
+
+##### sync
+
+```sh
+
+```
+
+##### swapon
+
+```sh
+
+```
+
+##### swapoff
+
+```sh
+
+```
 
 #### 203.1 Cited Objects
 
