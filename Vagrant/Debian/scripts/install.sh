@@ -23,7 +23,9 @@ swapon /swapfile
 
 # Install packages
 apt-get update -y
+apt-get install -y dosfstools
 apt-get install -y ntfs-3g
+apt-get install -y xfsprogs
 apt-get install -y usbutils
 apt-get install -y efibootmgr
 apt-get install -y procinfo

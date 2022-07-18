@@ -12,6 +12,7 @@ end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "generic/fedora28"
+  config.vm.box_download_insecure=true
 
   # VM srv01
   config.vm.define "fedora-lpic-201"  do |fedora_lic_102|

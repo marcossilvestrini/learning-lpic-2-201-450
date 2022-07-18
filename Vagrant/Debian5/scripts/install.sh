@@ -16,20 +16,12 @@ cp -f configs/.vimrc .
 rm .bashrc
 cp -f configs/.bashrc .
 
-# Set Swap memory
-fallocate -l 4G /swapfile
-chmod 600 /swapfile
-mkswap /swapfile
-swapon /swapfile
-
 # Install packages
-apt install -y bzip2
-apt install -y sshpass
-apt install -y vim
-apt install -y tree
+apt-get install -y bzip2
+apt-get install -y sshpass
+apt-get install -y vim
+apt-get install -y tree
 
 # Set ssh
 cat security/id_ecdsa.pub >>.ssh/authorized_keys
 echo vagrant | $(su -c "ssh-keygen -q -t ecdsa -b 521 -N '' -f .ssh/id_ecdsa <<<y >/dev/null 2>&1" -s /bin/bash vagrant)
-echo vagrant | $(su -c "ssh-keyscan 192.168.0.135 >>.ssh/known_hosts" -s /bin/bash vagrant)
-echo vagrant | $(su -c "sshpass -p "vagrant" ssh-copy-id -i /home/vagrant/.ssh/id_ecdsa.pub vagrant@192.168.0.135 >/dev/null 2>&1" -s /bin/bash vagrant)

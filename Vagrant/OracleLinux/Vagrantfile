@@ -34,6 +34,7 @@ end
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = BOX_NAME
   config.vm.box_url = "#{BOX_URL}/#{BOX_NAME}.json"
+  config.vm.box_download_insecure=true
 
   # No update VBguest
   config.vbguest.auto_update = false

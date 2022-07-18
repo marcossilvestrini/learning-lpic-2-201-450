@@ -12,6 +12,7 @@ end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "gusztavvargadr/ubuntu-desktop"
+  config.vm.box_download_insecure=true
 
   # VM ubuntu-desktop
   config.vm.define "ubuntuDesktop-lpic-201"  do |ubuntuDesktop_lpic_102|

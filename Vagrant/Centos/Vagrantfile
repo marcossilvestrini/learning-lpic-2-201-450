@@ -12,6 +12,7 @@ end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "generic/centos8"
+  config.vm.box_download_insecure=true
 
   # VM srv01
   config.vm.define "centos-lpic-201"  do |centos_lpic_102|

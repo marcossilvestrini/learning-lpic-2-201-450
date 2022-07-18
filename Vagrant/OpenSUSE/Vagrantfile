@@ -12,6 +12,7 @@ end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "generic/opensuse42"
+  config.vm.box_download_insecure=true
 
   # VM OpenSUSE
   config.vm.define "openSUSE_lpic_102_500"  do |openSUSE_lpic_102_500|

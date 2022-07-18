@@ -2488,6 +2488,157 @@ umount /mnt/test
 
 ```
 
+#### About /etc/fstab
+
+The file /etc/fstab contains descriptions about the filesystems that can be mounted.\
+This is a text file, where each line describes a filesystem to be mounted, with six fields per line in the following order:
+
+```sh
+FILESYSTEM MOUNTPOINT TYPE OPTIONS DUMP PASS
+```
+
+Where:
+
+>FILESYSTEM\
+The device containing the filesystem to be mounted. Instead of the device, you can specify the UUID or label of the partition
+
+>MOUNTPOINT\
+Where the filesystem will be mounted.
+
+>TYPE\
+The filesystem type.
+
+>OPTIONS\
+Mount options that will be passed to mount.
+
+>DUMP\
+Indicates whether any ext2, ext3 or ext4 filesystems should be considered for backup by the dump command.\
+Usually it is zero, meaning they should be ignored.
+
+>PASS\
+When non-zero, defines the order in which the filesystems will be checked on bootup. Usually it is zero.
+0=no check in boot
+1=check / in boot
+2= check others partitions in boot
+
+The mount options on OPTIONS are a comma-separated list of parameters, which can be generic or filesystem specific.\
+Among the generic ones we have:
+
+>atime and noatime\
+By default, every time a file is read the access time information is updated. Disabling this (with noatime) can speed up disk I/O.\
+Do not confuse this with the modification time, which is updated every time a file is written to.
+
+>auto and noauto\
+Whether the filesystem can (or can not) be mounted automatically with mount -a.
+
+>defaults\
+This will pass the options rw, suid, dev, exec, auto, nouser and async to mount.
+
+>dev and nodev\
+Whether character or block devices in the mounted filesystem should be interpreted.
+
+>exec and noexec\
+Allow or deny permission to execute binaries on the filesystem.
+
+>user and nouser\
+Allows (or not) an ordinary user to mount the filesystem.
+
+>group\
+Allows a user to mount the filesystem if the user belongs to the same group which owns the device containing it.
+
+>owner\
+Allows a user to mount a filesystem if the user owns the device containing it.
+
+>suid and nosuid\
+Allow, or not, SETUID and SETGID bits to take effect.
+
+>ro and rw\
+Mount a filesystem as read-only or writable.
+
+>remount\
+This will attempt to remount an already mounted filesystem. This is not used on /etc/fstab, but as a parameter to mount -o. For example, to remount the already mounted partition /dev/sdb1 as read-only, you could use the command mount -o remount,ro /dev/sdb1. When remounting, you do not need to specify the filesystem type, only the device name or the mount point.
+
+>sync and async\
+Whether to do all I/O operations to the filesystem synchronously or asynchronously. async is usually the default. The manual page for mount warns that using sync on media with a limited number of write cycles (like flash drives or memory cards) may shorten the life span of the device.
+
+#### Examples Mount filesystem with /etc/fstab
+
+##### Mount ext4
+
+```sh
+# list actual mount partitions
+lsblk --fs
+
+# create partition size 500M
+fsdisk /dev/sda
+n
+p
+1
+2048
++500M
+
+# build a Linux filesystem ext4 with label FS_EXT4
+mkfs.ext4 -L "FS_EXT4" /dev/sda1
+
+# create mount point
+mkdir /mnt/fs_ext4
+
+#edit /etc/fstab with mount options
+# <file sys> <mount point> <type> <options> <dump> <pass>
+/dev/sda1       /mnt/fs_ext        ext4        defaults        0        2
+
+# mount filesystem
+mount -a
+```
+
+![mount-ext4](https://user-images.githubusercontent.com/62715900/179579001-275ba80c-6091-4ea5-af7c-778da698bd96.gif)
+
+##### Mount filesystem with another users(but not umount!!!)
+
+```sh
+# edit /etc/fstab with mount options
+# <file sys> <mount point> <type> <options> <dump> <pass>
+/dev/sda1       /mnt/fs_ext4        ext4        defaults,user        0        2
+
+# mount filesystem
+mount /mnt/fs_ext4
+```
+
+![mount-ext4-user](https://user-images.githubusercontent.com/62715900/179601278-c7e2c121-9f4b-4f70-885f-370113a96d0e.gif)
+
+##### Mount filesystem by owner partition
+
+```sh
+# set owner for vagrant
+chown vagrant /dev/sda1
+ls -l /dev/sda1
+
+# edit /etc/fstab with mount options
+# <file sys> <mount point> <type> <options> <dump> <pass>
+/dev/sda1       /mnt/fs_ext4        ext4        defaults,owner        0        2
+
+# mount filesystem
+mount /mnt/fs_ext4
+```
+
+![mount-ext4-owner](https://user-images.githubusercontent.com/62715900/179605728-723871d5-489e-44cc-99ef-c542139f1590.gif)
+
+##### Mount filesystem\partition by uid(suported by some filesystem)
+
+```sh
+# list actual mount partitions
+lsblk --fs
+
+# edit /etc/fstab with mount options
+# <file sys> <mount point> <type> <options> <dump> <pass>
+/dev/sda1       /mnt/fs_ext4        ext4        defaults,uid=silvestrini        0        2
+
+# mount filesystem
+mount /mnt/fs_ext4
+```
+
+![mount-ext4-uid](https://user-images.githubusercontent.com/62715900/179612582-3779d249-8065-4339-8db4-6209cb526249.gif)
+
 #### 203.1 Cited Objects
 
 ```sh
