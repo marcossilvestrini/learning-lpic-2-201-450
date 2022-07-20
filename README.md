@@ -2647,7 +2647,7 @@ mount -a
 
 ![mount-ext4](https://user-images.githubusercontent.com/62715900/179579001-275ba80c-6091-4ea5-af7c-778da698bd96.gif)
 
-##### Mount filesystem with another users(but not umount!!!)
+##### Mount filesystem with no root user
 
 ```sh
 # edit /etc/fstab with mount options
