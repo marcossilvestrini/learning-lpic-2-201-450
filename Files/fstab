@@ -10,3 +10,9 @@ home_vagrant_security /home/vagrant/security vboxsf uid=1000,gid=1000,_netdev 0 
 home_vagrant_configs /home/vagrant/configs vboxsf uid=1000,gid=1000,_netdev 0 0
 home_vagrant_scripts /home/vagrant/scripts vboxsf uid=1000,gid=1000,_netdev 0 0
 #VAGRANT-END
+
+#MY MOUNTS
+/dev/sda1	/mnt/vfat	vfat	defaults,uid=silvestrini	0	2
+/dev/sdb1	/mnt/ntfs	auto	defaults,owner	0	2
+/dev/sdc1	/mnt/xfs	xfs	defaults,user	0	2
+

@@ -2445,8 +2445,24 @@ Understanding of systemd mount units
 ##### mount - mount a filesystem
 
 ```sh
+# show all mounted partitions
+mount
+
+#show specific mounted filesystem
+mount -t ext4
+
 # mount all partitions with auto in /etc/fstab
 mount -a
+
+
+# mount specific partition in fstab
+mount /dev/sda1
+mount /mnt/share
+
+# mount specific partition
+mount /dev/sda1 /mnt/mount_point
+mount -t xfs /dev/sdb1 /mnt/fs_xfs
+mount -o ro,user,auto,exec /dev/sdc1 /mnt/share
 
 # remount partition with rw
 mount -o remount,rw /
@@ -2460,20 +2476,58 @@ mount -o remount,ro /dev/sda1 /
 ##### umount - unmount filesystems
 
 ```sh
-#umount partition
+# umount all partitions with auto in /etc/fstab
+umount -a
+
+#umount specific partition
 umount /mnt/test
 ```
 
 ##### blkid - locate/print block device attributes
 
 ```sh
-
+#list all block devices atributes
+blkid
 ```
 
-##### sync
+##### lsblk - list block devices
 
 ```sh
+#list blocks
+lsblk
 
+#list filesystems
+lsblk -f
+lsblk -f /dev/sdb
+lsblk -f /dev/sdb1
+```
+
+##### e2label - Change the label on an ext2/ext3/ext4 filesystem
+
+```sh
+#list label of partition
+e2label /dev/sda1
+```
+
+##### findfs - find a filesystem by label or UUID
+
+```sh
+findfs UUID=F29E-358F
+findfs LABEL=FS_VFAT
+```
+
+##### findmnt - find a filesystem
+
+```sh
+# list all mounted points
+findmnt
+```
+
+##### sync - Synchronize cached writes to persistent storage
+
+```sh
+# force sync of cache files
+sync
 ```
 
 ##### swapon
@@ -2643,8 +2697,8 @@ mount /mnt/fs_ext4
 
 ```sh
 /etc/fstab
-/etc/mtab
-/proc/mounts
+/etc/mtab(-> ../proc/self/mounts) - mounted partitions
+/proc/mounts (-> self/mounts) - mounted partitions
 mount and umount
 ```
 
