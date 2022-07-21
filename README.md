@@ -2530,16 +2530,31 @@ findmnt
 sync
 ```
 
-##### swapon
+##### swapon - enable/disable devices and files for paging and swapping
 
 ```sh
+# enable swap partition\file
+swapon /dev/sda2
+swapon /myswapfile
 
+# list swap partition/file
+swapon
 ```
 
-##### swapoff
+##### swapoff - enable/disable devices and files for paging and swapping
 
 ```sh
+# disable swap partition\file
+swapoff/dev/sda2
+swapoff /myswapfile
+```
 
+#### mkswap - set up a Linux swap area
+
+```sh
+#formart partition\file for swap
+mkswap -L Swap /dev/sdb1
+mkswap /myswap
 ```
 
 #### About /etc/fstab
@@ -2692,6 +2707,57 @@ mount /mnt/fs_ext4
 ```
 
 ![mount-ext4-uid](https://user-images.githubusercontent.com/62715900/179612582-3779d249-8065-4339-8db4-6209cb526249.gif)
+
+#### Abount Swap
+
+##### Create Swap Partition
+
+```sh
+# create partition of type swap with fdisk
+fdisk /dev/sdb
+
+# format partition of type swap filesystem
+mkswap -L Swap /dev/sdb1
+
+#set permission
+chmod 600 /dev/sdb1
+
+# enable swap partition
+swapon /dev/sdb1
+
+# enable swap partition persistent after boot
+# edit /etc/fstab with mount options
+# <file sys> <mount point> <type> <options> <dump> <pass>
+/dev/sdb1       swap    swap    defaults        0       0
+```
+
+![swap-partition](https://user-images.githubusercontent.com/62715900/180108874-475ade21-0604-4e47-b5cc-b3edb7cda615.gif)
+
+##### Create Swap File
+
+```sh
+# alocate file for swap with dd or fallocate
+#with dd
+dd if=/dev/zero of=/swapfile bs=1024 count=1000
+#with falocate
+fallocate -l 2G /swapfile
+
+# format partition of type swap filesystem
+mkswap /swapfile
+
+#set permission
+chmod 600 /swapfile
+
+# enable swap partition
+swapon /swapfile
+
+# enable swap partition persistent after boot
+# edit /etc/fstab with mount options
+# <file sys> <mount point> <type> <options> <dump> <pass>
+/swapfile      swap    swap    defaults        0       0
+```
+
+![swap-file](https://user-images.githubusercontent.com/62715900/180111085-cf123273-205e-4705-a597-06694fc3142d.gif)
 
 #### 203.1 Cited Objects
 

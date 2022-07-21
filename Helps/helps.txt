@@ -12,6 +12,16 @@ sudo timedatectl set-timezone America/Sao_Paulo
 sudo cfdisk /dev/sdd
 sudo resize2fs -p -F /dev/sdd1
 
+# Set Swap memory
+fallocate -l 4G /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+
+# stress test
+stress -c 1 -i 1 -m 1 --vm-bytes 10000M -t 30s
+
+
 # Permissions:
 
 0 - nenhuma permissão (-)
