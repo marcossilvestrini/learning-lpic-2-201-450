@@ -2483,6 +2483,41 @@ umount -a
 umount /mnt/test
 ```
 
+##### systemd-mount, systemd-umount - Establish and destroy transient mount or auto-mount points
+
+```sh
+# mount filesystem ext4
+
+#create dir
+mkdir /mnt/myfiles
+
+#create unit
+cd /etc/systemd/system
+vim mnt-myfiles.mount
+
+[Unit]
+Description=Mount Point ext4
+
+[Mount]
+What=/dev/sdb1
+Where=/mnt/myfiles
+Type=ext4
+Options=defaults
+
+[Install]
+WantedBy=graphical.target
+
+#reload daemon
+systemctl daemon-reload
+
+#mount point
+systemctl start mnt-myfiles.mount
+
+#enable mount in boot
+systemctl enable mnt-myfiles.mount
+
+```
+
 ##### blkid - locate/print block device attributes
 
 ```sh
@@ -2765,6 +2800,7 @@ swapon /swapfile
 /etc/fstab
 /etc/mtab(-> ../proc/self/mounts) - mounted partitions
 /proc/mounts (-> self/mounts) - mounted partitions
+/proc/swaps ->list of swap partitions
 mount and umount
 ```
 
