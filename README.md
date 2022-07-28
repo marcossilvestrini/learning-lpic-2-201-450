@@ -2001,13 +2001,6 @@ Use systemd rescue and emergency modes.
 
 #### 202.2 Important Commands
 
-##### fsck - check and repair a Linux filesystem
-
-```sh
-# check partition
-fsck /dev/sda3
-```
-
 ##### grub-install - install GRUB to a device
 
 ```sh
@@ -3043,6 +3036,30 @@ debugfs -R 'stat <5>' /dev/sdb1
 ```sh
 #get bad blocks
 badblock /dev/sdb1
+```
+
+##### fsck - check and repair a Linux filesystem
+
+```sh
+#check file system
+fsck -f /dev/sda1
+fsck -f -t ext4 /dev/sdb1
+fsck.xfs -f /dev/sdc1
+
+#check file system and fix it
+fsck -f -y /dev/sdb1
+
+#check file system, but not fix it
+fsck -f -n /dev/sdb1
+
+#check badblocks file system
+fsck -f -c /dev/sdb1
+```
+
+##### e2fsck - check a Linux ext2/ext3/ext4 file system
+
+```sh
+e2fsck /dev/sdb1
 ```
 
 #### 203.2 Cited Objects
