@@ -21,6 +21,16 @@ chmod 600 /swapfile
 mkswap /swapfile
 swapon /swapfile
 
+# Mount partition with systemd mount
+mkdir /mnt/myfiles
+chown -R vagrant:vagrant /mnt/myfiles
+dev='/dev/sdb'
+printf "o\nn\np\n1\n\n\nw\n" | sudo fdisk "$dev"
+sudo mkfs.ext4 "${dev}1"
+cp -f configs/Systemd/mnt-myfiles.mount /etc/system/systemd
+systemctl enable mnt-myfiles.mount
+systemctl start mnt-myfiles.mount
+
 # Install packages
 apt-get update -y
 apt-get install -y dosfstools
