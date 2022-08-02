@@ -3062,6 +3062,47 @@ fsck -f -c /dev/sdb1
 e2fsck /dev/sdb1
 ```
 
+#### About btrfs fylesystem
+
+```sh
+#check if is suported
+cat /proc/filesystems | grep btrfs
+
+#enable kerbel module for brtfs
+modprobe btrfs
+
+#install btrfs tools
+apt install -y btrfsmaintenance
+apt install -y btrfs-progs
+
+#show btrfs partitions
+btrfs filesystem show
+
+#create a subvolume
+btrfs subvolume create /mnt/btrfs01/subvolume01
+btrfs subvolume create /mnt/btrfs01/subvolume01/subvolume001
+
+#list all subvolumes in partition
+btrfs subvolume list /mnt/btrfs01
+btrfs subvolume list -t /mnt/btrfs01
+
+#show subvolumes information
+btrfs subvolume show /mnt/btrfs01/subvolume01
+
+#mount subvolumes
+mount -o subvol=subvolume01 /dev/sdc1  /mnt/mysubvolume01
+
+#create volume snapshot
+btrfs subvolume snapshot /mnt/mysubvolume01 /mnt/btrfs01/subvolume01/snapshot-subvolume01
+
+#create raid 1 partition
+mkfs.btrfs -d raid1 -f /dev/sda1 /dev/sdc1
+
+#convert ext4 filesystem to btrfs
+btrfs-convert /dev/sdb1
+
+```
+
 #### 203.2 Cited Objects
 
 ```sh
@@ -3079,7 +3120,9 @@ smartd, smartctl
 **Weight:** 2
 
 **Description:**
-Candidates should be able to configure automount filesystems using AutoFS. This objective includes configuring automount for network and device filesystems. Also included is creating filesystems for devices such as CD-ROMs and a basic feature knowledge of encrypted filesystems.
+Candidates should be able to configure automount filesystems using AutoFS.\
+This objective includes configuring automount for network and device filesystems.\
+Also included is creating filesystems for devices such as CD-ROMs and a basic feature knowledge of encrypted filesystems.
 
 **Key Knowledge Areas:**
 

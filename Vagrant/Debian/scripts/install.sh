@@ -2,6 +2,10 @@
 
 cd /home/vagrant || exit
 
+#update kernel
+dpkg -i configs/Kernel/linux-image-5.18.9-1.0.0-silvestrini_amd64.deb
+update-grub
+
 #Set password account
 usermod --password $(echo vagrant | openssl passwd -1 -stdin) vagrant
 
@@ -27,14 +31,38 @@ chown -R vagrant:vagrant /mnt/myfiles
 dev='/dev/sdb'
 printf "o\nn\np\n1\n\n\nw\n" | sudo fdisk "$dev"
 sudo mkfs.ext4 "${dev}1"
-cp -f configs/Systemd/mnt-myfiles.mount /etc/system/systemd
+cp -f configs/Systemd/mnt-myfiles.mount /etc/systemd/system
 systemctl enable mnt-myfiles.mount
 systemctl start mnt-myfiles.mount
+
+# Mount partition with btrfs filesystem with systemd-mount
+mkdir /mnt/btrfs01
+chown -R vagrant:vagrant /mnt/btrfs01
+dev='/dev/sdc'
+printf "o\nn\np\n1\n\n\nw\n" | sudo fdisk "$dev"
+sudo mkfs.btrfs -L FS_BTRFS01 "${dev}1"
+cp -f configs/Systemd/mnt-btrfs01.mount /etc/systemd/system
+systemctl enable mnt-btrfs01.mount
+systemctl start mnt-btrfs01.mount
+
+# Mount partition with btrfs filesystem with systemd-mount
+mkdir /mnt/btrfs02
+chown -R vagrant:vagrant /mnt/btrfs02
+dev='/dev/sda'
+printf "o\nn\np\n1\n\n\nw\n" | sudo fdisk "$dev"
+sudo mkfs.btrfs -L FS_BTRFS02 "${dev}1"
+cp -f configs/Systemd/mnt-btrfs02.mount /etc/systemd/system
+systemctl enable mnt-btrfs02.mount
+systemctl start mnt-btrfs02.mount
 
 # Install packages
 apt-get update -y
 apt-get install -y dosfstools
 apt-get install -y ntfs-3g
+apt-get install -y btrfsmaintenance
+apt-get install -y btrbk
+apt-get install -y btrfs-compsize
+apt-get install -y btrfs-heatmap
 apt-get install -y xfsprogs
 apt-get install -y usbutils
 apt-get install -y efibootmgr
@@ -45,7 +73,7 @@ apt-get install -y sshpass
 apt-get install -y vim
 apt-get install -y tree
 apt-get install -y python3-pip
-apt-get install python3-venv
+apt-get install -y python3-venv
 apt-get install -y net-tools
 apt-get install -y stress
 apt-get install -y network-manager
