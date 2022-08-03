@@ -3100,7 +3100,26 @@ mkfs.btrfs -d raid1 -f /dev/sda1 /dev/sdc1
 
 #convert ext4 filesystem to btrfs
 btrfs-convert /dev/sdb1
+```
 
+#### About xfs fylesystem
+
+```sh
+#install xfs filesystem
+apt-get install -y xfsprogs
+apt-get install -y xfsdump
+
+#list partition infos
+xfs_info /dev/sda1
+
+#check and repair filesystem
+xfs_repair /dev/sda1
+
+#xfsdump - generate full backup
+xfsdump -l 0 -f /dev/device /path/to/filesystem
+
+#restore xfs filesystem
+xfsrestore -f /dev/sdc -S session-ID /path/to/destination
 ```
 
 #### 203.2 Cited Objects
