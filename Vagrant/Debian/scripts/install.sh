@@ -65,6 +65,8 @@ apt-get install -y btrfs-compsize
 apt-get install -y btrfs-heatmap
 apt-get install -y xfsprogs
 apt-get install -y xfsdump
+apt-get install -y smartmontools
+apt-get install -y autofs
 apt-get install -y usbutils
 apt-get install -y efibootmgr
 apt-get install -y procinfo

@@ -3041,7 +3041,13 @@ badblock /dev/sdb1
 ##### fsck - check and repair a Linux filesystem
 
 ```sh
+#check all filesystem mounted
+fsck -A
+
 #check file system
+fsck /dev/sda1
+
+#force check file system
 fsck -f /dev/sda1
 fsck -f -t ext4 /dev/sdb1
 fsck.xfs -f /dev/sdc1
@@ -3050,6 +3056,7 @@ fsck.xfs -f /dev/sdc1
 fsck -f -y /dev/sdb1
 
 #check file system, but not fix it
+fsck -n /dev/sdb1
 fsck -f -n /dev/sdb1
 
 #check badblocks file system
@@ -3060,6 +3067,17 @@ fsck -f -c /dev/sdb1
 
 ```sh
 e2fsck /dev/sdb1
+```
+
+##### smart \ smartctl
+
+```sh
+#get status\infos about disks
+smartctl -i /dev/sda
+smartctl -a /dev/sdb
+
+#check health of disk
+smartctl -H /dev/sda
 ```
 
 #### About btrfs fylesystem
@@ -3151,6 +3169,19 @@ UDF and ISO9660 tools and utilities
 Awareness of other CD-ROM filesystems (HFS)
 Awareness of CD-ROM filesystem extensions (Joliet, Rock Ridge, El Torito)
 Basic feature knowledge of data encryption (dm-crypt / LUKS)
+
+#### About autofs
+
+```sh
+#install package
+apt-get install -y  autofs
+
+#config file \ master map
+/etc/auto.master
+```
+
+##### Examples 1: Automount filesystem
+
 
 #### 203.3 Cited Objects
 

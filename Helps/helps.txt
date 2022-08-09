@@ -52,11 +52,20 @@ shell:AppsFolder
 
 # Windows  - list PackageFullName windows apps
 get-appxpackage
-
+alter
 # Windows - Open windows apps
 start shell:appsFolder\[TARGET]!App
 
 Example open Google Chat:
 $target=(get-appxpackage | Where-Object {$_.Name -like "*google*"}).PackageFullName
 start "shell:appsFolder\mail.google.com-98783EC6_1.0.0.1_neutral__vq8mrer2vmnwe!Google Chat"
+
+-----------------------------------------
+# Vagrant - Alter home and download box Folder
+-----------------------------------------
+Open file E:\Apps\Vagrant\embedded\gems\2.2.19\gems\vagrant-2.2.19\lib\vagrant\environment.rb
+and alter @home_path value
+
+Example:
+@home_path  = Util::Platform.fs_real_path("E:/Apps/Vagrant/.vagrant.d")
 ------------------------------------------
