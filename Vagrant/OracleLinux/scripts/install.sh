@@ -23,6 +23,9 @@ dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.r
 # Install packages
 dnf install -y lshw
 dnf install -y autofs
+dnf install -y wodim
+dnf install -y genisoimage
+dnf install -y udftools
 dnf install -y bash-completion
 dnf install -y usbutils
 dnf install -y vim

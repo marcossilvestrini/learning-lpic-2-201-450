@@ -3170,6 +3170,14 @@ Awareness of other CD-ROM filesystems (HFS)
 Awareness of CD-ROM filesystem extensions (Joliet, Rock Ridge, El Torito)
 Basic feature knowledge of data encryption (dm-crypt / LUKS)
 
+#### 203.3 Important Commands
+
+##### mkisofs \ genisoimage - create ISO9660/Joliet/HFS filesystem with optional Rock Ridge attributes
+
+```sh
+
+```
+
 #### About autofs
 
 ```sh
@@ -3180,8 +3188,44 @@ apt-get install -y  autofs
 /etc/auto.master
 ```
 
-##### Examples 1: Automount filesystem
+#### Create automount with systemd-mount
 
+```sh
+#create unit for mount
+#/etc/systemd/system/mnt-automount.mount
+
+[Unit]
+Description= Create Mount With Systemd
+
+[Mount]
+What=/dev/sdb1
+Where=/mnt/automount
+
+[Install]
+WantedBy=multi-user.target
+
+#create unit automount
+#/etc/systemd/system/mnt-automount.automount
+
+[Unit]
+Description= Create Automount With Systemd
+
+[Automount]
+Where=/mnt/automount
+TimeoutIdleSec=15
+
+[Install]
+WantedBy=multi-user.target
+
+#reload systemctl
+systemctl daemon-reload
+
+#start unit
+systemctl start mnt-automount.automount
+
+#check status unit
+systemctl status mnt-automount.automount
+```
 
 #### 203.3 Cited Objects
 
