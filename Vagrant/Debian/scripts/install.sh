@@ -69,6 +69,7 @@ apt-get install -y smartmontools
 apt-get install -y autofs
 apt-get install -y wodim
 apt-get install -y udftools
+apt-get install -y cryptsetup
 apt-get install -y usbutils
 apt-get install -y efibootmgr
 apt-get install -y procinfo

@@ -3175,6 +3175,73 @@ Basic feature knowledge of data encryption (dm-crypt / LUKS)
 ##### mkisofs \ genisoimage - create ISO9660/Joliet/HFS filesystem with optional Rock Ridge attributes
 
 ```sh
+#create a iso file with specific folder
+mkisofs -o my-home.iso /home/vagrant
+
+#create a iso file with multiples folder
+mkisofs -o my-image.iso -graft-points dir1=/home/vagrant dir2=/etc/apt
+
+#create a iso file with Joliet extencion(indicate for Windows isos)
+mkisofs -J -o image-joliet.iso /home/vagrant
+
+#create a iso file with Rock Ridge extencion
+mkisofs -R -o image-rock.iso /home/vagrant
+
+#create a iso file with UDF filesystem(suported by linux, windows, mac)
+mkisofs -udf -o image-rock.iso /home/vagrant
+```
+
+##### wodim - write data to optical disk media
+
+```sh
+#record cdrom to iso file
+cdrecord /dev/sr0 debina-image.iso
+```
+
+##### cryptsetup - manage plain dm-crypt and LUKS encrypted volumes
+
+```sh
+#encrypt partition with LUKS method
+cryptsetup -v --verify-passphrase luksFormat /dev/sdb1
+
+#open partition LUKS
+cryptsetup open --type  luks /dev/sdb1 security-partition
+
+#format partition for mount
+mkfs.ext4 -L "SEC-PARTITION"  /dev/mapper/security-partition
+
+#show partition status
+cryptsetup status security-partition
+dmsetup ls
+
+#close partition LUKS
+umount /dev/mapper/security-partition
+cryptsetup close security-partition
+
+#manual mount security partition
+mount /dev/mapper/security-partition /mnt/sec-partition/
+
+#mount security partition in boot
+
+##create password file for mount
+vim /sec-mount-pass
+YOUR_CRYPTSETUP_PASSWORD_HERE
+
+##edit crypttab
+vim /etc/crypttab
+# <target name> <source device>  <key file> <options>
+security-partition      /dev/sdb1       /sec-mount-pass         luks
+
+##edit fstab
+vim /etc/fstab
+# <file sys> <mount point> <type> <options> <dump> <pass>
+/dev/mapper/security-partition /mnt/sec-partition auto defaults 0 0
+
+## add key
+cryptsetup luksAddKey /dev/sdb1 /sec-mount-pass
+
+##reboot
+reboot
 
 ```
 
