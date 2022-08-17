@@ -3214,34 +3214,37 @@ mkfs.ext4 -L "SEC-PARTITION"  /dev/mapper/security-partition
 cryptsetup status security-partition
 dmsetup ls
 
-#close partition LUKS
-umount /dev/mapper/security-partition
-cryptsetup close security-partition
+#dump the header information of a LUKS device
+cryptsetup luksDump /dev/sdb1
 
 #manual mount security partition
-mount /dev/mapper/security-partition /mnt/sec-partition/
+mount /dev/mapper/security-partition /mnt/security-partition
 
 #mount security partition in boot
 
 ##create password file for mount
-vim /sec-mount-pass
+vim /luks-pass-01
 YOUR_CRYPTSETUP_PASSWORD_HERE
 
 ##edit crypttab
 vim /etc/crypttab
 # <target name> <source device>  <key file> <options>
-security-partition      /dev/sdb1       /sec-mount-pass         luks
+security-partition      /dev/sdb1       /luks-pass-01         luks
 
 ##edit fstab
 vim /etc/fstab
 # <file sys> <mount point> <type> <options> <dump> <pass>
-/dev/mapper/security-partition /mnt/sec-partition auto defaults 0 0
+/dev/mapper/security-partition /mnt/security-partition auto defaults 0 0
 
-## add key
-cryptsetup luksAddKey /dev/sdb1 /sec-mount-pass
+## add key(limited to 8 keys\password per partition)
+cryptsetup luksAddKey /dev/sdb1 /luks-pass-01
 
 ##reboot
 reboot
+
+#close partition LUKS
+umount /dev/mapper/security-partition
+cryptsetup close security-partition
 
 ```
 
@@ -3249,7 +3252,7 @@ reboot
 
 ```sh
 #install package
-apt-get install -y  autofs
+apt-get install -y autofs
 
 #config file \ master map
 /etc/auto.master
