@@ -3258,7 +3258,25 @@ apt-get install -y autofs
 /etc/auto.master
 ```
 
-#### Create automount with systemd-mount
+##### Create automount
+
+```sh
+#edit file /etc/auto.master
+vim /etc/auto.master
+/mnt/myautomount /etc/auto.myautomount --timeout 30
+
+#create file /etc/auto.myautomount and set content
+myautomount -fstype=auto :/dev/sdXY
+
+#restart service autofs
+systemctl restart autofs.service
+
+#validate automount
+cd /mnt/myautomount
+df -h /dev/sdXY
+```
+
+##### Create automount with systemd-mount
 
 ```sh
 #create unit for mount
