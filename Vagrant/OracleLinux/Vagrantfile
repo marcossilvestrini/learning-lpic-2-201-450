@@ -139,8 +139,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ol8_lpic_102.vm.provider "virtualbox" do |vb|
       vb.linked_clone = true
       vb.name =APP_NAME
-      vb.memory = 4096
-      vb.cpus = 3
+      vb.memory = 2048
+      vb.cpus = 2
     end
 
     # SHELL PROVISIONING

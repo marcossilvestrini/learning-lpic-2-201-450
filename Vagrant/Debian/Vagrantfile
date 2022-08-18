@@ -33,8 +33,10 @@ unless Vagrant.has_plugin?("vagrant-disksize")
 end
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "debian/bullseye64"
+  #config.vm.box = "debian/bullseye64"
+  config.vm.box = "generic/debian10"
   config.vm.box_download_insecure=true
+  config.vbguest.auto_update = false
 
   #STORAGE
 
@@ -102,8 +104,8 @@ Vagrant.configure("2") do |config|
     debian_lpic_201.vm.provider "virtualbox" do |vb|
       vb.linked_clone = true
       vb.name = APP_NAME
-      vb.memory = 8192
-      vb.cpus = 6
+      vb.memory = 4096
+      vb.cpus = 3
 
       #USB
       vb.customize ["modifyvm", :id, "--usb", "on"]
