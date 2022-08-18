@@ -63,35 +63,35 @@ apt-get install -y iotop
 apt-get install -y htop
 apt-get install -y collectd
 
-# Mount partition ext4 filesystem with systemd mount
-mkdir /mnt/myfiles
-chown -R vagrant:vagrant /mnt/myfiles
-dev='/dev/sdb'
-printf "o\nn\np\n1\n\n\nw\n" | sudo fdisk "$dev"
-mkfs.ext4 "${dev}1"
-cp -f configs/Systemd/mnt-myfiles.mount /etc/systemd/system
-systemctl enable mnt-myfiles.mount
-systemctl start mnt-myfiles.mount
+# # Mount partition ext4 filesystem with systemd mount
+# mkdir /mnt/myfiles
+# chown -R vagrant:vagrant /mnt/myfiles
+# dev='/dev/sdb'
+# printf "o\nn\np\n1\n\n\nw\n" | sudo fdisk "$dev"
+# mkfs.ext4 "${dev}1"
+# cp -f configs/Systemd/mnt-myfiles.mount /etc/systemd/system
+# systemctl enable mnt-myfiles.mount
+# systemctl start mnt-myfiles.mount
 
-# Mount partition xfs filesystem with systemd-mount
-mkdir /mnt/xfs
-chown -R vagrant:vagrant /mnt/xfs
-dev='/dev/sda'
-printf "o\nn\np\n1\n\n\nw\n" | sudo fdisk "$dev"
-mkfs.xfs -L FS_XFS "${dev}1"
-cp -f configs/Systemd/mnt-xfs.mount /etc/systemd/system
-systemctl enable mnt-xfs.mount
-systemctl start mnt-xfs.mount
+# # Mount partition xfs filesystem with systemd-mount
+# mkdir /mnt/xfs
+# chown -R vagrant:vagrant /mnt/xfs
+# dev='/dev/sda'
+# printf "o\nn\np\n1\n\n\nw\n" | sudo fdisk "$dev"
+# mkfs.xfs -L FS_XFS "${dev}1"
+# cp -f configs/Systemd/mnt-xfs.mount /etc/systemd/system
+# systemctl enable mnt-xfs.mount
+# systemctl start mnt-xfs.mount
 
-# Mount partition with btrfs filesystem with systemd-mount
-mkdir /mnt/btrfs
-chown -R vagrant:vagrant /mnt/btrfs
-dev='/dev/sdc'
-printf "o\nn\np\n1\n\n\nw\n" | sudo fdisk "$dev"
-mkfs.btrfs -L FS_BTRFS "${dev}1"
-cp -f configs/Systemd/mnt-btrfs.mount /etc/systemd/system
-systemctl enable mnt-btrfs.mount
-systemctl start mnt-btrfs.mount
+# # Mount partition with btrfs filesystem with systemd-mount
+# mkdir /mnt/btrfs
+# chown -R vagrant:vagrant /mnt/btrfs
+# dev='/dev/sdc'
+# printf "o\nn\np\n1\n\n\nw\n" | sudo fdisk "$dev"
+# mkfs.btrfs -L FS_BTRFS "${dev}1"
+# cp -f configs/Systemd/mnt-btrfs.mount /etc/systemd/system
+# systemctl enable mnt-btrfs.mount
+# systemctl start mnt-btrfs.mount
 
 # Set ssh
 cp -f configs/01-sshd-custom.conf /etc/ssh/sshd_config.d
