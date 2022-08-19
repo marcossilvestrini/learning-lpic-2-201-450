@@ -1,0 +1,11 @@
+[Unit]
+Description= My Mount EXT4 Partition With Systemd Mount
+
+[Mount]
+What=/dev/sda1
+Where=/mnt/ext4
+Type=ext4
+Options=defaults
+
+[Install]
+WantedBy=graphical.target

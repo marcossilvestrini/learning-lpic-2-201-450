@@ -16,6 +16,9 @@ cp -f configs/.vimrc .
 rm .bashrc
 cp -f configs/.bashrc .
 
+# Set properties for user root
+cp .bashrc .vimrc .profile /root/
+
 # # Enable Epel repo
 dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y
 # #dnf -y upgrade
