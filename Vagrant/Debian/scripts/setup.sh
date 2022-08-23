@@ -31,19 +31,6 @@ swapon /swapfile
 
 # Install packages
 apt-get update -y
-apt-get install -y dosfstools
-apt-get install -y ntfs-3g
-apt-get install -y btrfsmaintenance
-apt-get install -y btrbk
-apt-get install -y btrfs-compsize
-apt-get install -y btrfs-heatmap
-apt-get install -y xfsprogs
-apt-get install -y xfsdump
-apt-get install -y smartmontools
-apt-get install -y autofs
-apt-get install -y wodim
-apt-get install -y udftools
-#apt-get install -y cryptsetup
 apt-get install -y usbutils
 apt-get install -y efibootmgr
 apt-get install -y procinfo
@@ -66,6 +53,20 @@ apt-get install -y iptraf
 apt-get install -y iotop
 apt-get install -y htop
 apt-get install -y collectd
+apt-get install -y dosfstools
+apt-get install -y ntfs-3g
+apt-get install -y btrfsmaintenance
+apt-get install -y btrbk
+apt-get install -y btrfs-compsize
+apt-get install -y btrfs-heatmap
+apt-get install -y xfsprogs
+apt-get install -y xfsdump
+apt-get install -y smartmontools
+apt-get install -y autofs
+apt-get install -y wodim
+apt-get install -y udftools
+#apt-get install -y cryptsetup
+apt-get install -y mdadm
 
 # Set ssh
 cp -f configs/01-sshd-custom.conf /etc/ssh/sshd_config.d

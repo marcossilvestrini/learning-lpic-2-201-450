@@ -3337,6 +3337,15 @@ Candidates should be able to configure and implement software RAID. This objecti
 
 Software raid configuration files and utilities
 
+#### 204.1 Important commands
+
+
+##### mdadm - manage MD devices aka Linux Software RAID
+
+```sh
+
+```
+
 #### 204.1 Cited Objects
 
 ```sh

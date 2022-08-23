@@ -15,9 +15,9 @@ VAGRANT_CONTROLLER_TYPE = "virtio-scsi"
 # define disks
 # The format is filename, size (GB), port (see controller docs)
 local_disks = [
-  { :filename => "disk1", :size => 1, :port => 5 },
-  { :filename => "disk2", :size => 2, :port => 6 },
-  { :filename => "disk3", :size => 1, :port => 25 }
+  { :filename => "disk1", :size => 10, :port => 5 },
+  { :filename => "disk2", :size => 10, :port => 6 },
+  { :filename => "disk3", :size => 10, :port => 25 }
 ]
 
 # INSTALL PLUGIN RELLOAD
