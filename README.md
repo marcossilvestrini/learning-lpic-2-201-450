@@ -3339,11 +3339,96 @@ Software raid configuration files and utilities
 
 #### 204.1 Important commands
 
-
 ##### mdadm - manage MD devices aka Linux Software RAID
 
 ```sh
+#create raid0
+mdadm -v --create  /dev/md0 -l0 -n2 /dev/sda1 /dev/sdb1
 
+#list raid details
+mdadm --detail /dev/md0
+cat /proc/mdstat
+
+#up all raid devices
+mdadm --assemble --scan
+
+#update file /etc/mdadm.conf or /etc/mdadm/mdadm.conf
+mdadm --assemble --scan >> /etc/mdadm/mdadm.conf
+
+#simulate fail in raid1 device
+mdadm --manage --fail /dev/md1 /dev/sdb2
+
+#remove specif raid device
+mdadm  /dev/md1 -r /dev/sdb2
+
+#remove all raid device
+mdadm --stop /dev/md1
+mdadm --remove /dev/md1
+#remove entries in file mdadm.conf
+mdadm --zero-superblock /dev/sda2
+mdadm --zero-superblock /dev/sdb2
+
+
+# add raid device
+mdadm  /dev/md1 -a /dev/sdb2
+
+#stop raidN device
+mdadm --stop /dev/md1
+
+#start raidN device
+mdadm --assemble --run /dev/md1
+
+#examine a specific device in raid
+mdadm --examine /dev/sda1
+
+```
+
+#### Configure RAID 0
+
+##### Create Raid Partitions
+
+![fdisk-raid](https://user-images.githubusercontent.com/62715900/186044668-2dd4ee6f-2b41-4e2f-ac11-7fa5ad7a5422.gif)
+
+##### Create raid 0 device
+
+```sh
+#create raid0 device
+mdadm -v --create /dev/md0 -l0 -n2 /dev/sda1 /dev/sdb1
+
+#format raid0 device
+mkfs.ext4 -L "FS_RAID0" /dev/md0
+
+#mount raid0 device
+mkdir /mnt/raid0
+mount /dev/md0 /mnt/raid0
+```
+
+#### Configure RAID 1
+
+```sh
+#create raid1 device
+mdadm -v --create /dev/md1 -l1 -n2 /dev/sda2 /dev/sdb2
+
+# format raid1 device
+mkfs.ext4 -L "FS_RAID1" /dev/md1
+
+# mount raid0 device
+mkdir /mnt/raid1
+mount /dev/md1 /mnt/raid1
+```
+
+#### Configure RAID 5
+
+```sh
+#create raid5 device
+mdadm -v --create /dev/md0 -l5 -n3 /dev/sda1 /dev/sda2 /dev/sdb1
+
+# format raid5 device
+mkfs.ext4 -L "FS_RAID5" /dev/md0
+
+# mount raid5 device
+mkdir /mnt/raid5
+mount /dev/md0 /mnt/raid5
 ```
 
 #### 204.1 Cited Objects
