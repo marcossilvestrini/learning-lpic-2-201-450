@@ -3345,6 +3345,12 @@ Software raid configuration files and utilities
 #create raid0
 mdadm -v --create  /dev/md0 -l0 -n2 /dev/sda1 /dev/sdb1
 
+#create raid1
+mdadm -v --create  /dev/md0 -l1 -n2 /dev/sda1 /dev/sdb1
+
+#create raid5
+mdadm -v --create  /dev/md0 -l5 -n5 /dev/sda1 /dev/sdb1 /dev/sdc1
+
 #list raid details
 mdadm --detail /dev/md0
 cat /proc/mdstat
@@ -3364,10 +3370,10 @@ mdadm  /dev/md1 -r /dev/sdb2
 #remove all raid device
 mdadm --stop /dev/md1
 mdadm --remove /dev/md1
+
 #remove entries in file mdadm.conf
 mdadm --zero-superblock /dev/sda2
 mdadm --zero-superblock /dev/sdb2
-
 
 # add raid device
 mdadm  /dev/md1 -a /dev/sdb2
