@@ -67,6 +67,9 @@ apt-get install -y wodim
 apt-get install -y udftools
 #apt-get install -y cryptsetup
 apt-get install -y mdadm
+apt-get install -y hdparm
+apt-get install -y sdparm
+apt install -y nvme-cli
 
 # Set ssh
 cp -f configs/01-sshd-custom.conf /etc/ssh/sshd_config.d

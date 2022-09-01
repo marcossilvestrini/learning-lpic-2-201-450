@@ -124,6 +124,17 @@ Map client bandwidth usage
 Match / correlate system symptoms with likely problems
 Estimate throughput and identify bottlenecks in a system including networking
 
+#### 200.1 Cited Objects
+
+```sh
+swap
+blocks in
+blocks out
+processes blocked on I/O
+/var/log/sysstat(debian)
+/var/log/sa (rhel)
+```
+
 #### 200.1 Important Commands
 
 ##### iostat - Report Central Processing Unit (CPU) statistics and input/output statistics for devices and partitions
@@ -482,17 +493,6 @@ free
 
 #output in human form
 free -h
-```
-
-#### 200.1 Cited Objects
-
-```sh
-swap
-blocks in
-blocks out
-processes blocked on I/O
-/var/log/sysstat(debian)
-/var/log/sa (rhel)
 ```
 
 ### 200.2 Predict Future Resource Needs
@@ -1114,29 +1114,6 @@ Candidates should be able to utilize kernel components that are necessary to spe
 
 Kernel 2.6.x, 3.x and 4.x documentation
 
-#### 201.1 Important Commands
-
-```sh
-#uname - get kernel version
-uname -r
-```
-
-Understand versions
-
-Example\
-![image](https://user-images.githubusercontent.com/62715900/177155847-171c142b-7fa3-4a25-8fc4-93d0c74e1e71.png)\
-5  - Version\
-4  - Patch level(Major release)\
-17 - Sub level(Minor release)\
-2136.300.7 - Extraversion (Distro maintainer-controlled version)\
-el8uek.x86_64 - Local Version (Distro maintainer-controlled version)\
-
-Get size image of kernel
-
-```sh
-ls -lh /boot/vmlinuz-`uname -r`
-```
-
 #### 201.1 Cited Objects
 
 ##### /usr/src/
@@ -1171,6 +1148,29 @@ gzip
 
 Compress method of kernel sources
 
+#### 201.1 Important Commands
+
+```sh
+#uname - get kernel version
+uname -r
+```
+
+Understand versions
+
+Example\
+![image](https://user-images.githubusercontent.com/62715900/177155847-171c142b-7fa3-4a25-8fc4-93d0c74e1e71.png)\
+5  - Version\
+4  - Patch level(Major release)\
+17 - Sub level(Minor release)\
+2136.300.7 - Extraversion (Distro maintainer-controlled version)\
+el8uek.x86_64 - Local Version (Distro maintainer-controlled version)\
+
+Get size image of kernel
+
+```sh
+ls -lh /boot/vmlinuz-`uname -r`
+```
+
 ### 201.2 Compiling a kernel
 
 **Weight:** 3
@@ -1190,104 +1190,6 @@ Ensure that the boot manager can locate the new kernel and associated files.
 Module configuration files
 Use DKMS to compile kernel modules.
 Awareness of dracut
-
-#### 201.2 Important Commands
-
-##### mkinitrd - is a compat wrapper, which calls dracut to generate an initramfs
-
-```sh
-#Generate a initrd in RPM\RHEL
-#syntaxe: mkinitrd [ OPTIONS ] [<nitrd-image] <kernel-version>
-mkinitrd -f /boot/initrd.img-5.18.41111-lpic-201-450.img 5.18.4-1111-lpic-201-450
-```
-
-##### dracut - low-level tool for generating an initramfs/initrd image
-
-```sh
-#update initramfs
-dracut --force
-```
-
-##### mkinitramfs - low-level tool for generating an initramfs image
-
-```sh
-#Generate a initrd in Debian
-mkinitramfs -o /boot/initrd.img-5.18.41111-lpic-201-450 5.18.4-1111-lpic-201-450
-```
-
-##### make - GNU make utility to maintain groups of programs
-
-```sh
-# Generate kernel image
-make -j $(nproc) bzImage
-
-# Compile kernel modules
-make -j $(nproc) bzImag
-
-# Install kernel modules
-make -j $(nproc) modules_install
-
-# Install kernel
-make install
-
-# Generate .deb kernel image and files
-make deb-pkg
-
-# Generate .rpm kernel image and files
-make rpm-pkg
-
-# Generate only .rpm kernel image
-make binrpm-pkg
-```
-
-##### gzip
-
-```sh
-#compress
-gzip -v scripts/script1.sh
-gzip -v1 scripts/script1.sh
-gzip -v9 scripts/script1.sh
-gzip -c scripts/script1.sh > scripts/script1.gz
-
-#descompress
-gzip -dv picture1.jpg.gz
-gunzip -v scripts/script1.gz
-
-#list infos
-gzip -l picture1.jpg.gz
-```
-
-##### bzip2
-
-```sh
-#compress
-bzip2 -v scripts/script1.sh
-bzip2 -v1 picture1.jpg
-bzip2 -v9 picture1.jpg
-
-#descompress
-bunzip2 -v picture1.jpg.bz2
-bzip2 -dv picture1.jpg.bz2
-```
-
-##### dkms - Dynamic Kernel Module Support
-
-```sh
-#install package
-sudo apt install -y dkms
-
-#install zfs-dkms for test dkms command in this example
-apt install -y zfs-dkms
-
-#list status of dkms modules
-dkms status
-
-#remove dkms zfs module
-dkms remove zfs/2.0.3 --all
-
-# add dkms zfs module
-dkms add zfs/2.0.3 --all
-```
 
 #### 201.2 Cited Objects
 
@@ -1488,6 +1390,104 @@ cd /usr/src/linux
 make mrproper
 ```
 
+#### 201.2 Important Commands
+
+##### mkinitrd - is a compat wrapper, which calls dracut to generate an initramfs
+
+```sh
+#Generate a initrd in RPM\RHEL
+#syntaxe: mkinitrd [ OPTIONS ] [<nitrd-image] <kernel-version>
+mkinitrd -f /boot/initrd.img-5.18.41111-lpic-201-450.img 5.18.4-1111-lpic-201-450
+```
+
+##### dracut - low-level tool for generating an initramfs/initrd image
+
+```sh
+#update initramfs
+dracut --force
+```
+
+##### mkinitramfs - low-level tool for generating an initramfs image
+
+```sh
+#Generate a initrd in Debian
+mkinitramfs -o /boot/initrd.img-5.18.41111-lpic-201-450 5.18.4-1111-lpic-201-450
+```
+
+##### make - GNU make utility to maintain groups of programs
+
+```sh
+# Generate kernel image
+make -j $(nproc) bzImage
+
+# Compile kernel modules
+make -j $(nproc) bzImag
+
+# Install kernel modules
+make -j $(nproc) modules_install
+
+# Install kernel
+make install
+
+# Generate .deb kernel image and files
+make deb-pkg
+
+# Generate .rpm kernel image and files
+make rpm-pkg
+
+# Generate only .rpm kernel image
+make binrpm-pkg
+```
+
+##### gzip
+
+```sh
+#compress
+gzip -v scripts/script1.sh
+gzip -v1 scripts/script1.sh
+gzip -v9 scripts/script1.sh
+gzip -c scripts/script1.sh > scripts/script1.gz
+
+#descompress
+gzip -dv picture1.jpg.gz
+gunzip -v scripts/script1.gz
+
+#list infos
+gzip -l picture1.jpg.gz
+```
+
+##### bzip2
+
+```sh
+#compress
+bzip2 -v scripts/script1.sh
+bzip2 -v1 picture1.jpg
+bzip2 -v9 picture1.jpg
+
+#descompress
+bunzip2 -v picture1.jpg.bz2
+bzip2 -dv picture1.jpg.bz2
+```
+
+##### dkms - Dynamic Kernel Module Support
+
+```sh
+#install package
+sudo apt install -y dkms
+
+#install zfs-dkms for test dkms command in this example
+apt install -y zfs-dkms
+
+#list status of dkms modules
+dkms status
+
+#remove dkms zfs module
+dkms remove zfs/2.0.3 --all
+
+# add dkms zfs module
+dkms add zfs/2.0.3 --all
+```
+
 ### 201.3 Kernel runtime management and troubleshooting
 
 **Weight:** 4
@@ -1509,6 +1509,30 @@ Configure the system to load modules by names other than their file name.
 Content of /, /boot/ , and /lib/modules/
 Tools and utilities to analyze information about the available hardware
 udev rules
+
+#### 201.3 Cited Objects
+
+```sh
+module configuration files in /etc/
+/lib/modules/kernel-version/modules.dep
+/etc/sysctl.conf, /etc/sysctl.d/
+/proc/sys/kernel/
+/sbin/sysctl
+/sbin/depmod
+/sbin/rmmod
+/sbin/modinfo
+/bin/dmesg
+/sbin/lspci
+/usr/bin/lsdev
+/sbin/lsmod
+/sbin/modprobe
+/sbin/insmod
+/bin/uname
+/usr/bin/lsusb
+udevmonitor
+udevadm monitor
+/etc/udev/
+```
 
 #### 201.3 Important Commands
 
@@ -1709,30 +1733,6 @@ udevadm monitor
 /lib/udev/rules.d
 ```
 
-#### 201.3 Cited Objects
-
-```sh
-module configuration files in /etc/
-/lib/modules/kernel-version/modules.dep
-/etc/sysctl.conf, /etc/sysctl.d/
-/proc/sys/kernel/
-/sbin/sysctl
-/sbin/depmod
-/sbin/rmmod
-/sbin/modinfo
-/bin/dmesg
-/sbin/lspci
-/usr/bin/lsdev
-/sbin/lsmod
-/sbin/modprobe
-/sbin/insmod
-/bin/uname
-/usr/bin/lsusb
-udevmonitor
-udevadm monitor
-/etc/udev/
-```
-
 ## Topic 202: System Startup
 
 ### 202.1 Customizing SysV-init system startup
@@ -1747,6 +1747,19 @@ Candidates should be able to query and modify the behaviour of system services a
 SysV init
 Systemd
 Linux Standard Base Specification (LSB)
+
+#### 202.1 Cited Objects
+
+```sh
+/etc/inittab
+/etc/init.d/
+/etc/rc.d/
+/usr/lib/systemd/
+/etc/systemd/
+/run/systemd/
+update-rc.d
+init and telinit
+```
 
 #### 202.1 Important Commands
 
@@ -1965,19 +1978,6 @@ update-rc.d collectd start 10 2 3 4 5 . stop 90 0 1 6 .
 /lib/systemd/system
 ```
 
-#### 202.1 Cited Objects
-
-```sh
-/etc/inittab
-/etc/init.d/
-/etc/rc.d/
-/usr/lib/systemd/
-/etc/systemd/
-/run/systemd/
-update-rc.d
-init and telinit
-```
-
 ### 202.2 System Recovery
 
 **Weight:** 4
@@ -1998,33 +1998,6 @@ daemon/service initialisation and setup
 Know the different boot loader install locations on a hard disk or removable device.
 Overwrite standard boot loader options and using boot loader shells.
 Use systemd rescue and emergency modes.
-
-#### 202.2 Important Commands
-
-##### grub-install - install GRUB to a device
-
-```sh
-#install grub
-grub-install /dev/sda
-
-#install grub in mount partition(rescue)
-grub-install --root-directory=/mnt /dev/sda
-```
-
-##### efibootmgr - manipulate the UEFI Boot Manager
-
-```sh
-#list uefi infos
-efibootmgr
-```
-
-##### update-grub, update-grub2 - stub for grub-mkconfig
-
-```sh
-# update configs of grub in file /boot/grub/grub.cfg
-update-grub
-grub-mkconfig -o /boot/grub/grub.cfg
-```
 
 #### Linux Bootup Sequence in MBR
 
@@ -2334,6 +2307,33 @@ systemctl
 UEFI shell
 ```
 
+#### 202.2 Important Commands
+
+##### grub-install - install GRUB to a device
+
+```sh
+#install grub
+grub-install /dev/sda
+
+#install grub in mount partition(rescue)
+grub-install --root-directory=/mnt /dev/sda
+```
+
+##### efibootmgr - manipulate the UEFI Boot Manager
+
+```sh
+#list uefi infos
+efibootmgr
+```
+
+##### update-grub, update-grub2 - stub for grub-mkconfig
+
+```sh
+# update configs of grub in file /boot/grub/grub.cfg
+update-grub
+grub-mkconfig -o /boot/grub/grub.cfg
+```
+
 ### 202.3 Alternate Bootloaders
 
 **Weight:** 2
@@ -2432,158 +2432,6 @@ The concept of the fstab configuration
 Tools and utilities for handling swap partitions and files
 Use of UUIDs for identifying and mounting file systems
 Understanding of systemd mount units
-
-#### 203.1 Importat Commands
-
-##### mount - mount a filesystem
-
-```sh
-# show all mounted partitions
-mount
-
-#show specific mounted filesystem
-mount -t ext4
-
-# mount all partitions with auto in /etc/fstab
-mount -a
-
-
-# mount specific partition in fstab
-mount /dev/sda1
-mount /mnt/share
-
-# mount specific partition
-mount /dev/sda1 /mnt/mount_point
-mount -t xfs /dev/sdb1 /mnt/fs_xfs
-mount -o ro,user,auto,exec /dev/sdc1 /mnt/share
-
-# remount partition with rw
-mount -o remount,rw /
-mount -o remount,rw /dev/sda1 /
-
-# remount partition with ro
-mount -o remount,ro /
-mount -o remount,ro /dev/sda1 /
-```
-
-##### umount - unmount filesystems
-
-```sh
-# umount all partitions with auto in /etc/fstab
-umount -a
-
-#umount specific partition
-umount /mnt/test
-```
-
-##### systemd-mount, systemd-umount - Establish and destroy transient mount or auto-mount points
-
-```sh
-# mount filesystem ext4
-
-#create dir
-mkdir /mnt/myfiles
-
-#create unit
-cd /etc/systemd/system
-vim mnt-myfiles.mount
-
-[Unit]
-Description=Mount Point ext4
-
-[Mount]
-What=/dev/sdb1
-Where=/mnt/myfiles
-Type=ext4
-Options=defaults
-
-[Install]
-WantedBy=graphical.target
-
-#reload daemon
-systemctl daemon-reload
-
-#mount point
-systemctl start mnt-myfiles.mount
-
-#enable mount in boot
-systemctl enable mnt-myfiles.mount
-
-```
-
-##### blkid - locate/print block device attributes
-
-```sh
-#list all block devices atributes
-blkid
-```
-
-##### lsblk - list block devices
-
-```sh
-#list blocks
-lsblk
-
-#list filesystems
-lsblk -f
-lsblk -f /dev/sdb
-lsblk -f /dev/sdb1
-```
-
-##### e2label - Change the label on an ext2/ext3/ext4 filesystem
-
-```sh
-#list label of partition
-e2label /dev/sda1
-```
-
-##### findfs - find a filesystem by label or UUID
-
-```sh
-findfs UUID=F29E-358F
-findfs LABEL=FS_VFAT
-```
-
-##### findmnt - find a filesystem
-
-```sh
-# list all mounted points
-findmnt
-```
-
-##### sync - Synchronize cached writes to persistent storage
-
-```sh
-# force sync of cache files
-sync
-```
-
-##### swapon - enable/disable devices and files for paging and swapping
-
-```sh
-# enable swap partition\file
-swapon /dev/sda2
-swapon /myswapfile
-
-# list swap partition/file
-swapon
-```
-
-##### swapoff - enable/disable devices and files for paging and swapping
-
-```sh
-# disable swap partition\file
-swapoff/dev/sda2
-swapoff /myswapfile
-```
-
-#### mkswap - set up a Linux swap area
-
-```sh
-#formart partition\file for swap
-mkswap -L Swap /dev/sdb1
-mkswap /myswap
-```
 
 #### About /etc/fstab
 
@@ -2797,6 +2645,158 @@ swapon /swapfile
 mount and umount
 ```
 
+#### 203.1 Importat Commands
+
+##### mount - mount a filesystem
+
+```sh
+# show all mounted partitions
+mount
+
+#show specific mounted filesystem
+mount -t ext4
+
+# mount all partitions with auto in /etc/fstab
+mount -a
+
+
+# mount specific partition in fstab
+mount /dev/sda1
+mount /mnt/share
+
+# mount specific partition
+mount /dev/sda1 /mnt/mount_point
+mount -t xfs /dev/sdb1 /mnt/fs_xfs
+mount -o ro,user,auto,exec /dev/sdc1 /mnt/share
+
+# remount partition with rw
+mount -o remount,rw /
+mount -o remount,rw /dev/sda1 /
+
+# remount partition with ro
+mount -o remount,ro /
+mount -o remount,ro /dev/sda1 /
+```
+
+##### umount - unmount filesystems
+
+```sh
+# umount all partitions with auto in /etc/fstab
+umount -a
+
+#umount specific partition
+umount /mnt/test
+```
+
+##### systemd-mount, systemd-umount - Establish and destroy transient mount or auto-mount points
+
+```sh
+# mount filesystem ext4
+
+#create dir
+mkdir /mnt/myfiles
+
+#create unit
+cd /etc/systemd/system
+vim mnt-myfiles.mount
+
+[Unit]
+Description=Mount Point ext4
+
+[Mount]
+What=/dev/sdb1
+Where=/mnt/myfiles
+Type=ext4
+Options=defaults
+
+[Install]
+WantedBy=graphical.target
+
+#reload daemon
+systemctl daemon-reload
+
+#mount point
+systemctl start mnt-myfiles.mount
+
+#enable mount in boot
+systemctl enable mnt-myfiles.mount
+
+```
+
+##### blkid - locate/print block device attributes
+
+```sh
+#list all block devices atributes
+blkid
+```
+
+##### lsblk - list block devices
+
+```sh
+#list blocks
+lsblk
+
+#list filesystems
+lsblk -f
+lsblk -f /dev/sdb
+lsblk -f /dev/sdb1
+```
+
+##### e2label - Change the label on an ext2/ext3/ext4 filesystem
+
+```sh
+#list label of partition
+e2label /dev/sda1
+```
+
+##### findfs - find a filesystem by label or UUID
+
+```sh
+findfs UUID=F29E-358F
+findfs LABEL=FS_VFAT
+```
+
+##### findmnt - find a filesystem
+
+```sh
+# list all mounted points
+findmnt
+```
+
+##### sync - Synchronize cached writes to persistent storage
+
+```sh
+# force sync of cache files
+sync
+```
+
+##### swapon - enable/disable devices and files for paging and swapping
+
+```sh
+# enable swap partition\file
+swapon /dev/sda2
+swapon /myswapfile
+
+# list swap partition/file
+swapon
+```
+
+##### swapoff - enable/disable devices and files for paging and swapping
+
+```sh
+# disable swap partition\file
+swapoff/dev/sda2
+swapoff /myswapfile
+```
+
+#### mkswap - set up a Linux swap area
+
+```sh
+#formart partition\file for swap
+mkswap -L Swap /dev/sdb1
+mkswap /myswap
+```
+
 ### 203.2 Maintaining a Linux filesystem​
 
 **Weight:* 3
@@ -2810,6 +2810,78 @@ Tools and utilities to manipulate and ext2, ext3 and ext4
 Tools and utilities to perform basic Btrfs operations, including subvolumes and snapshots
 Tools and utilities to manipulate XFS
 Awareness of ZFS
+
+#### About btrfs fylesystem
+
+```sh
+#check if is suported
+cat /proc/filesystems | grep btrfs
+
+#enable kerbel module for brtfs
+modprobe btrfs
+
+#install btrfs tools
+apt install -y btrfsmaintenance
+apt install -y btrfs-progs
+
+#show btrfs partitions
+btrfs filesystem show
+
+#create a subvolume
+btrfs subvolume create /mnt/btrfs01/subvolume01
+btrfs subvolume create /mnt/btrfs01/subvolume01/subvolume001
+
+#list all subvolumes in partition
+btrfs subvolume list /mnt/btrfs01
+btrfs subvolume list -t /mnt/btrfs01
+
+#show subvolumes information
+btrfs subvolume show /mnt/btrfs01/subvolume01
+
+#mount subvolumes
+mount -o subvol=subvolume01 /dev/sdc1  /mnt/mysubvolume01
+
+#create volume snapshot
+btrfs subvolume snapshot /mnt/mysubvolume01 /mnt/btrfs01/subvolume01/snapshot-subvolume01
+
+#create raid 1 partition
+mkfs.btrfs -d raid1 -f /dev/sda1 /dev/sdc1
+
+#convert ext4 filesystem to btrfs
+btrfs-convert /dev/sdb1
+```
+
+#### About xfs fylesystem
+
+```sh
+#install xfs filesystem
+apt-get install -y xfsprogs
+apt-get install -y xfsdump
+
+#list partition infos
+xfs_info /dev/sda1
+
+#check and repair filesystem
+xfs_repair /dev/sda1
+
+#xfsdump - generate full backup
+xfsdump -l 0 -f /dev/device /path/to/filesystem
+
+#restore xfs filesystem
+xfsrestore -f /dev/sdc -S session-ID /path/to/destination
+```
+
+#### 203.2 Cited Objects
+
+```sh
+mkfs (mkfs.*)
+mkswap
+fsck (fsck.*)
+tune2fs, dumpe2fs and debugfs
+btrfs, btrfs-convert
+xfs_info, xfs_check, xfs_repair, xfsdump and xfsrestore
+smartd, smartctl
+```
 
 #### Important Commands
 
@@ -3022,6 +3094,10 @@ tune2fs -i30d /dev/sdb1
 
 #set Reserved block count(for 2%)
 tune2fs -m2 /dev/sdb1
+
+#set error-behavior
+tune2fs -e remount-ro /dev/nvme0n1p1
+tune2fs -e panic /dev/sdb
 ```
 
 ##### debugfs - ext2/ext3/ext4 file system debugger
@@ -3080,78 +3156,6 @@ smartctl -a /dev/sdb
 smartctl -H /dev/sda
 ```
 
-#### About btrfs fylesystem
-
-```sh
-#check if is suported
-cat /proc/filesystems | grep btrfs
-
-#enable kerbel module for brtfs
-modprobe btrfs
-
-#install btrfs tools
-apt install -y btrfsmaintenance
-apt install -y btrfs-progs
-
-#show btrfs partitions
-btrfs filesystem show
-
-#create a subvolume
-btrfs subvolume create /mnt/btrfs01/subvolume01
-btrfs subvolume create /mnt/btrfs01/subvolume01/subvolume001
-
-#list all subvolumes in partition
-btrfs subvolume list /mnt/btrfs01
-btrfs subvolume list -t /mnt/btrfs01
-
-#show subvolumes information
-btrfs subvolume show /mnt/btrfs01/subvolume01
-
-#mount subvolumes
-mount -o subvol=subvolume01 /dev/sdc1  /mnt/mysubvolume01
-
-#create volume snapshot
-btrfs subvolume snapshot /mnt/mysubvolume01 /mnt/btrfs01/subvolume01/snapshot-subvolume01
-
-#create raid 1 partition
-mkfs.btrfs -d raid1 -f /dev/sda1 /dev/sdc1
-
-#convert ext4 filesystem to btrfs
-btrfs-convert /dev/sdb1
-```
-
-#### About xfs fylesystem
-
-```sh
-#install xfs filesystem
-apt-get install -y xfsprogs
-apt-get install -y xfsdump
-
-#list partition infos
-xfs_info /dev/sda1
-
-#check and repair filesystem
-xfs_repair /dev/sda1
-
-#xfsdump - generate full backup
-xfsdump -l 0 -f /dev/device /path/to/filesystem
-
-#restore xfs filesystem
-xfsrestore -f /dev/sdc -S session-ID /path/to/destination
-```
-
-#### 203.2 Cited Objects
-
-```sh
-mkfs (mkfs.*)
-mkswap
-fsck (fsck.*)
-tune2fs, dumpe2fs and debugfs
-btrfs, btrfs-convert
-xfs_info, xfs_check, xfs_repair, xfsdump and xfsrestore
-smartd, smartctl
-```
-
 ### 203.3 Creating and configuring filesystem options
 
 **Weight:** 2
@@ -3169,6 +3173,82 @@ UDF and ISO9660 tools and utilities
 Awareness of other CD-ROM filesystems (HFS)
 Awareness of CD-ROM filesystem extensions (Joliet, Rock Ridge, El Torito)
 Basic feature knowledge of data encryption (dm-crypt / LUKS)
+
+#### About autofs
+
+```sh
+#install package
+apt-get install -y autofs
+
+#config file \ master map
+/etc/auto.master
+```
+
+##### Create automount
+
+```sh
+#edit file /etc/auto.master
+vim /etc/auto.master
+/mnt/myautomount /etc/auto.myautomount --timeout 30
+
+#create file /etc/auto.myautomount and set content
+myautomount -fstype=auto :/dev/sdXY
+
+#restart service autofs
+systemctl restart autofs.service
+
+#validate automount
+cd /mnt/myautomount
+df -h /dev/sdXY
+```
+
+##### Create automount with systemd-mount
+
+```sh
+#create unit for mount
+#/etc/systemd/system/mnt-automount.mount
+
+[Unit]
+Description= Create Mount With Systemd
+
+[Mount]
+What=/dev/sdb1
+Where=/mnt/automount
+
+[Install]
+WantedBy=multi-user.target
+
+#create unit automount
+#/etc/systemd/system/mnt-automount.automount
+
+[Unit]
+Description= Create Automount With Systemd
+
+[Automount]
+Where=/mnt/automount
+TimeoutIdleSec=15
+
+[Install]
+WantedBy=multi-user.target
+
+#reload systemctl
+systemctl daemon-reload
+
+#start unit
+systemctl start mnt-automount.automount
+
+#check status unit
+systemctl status mnt-automount.automount
+```
+
+#### 203.3 Cited Objects
+
+```sh
+/etc/auto.master
+/etc/auto.[dir]
+mkisofs
+cryptsetup
+```
 
 #### 203.3 Important Commands
 
@@ -3248,82 +3328,6 @@ cryptsetup close security-partition
 
 ```
 
-#### About autofs
-
-```sh
-#install package
-apt-get install -y autofs
-
-#config file \ master map
-/etc/auto.master
-```
-
-##### Create automount
-
-```sh
-#edit file /etc/auto.master
-vim /etc/auto.master
-/mnt/myautomount /etc/auto.myautomount --timeout 30
-
-#create file /etc/auto.myautomount and set content
-myautomount -fstype=auto :/dev/sdXY
-
-#restart service autofs
-systemctl restart autofs.service
-
-#validate automount
-cd /mnt/myautomount
-df -h /dev/sdXY
-```
-
-##### Create automount with systemd-mount
-
-```sh
-#create unit for mount
-#/etc/systemd/system/mnt-automount.mount
-
-[Unit]
-Description= Create Mount With Systemd
-
-[Mount]
-What=/dev/sdb1
-Where=/mnt/automount
-
-[Install]
-WantedBy=multi-user.target
-
-#create unit automount
-#/etc/systemd/system/mnt-automount.automount
-
-[Unit]
-Description= Create Automount With Systemd
-
-[Automount]
-Where=/mnt/automount
-TimeoutIdleSec=15
-
-[Install]
-WantedBy=multi-user.target
-
-#reload systemctl
-systemctl daemon-reload
-
-#start unit
-systemctl start mnt-automount.automount
-
-#check status unit
-systemctl status mnt-automount.automount
-```
-
-#### 203.3 Cited Objects
-
-```sh
-/etc/auto.master
-/etc/auto.[dir]
-mkisofs
-cryptsetup
-```
-
 ## Topic 204: Advanced Storage Device Administration
 
 ### 204.1 Configuring RAID
@@ -3336,58 +3340,6 @@ Candidates should be able to configure and implement software RAID. This objecti
 **Key Knowledge Areas:**
 
 Software raid configuration files and utilities
-
-#### 204.1 Important commands
-
-##### mdadm - manage MD devices aka Linux Software RAID
-
-```sh
-#create raid0
-mdadm -v --create  /dev/md0 -l0 -n2 /dev/sda1 /dev/sdb1
-
-#create raid1
-mdadm -v --create  /dev/md0 -l1 -n2 /dev/sda1 /dev/sdb1
-
-#create raid5
-mdadm -v --create  /dev/md0 -l5 -n5 /dev/sda1 /dev/sdb1 /dev/sdc1
-
-#list raid details
-mdadm --detail /dev/md0
-cat /proc/mdstat
-
-#up all raid devices
-mdadm --assemble --scan
-
-#update file /etc/mdadm.conf or /etc/mdadm/mdadm.conf
-mdadm --assemble --scan >> /etc/mdadm/mdadm.conf
-
-#simulate fail in raid1 device
-mdadm --manage --fail /dev/md1 /dev/sdb2
-
-#remove specif raid device
-mdadm  /dev/md1 -r /dev/sdb2
-
-#remove all raid device
-mdadm --stop /dev/md1
-mdadm --remove /dev/md1
-
-#remove entries in file mdadm.conf
-mdadm --zero-superblock /dev/sda2
-mdadm --zero-superblock /dev/sdb2
-
-# add raid device
-mdadm  /dev/md1 -a /dev/sdb2
-
-#stop raidN device
-mdadm --stop /dev/md1
-
-#start raidN device
-mdadm --assemble --run /dev/md1
-
-#examine a specific device in raid
-mdadm --examine /dev/sda1
-
-```
 
 #### Configure RAID 0
 
@@ -3446,6 +3398,57 @@ mdadm
 partition type 0xFD
 ```
 
+#### 204.1 Important commands
+
+##### mdadm - manage MD devices aka Linux Software RAID
+
+```sh
+#create raid0
+mdadm -v --create  /dev/md0 -l0 -n2 /dev/sda1 /dev/sdb1
+
+#create raid1
+mdadm -v --create  /dev/md0 -l1 -n2 /dev/sda1 /dev/sdb1
+
+#create raid5
+mdadm -v --create  /dev/md0 -l5 -n5 /dev/sda1 /dev/sdb1 /dev/sdc1
+
+#list raid details
+mdadm --detail /dev/md0
+cat /proc/mdstat
+
+#up all raid devices
+mdadm --assemble --scan
+
+#update file /etc/mdadm.conf or /etc/mdadm/mdadm.conf
+mdadm --assemble --scan >> /etc/mdadm/mdadm.conf
+
+#simulate fail in raid1 device
+mdadm --manage --fail /dev/md1 /dev/sdb2
+
+#stop raidN device
+mdadm --stop /dev/md1
+
+#start raidN device
+mdadm --assemble --run /dev/md1
+
+#examine a specific device in raid
+mdadm --examine /dev/sda1
+
+#remove specif raid device
+mdadm  /dev/md1 -r /dev/sdb2
+
+#remove all raid device
+mdadm --stop /dev/md1
+mdadm --remove /dev/md1
+
+#remove entries in file mdadm.conf
+mdadm --zero-superblock /dev/sda2
+mdadm --zero-superblock /dev/sdb2
+
+# add raid device
+mdadm  /dev/md1 -a /dev/sdb2
+```
+
 #### 204.2 Adjusting Storage Device Access
 
 **Weight:** 2
@@ -3473,6 +3476,49 @@ sysctl
 /dev/hd*, /dev/sd*, /dev/nvme*
 iscsiadm, scsi_id, iscsid and iscsid.conf
 WWID, WWN, LUN numbers
+```
+
+#### 204.2 Important Commands
+
+##### hdparm - get/set SATA/IDE device parameters
+
+```sh
+#show infos about device
+hdparm /dev/hda
+hdparm /dev/sda
+
+#show identification of device
+hdparm -i /dev/sda
+
+#measure buffered disk reads
+hdparm -t /dev/sda
+
+#measure cached reads
+hdparm -T /dev/sda
+
+#get\set mda
+hdparm -d1 /dev/hda
+```
+
+##### sdparm - access SCSI modes pages; read VPD pages; send simple SCSI commands
+
+```sh
+#show infos scsi\sata devices
+sdparm /dev/sda
+sdparm -a /dev/sda
+```
+
+##### nvme - the NVMe storage command line interface utility(nvme-cli)
+
+```sh
+#list all nvme devices
+```
+
+##### fstrim - discard unused blocks on a mounted filesystem
+
+```sh
+#execute trim in all ssd mount point
+fstrim -a
 ```
 
 ### 204.3 Logical Volume Manager
