@@ -3465,6 +3465,170 @@ Awareness of sdparm command and its uses
 Tools and utilities for iSCSI
 Awareness of SAN, including relevant protocols (AoE, FCoE)
 
+#### About NAS
+
+![image](https://user-images.githubusercontent.com/62715900/188028180-cd896649-0c70-4b11-a906-dc01defce67e.png)
+
+#### About SAN
+
+![image](https://user-images.githubusercontent.com/62715900/188028368-5923368c-7ab3-4083-9a30-0471ac24e07d.png)
+
+#### SAN Protocols
+
+![image](https://user-images.githubusercontent.com/62715900/188028537-c9607e49-79e1-4ab4-af66-ec64fecfaf18.png)
+
+#### [Configure iSCSI](https://www.tecmint.com/setup-iscsi-target-and-initiator-on-debian-9/)
+
+##### Install Pre Requirments
+
+```sh
+# taget(storage server)
+apt install -y tgt lvm2
+yum install targetcli
+
+# initiator(client server)
+apt install -y open-iscsi
+yum install -y iscsi-initiator-utils
+```
+
+##### Configure target
+
+```sh
+#prepare disks
+pvcreate /dev/sd{a,b}
+
+#create volume groups
+vgcreate lpic2_iscsi /dev/sd{a,b}
+
+#list volume group
+vgs
+
+#create logival volume
+lvcreate -l 100%FREE -n lpic2_lun1 lpic2_iscsi
+
+#create LUN
+vim /etc/tgt/conf.d/lpic2_iscsi.conf
+
+<target iqn.2022-08.local:lun1>
+     # Provided device as an iSCSI target
+     backing-store /dev/mapper/lpic2_iscsi-lpic2_lun1
+     initiator-address 192.168.0.135
+     incominguser vagrant vagrant
+     outgoinguser vagrant vagrant
+</target>
+
+#restart tgt
+systemctl restart tgt.service
+
+#show status tgt target conf
+tgtadm --mode target --op show
+```
+
+![image](https://user-images.githubusercontent.com/62715900/188037431-8449230e-6717-4259-ad34-1e3e4d83f5c0.png)
+
+```sh
+##### Configure initiator
+
+#set your initiator name
+vim /etc/iscsi/initiatorname.iscsi
+
+InitiatorName=iqn.2022-08.local:init1
+
+#discovey target
+iscsiadm -m discovery -t sendtargets -p 192.168.0.134
+
+#find nodes configuration
+find / -name iqn.2022-08.local:lun1*
+```
+
+![image](https://user-images.githubusercontent.com/62715900/188039272-e28de981-6e4e-44a0-a389-0d39e2b97b3e.png)
+
+```sh
+#set node configuration
+vim /var/lib/iscsi/send_targets/192.168.0.134,3260/iqn.2022-08.local:lun1,192.168.0.134,3260,1,default/default
+
+# BEGIN RECORD 6.2.1.4-1
+node.name = iqn.2022-08.local:lun1
+node.tpgt = 1
+node.startup = automatic
+node.leading_login = No
+iface.iscsi_ifacename = default
+iface.prefix_len = 0
+iface.transport_name = tcp
+iface.vlan_id = 0
+iface.vlan_priority = 0
+iface.iface_num = 0
+iface.mtu = 0
+iface.port = 0
+iface.tos = 0
+iface.ttl = 0
+iface.tcp_wsf = 0
+iface.tcp_timer_scale = 0
+iface.def_task_mgmt_timeout = 0
+iface.erl = 0
+iface.max_receive_data_len = 0
+iface.first_burst_len = 0
+iface.max_outstanding_r2t = 0
+iface.max_burst_len = 0
+node.discovery_address = 192.168.0.134
+node.discovery_port = 3260
+node.discovery_type = send_targets
+node.session.initial_cmdsn = 0
+node.session.initial_login_retry_max = 8
+node.session.xmit_thread_priority = -20
+node.session.cmds_max = 128
+node.session.queue_depth = 32
+node.session.nr_sessions = 1
+node.session.auth.authmethod = CHAP
+node.session.auth.username = vagrant
+node.session.auth.password = vagrant
+node.session.auth.username_in = vagrant
+node.session.auth.password_in = vagrant
+node.session.auth.chap_algs = MD5
+node.session.timeo.replacement_timeout = 120
+node.session.err_timeo.abort_timeout = 15
+node.session.err_timeo.lu_reset_timeout = 30
+node.session.err_timeo.tgt_reset_timeout = 30
+node.session.err_timeo.host_reset_timeout = 60
+node.session.iscsi.FastAbort = Yes
+node.conn[0].port = 3260
+node.conn[0].startup = automatic
+node.conn[0].tcp.window_size = 524288
+node.conn[0].tcp.type_of_service = 0
+node.conn[0].timeo.logout_timeout = 15
+node.conn[0].timeo.login_timeout = 15
+node.conn[0].timeo.auth_timeout = 45
+node.conn[0].timeo.noop_out_interval = 5
+node.conn[0].timeo.noop_out_timeout = 5
+node.conn[0].iscsi.MaxXmitDataSegmentLength = 0
+node.conn[0].iscsi.MaxRecvDataSegmentLength = 262144
+node.conn[0].iscsi.HeaderDigest = None
+node.conn[0].iscsi.IFMarker = No
+node.conn[0].iscsi.OFMarker = No
+# END RECORD
+
+#restart initiator daemon
+systemctl restart iscsi
+systemctl status iscsi iscsid
+
+#login in targets
+iscsiadm -m node --login
+
+```
+
+#### Get WWN,WWID
+
+```sh
+ls -la /dev/disk/by-id
+/lib/udev/scsi_id -g /dev/sdd
+```
+
+#### Get scsi infos(chanel,id,lun)
+
+```sh
+cat /proc/scsi/scsi
+```
+
 #### 204.2 Cited Objects
 
 ```sh
