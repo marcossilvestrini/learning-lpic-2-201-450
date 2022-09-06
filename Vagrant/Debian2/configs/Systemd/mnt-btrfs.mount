@@ -1,0 +1,11 @@
+[Unit]
+Description= My Mount BTRFS Partition With Systemd Mount
+
+[Mount]
+What=/dev/sdc1
+Where=/mnt/btrfs
+Type=btrfs
+Options=defaults
+
+[Install]
+WantedBy=graphical.target

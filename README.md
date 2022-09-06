@@ -3477,156 +3477,156 @@ Awareness of SAN, including relevant protocols (AoE, FCoE)
 
 ![image](https://user-images.githubusercontent.com/62715900/188028537-c9607e49-79e1-4ab4-af66-ec64fecfaf18.png)
 
-#### [Configure iSCSI](https://www.tecmint.com/setup-iscsi-target-and-initiator-on-debian-9/)
+#### Configure iSCSI
 
-##### Install Pre Requirments
+##### [Configure Target](<https://techviewleo.com/configure-iscsi-target-on-debian/>)
+
+###### Step 1: Install the targetcli-fb Administration tool
 
 ```sh
-# taget(storage server)
-apt install -y tgt lvm2
-yum install targetcli
+#Update system
+apt update && sudo apt upgrade
 
-# initiator(client server)
-apt install -y open-iscsi
-yum install -y iscsi-initiator-utils
+#install targetcli-fb
+apt install gsettings-desktop-schemas
+apt -y install targetcli-fb -y
 ```
 
-##### Configure target
+###### Step 2: Configure iSCSI Target
 
 ```sh
-#prepare disks
-pvcreate /dev/sd{a,b}
+#create directory for mount device
+mkdir /var/lib/iscsi_disks
 
-#create volume groups
-vgcreate lpic2_iscsi /dev/sd{a,b}
+#mount device
+mount -t ext4 /dev/sda /var/lib/iscsi_disks/
 
-#list volume group
-vgs
+#set fstab for persistent
+/dev/sda /var/lib/iscsi_disks/ auto defaults 0 0
+```
 
-#create logival volume
-lvcreate -l 100%FREE -n lpic2_lun1 lpic2_iscsi
+###### Step 3: Access the admin console
 
+```sh
+#enter admin console
+targetcli
+
+#changing the directory
+cd backstores/fileio
+
+#create a disk-image with the name [disk01]
+create disk01 /var/lib/iscsi_disks/disk01.img 9GB
+
+#target syntax
+#[ iqn.(year)-(month).(reverse of domain name):(any name you like) ]
+
+#create target
+cd /iscsi
+create iqn.2022-08.local:debian-11.target01
+
+#set network portals
+cd iqn.2022-08.local:debian-11.target01/tpg1/portals/
+delete 0.0.0.0 3260
+create 192.168.0.134
+```
+
+###### Step 4: Set LUN
+
+```sh
 #create LUN
-vim /etc/tgt/conf.d/lpic2_iscsi.conf
+cd iqn.2022-08.local:debian-11.target01/tpg1/luns
+create /backstores/fileio/disk01
 
-<target iqn.2022-08.local:lun1>
-     # Provided device as an iSCSI target
-     backing-store /dev/mapper/lpic2_iscsi-lpic2_lun1
-     initiator-address 192.168.0.135
-     incominguser vagrant vagrant
-     outgoinguser vagrant vagrant
-</target>
+#create initiator node
+cd ../acls
+create iqn.2022-08.local:node01.initiator01
 
-#restart tgt
-systemctl restart tgt.service
+#set UserID and Password for authentication to the created iSCsi target
+cd iqn.2022-08.local:node01.initiator01
+set auth userid=username
 
-#show status tgt target conf
-tgtadm --mode target --op show
+set auth password=Password01
+exit
+
+#view the details of the iSCSI target listening port
+ss -napt | grep 3260
 ```
 
-![image](https://user-images.githubusercontent.com/62715900/188037431-8449230e-6717-4259-ad34-1e3e4d83f5c0.png)
+###### Step 5: Enable the iSCSI service
 
 ```sh
-##### Configure initiator
+systemctl start rtslib-fb-targetctl
+systemctl enable rtslib-fb-targetctl
+```
 
-#set your initiator name
+###### Step 6: Configure firewall settings
+
+```sh
+ufw allow 3260/tcp
+```
+
+##### [Configure Inittiator](https://techviewleo.com/configure-iscsi-initiator-on-debian/)
+
+###### Step 1: install open-iscsi on the iscsi initiator
+
+```sh
+apt -y install open-iscsi
+```
+
+##### Step 2: Change to the same IQN you set on the iSCSI target server
+
+```sh
+#edit the Initiator Name
 vim /etc/iscsi/initiatorname.iscsi
 
-InitiatorName=iqn.2022-08.local:init1
+iqn.2022-08.local:node01.initiator01
 
-#discovey target
+
+#enable CHAP authentication
+vim /etc/iscsi/iscsid.conf
+
+node.session.auth.authmethod = CHAP
+```
+
+###### Step 3: Setup the authentication settings
+
+```sh
+#edit the file /etc/iscsi/iscsid.conf
+vim /etc/iscsi/iscsid.conf
+
+## Set the CHAP username and password. ##
+node.session.auth.username = username
+node.session.auth.password = Password01
+
+#restart open-iscsi
+systemctl restart iscsid open-iscsi
+```
+
+###### Step 4: Discover the iscsi target from the initiator
+
+```sh
 iscsiadm -m discovery -t sendtargets -p 192.168.0.134
 
-#find nodes configuration
-find / -name iqn.2022-08.local:lun1*
+#result this command is:
+# 192.168.0.134:3260,1 iqn.2022-08.local:debian-11.target01
+
+#confirm the status of the discovery
+iscsiadm -m node -o show
 ```
 
-![image](https://user-images.githubusercontent.com/62715900/188039272-e28de981-6e4e-44a0-a389-0d39e2b97b3e.png)
+###### Step 5: Log in to the iscsi target from the initiator
 
 ```sh
-#set node configuration
-vim /var/lib/iscsi/send_targets/192.168.0.134,3260/iqn.2022-08.local:lun1,192.168.0.134,3260,1,default/default
-
-# BEGIN RECORD 6.2.1.4-1
-node.name = iqn.2022-08.local:lun1
-node.tpgt = 1
-node.startup = automatic
-node.leading_login = No
-iface.iscsi_ifacename = default
-iface.prefix_len = 0
-iface.transport_name = tcp
-iface.vlan_id = 0
-iface.vlan_priority = 0
-iface.iface_num = 0
-iface.mtu = 0
-iface.port = 0
-iface.tos = 0
-iface.ttl = 0
-iface.tcp_wsf = 0
-iface.tcp_timer_scale = 0
-iface.def_task_mgmt_timeout = 0
-iface.erl = 0
-iface.max_receive_data_len = 0
-iface.first_burst_len = 0
-iface.max_outstanding_r2t = 0
-iface.max_burst_len = 0
-node.discovery_address = 192.168.0.134
-node.discovery_port = 3260
-node.discovery_type = send_targets
-node.session.initial_cmdsn = 0
-node.session.initial_login_retry_max = 8
-node.session.xmit_thread_priority = -20
-node.session.cmds_max = 128
-node.session.queue_depth = 32
-node.session.nr_sessions = 1
-node.session.auth.authmethod = CHAP
-node.session.auth.username = vagrant
-node.session.auth.password = vagrant
-node.session.auth.username_in = vagrant
-node.session.auth.password_in = vagrant
-node.session.auth.chap_algs = MD5
-node.session.timeo.replacement_timeout = 120
-node.session.err_timeo.abort_timeout = 15
-node.session.err_timeo.lu_reset_timeout = 30
-node.session.err_timeo.tgt_reset_timeout = 30
-node.session.err_timeo.host_reset_timeout = 60
-node.session.iscsi.FastAbort = Yes
-node.conn[0].port = 3260
-node.conn[0].startup = automatic
-node.conn[0].tcp.window_size = 524288
-node.conn[0].tcp.type_of_service = 0
-node.conn[0].timeo.logout_timeout = 15
-node.conn[0].timeo.login_timeout = 15
-node.conn[0].timeo.auth_timeout = 45
-node.conn[0].timeo.noop_out_interval = 5
-node.conn[0].timeo.noop_out_timeout = 5
-node.conn[0].iscsi.MaxXmitDataSegmentLength = 0
-node.conn[0].iscsi.MaxRecvDataSegmentLength = 262144
-node.conn[0].iscsi.HeaderDigest = None
-node.conn[0].iscsi.IFMarker = No
-node.conn[0].iscsi.OFMarker = No
-# END RECORD
-
-#restart initiator daemon
-systemctl restart iscsi
-systemctl status iscsi iscsid
-
-#login in targets
+#login in target
 iscsiadm -m node --login
 
-```
+#confirm the established session
+iscsiadm -m session -o show
 
-#### Get WWN,WWID
-
-```sh
-ls -la /dev/disk/by-id
-/lib/udev/scsi_id -g /dev/sdd
-```
-
-#### Get scsi infos(chanel,id,lun)
-
-```sh
-cat /proc/scsi/scsi
+#list new device
+fdisk -l
+lsblk -f
+df -h
 ```
 
 #### 204.2 Cited Objects

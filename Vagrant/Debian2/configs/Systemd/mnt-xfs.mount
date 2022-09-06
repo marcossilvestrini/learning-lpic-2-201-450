@@ -1,0 +1,11 @@
+[Unit]
+Description= My Mount XFS Partition With Systemd Mount
+
+[Mount]
+What=/dev/sdb1
+Where=/mnt/xfs
+Type=xfs
+Options=defaults
+
+[Install]
+WantedBy=graphical.target
