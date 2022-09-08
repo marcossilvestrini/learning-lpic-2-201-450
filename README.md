@@ -3573,7 +3573,7 @@ ufw allow 3260/tcp
 apt -y install open-iscsi
 ```
 
-##### Step 2: Change to the same IQN you set on the iSCSI target server
+###### Step 2: Change to the same IQN you set on the iSCSI target server
 
 ```sh
 #edit the Initiator Name
@@ -3685,6 +3685,54 @@ sdparm -a /dev/sda
 fstrim -a
 ```
 
+##### iscsiadm - open-iscsi administration utility
+
+```sh
+#discover available targets from a discovery portals
+iscsiadm -m discovery -t sendtargets -p ipaddress
+
+#login to all targets
+iscsiadm -m node -l
+
+#Log into a specific target:
+iscsiadm -m node -T targetname -p ipaddress -l
+
+#Log out of all targets:
+iscsiadm -m node -u
+
+#Log out of a specific target:
+iscsiadm -m node -T targetname -p ipaddress -u
+
+#Display information about a target:
+iscsiadm -m node -T targetname -p ipaddress
+
+#Display statistics of a target:
+iscsiadm -m node -s -T targetname -p ipaddress
+
+#Display a list of all current sessions logged in:
+iscsiadm -m session
+iscsiadm -m session -P3
+
+#View iSCSI database regarding discovery:
+iscsiadm -m discovery -o show
+
+#View iSCSI database regarding targets to login to:
+iscsiadm -m node -o show
+
+#View iSCSI database regarding sessions logged in to:
+iscsiadm -m session -o show
+
+#When you expand the volume or disk, you might need to rescan. So the below command will help:
+iscsiadm -m node -p ipaddress --rescan
+```
+
+##### tgt-admin - Linux SCSI Target Configuration Tool
+
+```sh
+#show status of iscsi target configuration
+tgt-admin --show
+```
+
 ### 204.3 Logical Volume Manager
 
 **Weight:** 3
@@ -3698,6 +3746,99 @@ Tools in the LVM suite
 Resizing, renaming, creating, and removing logical volumes, volume groups, and physical volumes
 Creating and maintaining snapshots
 Activating volume groups
+
+![image](https://user-images.githubusercontent.com/62715900/189220451-c757d969-4e0e-405f-84f5-82ad192177fa.png)
+
+#### Create partition for LVM
+
+```sh
+fdisk /dev/sdX
+t
+[1..N]#partition number her
+8e #partition type for LVM
+w
+```
+
+#### Create a Physical Volume
+
+```sh
+#syntaxe
+pvcreate /dev/PARTITION
+
+#Example
+pvcreate /dev/sda1
+```
+
+![image](https://user-images.githubusercontent.com/62715900/189225082-4a27cbdc-3cb1-43f7-819d-46ddb1ceb74f.png)
+
+#### Show Physical Volumes
+
+```sh
+pvs
+pvdisplay
+```
+
+![image](https://user-images.githubusercontent.com/62715900/189226041-d9e7a61d-83cc-4d38-aa86-a1625eb88051.png)
+
+![image](https://user-images.githubusercontent.com/62715900/189226252-7e347ffe-184c-4c5a-9ed3-f0d65a605303.png)
+
+#### Create Volume Group
+
+```sh
+#syntaxe
+vgcreate VG_new PV
+
+#Example (-s= PE size in MiB)
+vgcreate group1 -s2 /dev/sda1 /dev/sda2 /dev/sdb1
+```
+
+#### Show Volume Group
+
+```sh
+vgs
+vgdisplay
+```
+
+![image](https://user-images.githubusercontent.com/62715900/189227429-d7933c82-ac38-44e8-9b62-db15295e5038.png)
+
+![image](https://user-images.githubusercontent.com/62715900/189227557-3f65213d-91a9-4412-bf15-bd9f534eb082.png)
+
+#### Activate Volume Group
+
+```sh
+vgchange -a y group1
+```
+
+#### Create Logival Volume
+
+```sh
+lvcreate -L5G group1 -n lv_test1
+```
+
+#### Show Logical Volumes
+
+```sh
+lvs
+lvdisplay
+```
+
+![image](https://user-images.githubusercontent.com/62715900/189229253-9c209085-2fad-40d9-94d8-0ef99e38571c.png)
+
+#### Mount Logical Volumes
+
+```sh
+#Format partition
+mkfs.ext4 -L FS_LV_TEST1 /dev/mapper/group1-lv_test1
+mkfs.btrfs -L FS_LV_TEST2 /dev/mapper/group1-lv_test2
+
+#Mount partition
+mkdir /mnt/lv_test1 /mnt/lv_test2
+mount /dev/group1/lv_test1 /mnt/lv_test1
+mount /dev/group1/lv_test2 /mnt/lv_test2
+df -hT
+```
+
+![image](https://user-images.githubusercontent.com/62715900/189232588-01757fb3-8f06-497f-aa6c-0b697bac70d9.png)
 
 #### 204.3  Cited Object
 
