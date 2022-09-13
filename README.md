@@ -3840,6 +3840,46 @@ df -hT
 
 ![image](https://user-images.githubusercontent.com/62715900/189232588-01757fb3-8f06-497f-aa6c-0b697bac70d9.png)
 
+#### Extend Volume Group
+
+```sh
+vgextend group01 /dev/sda2
+```
+
+#### Resize Logical Volume
+
+```sh
+#extend  lv
+lvextend -L9G /dev/group01/lv_test01
+
+#resize fs
+resize2fs /dev/group01/lv_test01
+```
+
+#### Reduce Logival Volume
+
+```sh
+#umount fs
+umount /dev/group01/lv_test01
+
+#reduce fs
+e2fsck -f /dev/group01/lv_test01
+resize2fs /dev/group01/lv_test01 5G
+
+#mount fs
+mount /dev/group01/lv_test01 /mnt/lv_test01
+
+#reduce lv
+lvreduce -L5G /dev/group01/lv_test01
+```
+
+#### Reduce Volume Group
+
+```sh
+#remove pv
+vgreduce group01 /dev/sdb2
+```
+
 #### 204.3  Cited Object
 
 /sbin/pv*
