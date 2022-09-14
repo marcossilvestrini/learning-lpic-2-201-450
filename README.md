@@ -3742,7 +3742,7 @@ Candidates should be able to create and remove logical volumes, volume groups, a
 
 **Key Knowledge Areas:**
 
-Tools in the LVM suite
+Tools in the /dev/graft suite
 Resizing, renaming, creating, and removing logical volumes, volume groups, and physical volumes
 Creating and maintaining snapshots
 Activating volume groups
@@ -3840,6 +3840,24 @@ df -hT
 
 ![image](https://user-images.githubusercontent.com/62715900/189232588-01757fb3-8f06-497f-aa6c-0b697bac70d9.png)
 
+#### Remove Physical Volume
+
+```sh
+pvremove /dev/sda1
+```
+
+#### Remove Volume Group
+
+```sh
+vgremove group01
+```
+
+#### Remove Logical Volume Group
+
+```sh
+lvremove /dev/group01/lv_test01
+```
+
 #### Extend Volume Group
 
 ```sh
@@ -3853,6 +3871,7 @@ vgextend group01 /dev/sda2
 lvextend -L9G /dev/group01/lv_test01
 
 #resize fs
+e2fsck -f /dev/group01/lv_test01
 resize2fs /dev/group01/lv_test01
 ```
 
@@ -3863,7 +3882,6 @@ resize2fs /dev/group01/lv_test01
 umount /dev/group01/lv_test01
 
 #reduce fs
-e2fsck -f /dev/group01/lv_test01
 resize2fs /dev/group01/lv_test01 5G
 
 #mount fs
@@ -3879,6 +3897,24 @@ lvreduce -L5G /dev/group01/lv_test01
 #remove pv
 vgreduce group01 /dev/sdb2
 ```
+
+#### Rename Volume Group
+
+```sh
+vgrename group01 vg_primary
+```
+
+#### Rename Logival Volume
+
+```sh
+lvrename /dev/vg_primary/lv_test1 /dev/vg_primary/lv_app
+```
+
+#### Create a Snapshot
+
+```sh
+
+lvcreate -L1G -s -n test-snapshot /dev/vg_primary/lv_app
 
 #### 204.3  Cited Object
 
