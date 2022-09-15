@@ -3913,8 +3913,8 @@ lvrename /dev/vg_primary/lv_test1 /dev/vg_primary/lv_app
 #### Create a Snapshot
 
 ```sh
-
 lvcreate -L1G -s -n test-snapshot /dev/vg_primary/lv_app
+```
 
 #### 204.3  Cited Object
 
@@ -3948,6 +3948,49 @@ arp
 iw
 iwconfig
 iwlist
+
+#### 205.1 Important Commands
+
+##### ifconfig - configure a network interface
+
+```sh
+#show network configurations
+ifconfig
+ifconfig -a
+ifconfig eth0
+
+#down interface
+ifconfig eth0 down
+
+#up interface
+ifconfig eth0 up
+
+#set ip for interface
+ifconfig eth0 10.0.0.30 netmask 255.255.255.0
+ifconfig eth0:0 192.168.0.160 netmask 255.255.255.0 up
+ifconfig eth0 add 172.24.24.20 netmask 255.255.255.0
+
+#set MAC for interface
+ifconfig eth0 hw ether 08:08:08:08:08:08
+```
+
+##### route - show / manipulate the IP routing table
+
+```sh
+#show routes
+route -n
+route
+
+# add route
+route add -net 172.24.24.0/24 gw 192.168.0.1
+route add -net 172.24.24.0/24 gw 192.168.0.1 eth1
+route add -net 172.24.20.0 netmask 255.255.255.0 gw 192.168.0.2
+
+#remove default route
+route del default
+
+
+```
 
 ### 205.2 Advanced Network Configuration and Troubleshooting
 
