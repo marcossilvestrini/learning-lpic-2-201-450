@@ -3985,11 +3985,81 @@ route
 route add -net 172.24.24.0/24 gw 192.168.0.1
 route add -net 172.24.24.0/24 gw 192.168.0.1 eth1
 route add -net 172.24.20.0 netmask 255.255.255.0 gw 192.168.0.2
+route add  default  gw 192.168.0.1
 
-#remove default route
+#remove route
+route del -net 172.24.24.0/24
 route del default
+```
 
+##### ip - show / manipulate routing, network devices, interfaces and tunnels
 
+```sh
+#list the interface links available for configuration
+ip link
+ip link show eth1
+
+#list interfaces available
+ip a
+ip addr
+ip address
+ip addr show
+ip addr show eth1
+
+#disable or enable an interface.
+ip link set dev eth1 down
+ip link set dev eth1 up
+
+#configure interface
+ip addr add 192.168.5.5/24 dev enp0s8
+ip addr add 172.16.15.16/16 dev eth1 label eth1:vlan_prod
+ip addr add 2001:db8::10/64 dev enp0s8
+
+#adjust an interface’s MTU
+ip link set eth1 mtu 2000
+
+#configure spanning tree options
+ip link add link enp0s9 name enp0s9.50 type bridge priority 50
+
+#viewing a routing table ipv4
+ip route
+
+#viewing a routing table ipv6
+ip -6 route
+
+# add ipv4 route
+ip route add 192.168.1.0/24 dev eth0
+
+#del ipv4 route
+ip route del 192.168.1.0/24 dev eth0
+
+# add ipv6 route
+ip route add 2001:db8:1::/64 via 2001:db8::3
+
+#del ipv6 route
+ip route del 2001:db8:1::/64 via 2001:db8::3
+```
+
+##### arp - manipulate the system ARP cache
+
+```sh
+#show arp table
+arp
+arp -n
+
+#remove arp entry
+arp -d 192.168.0.133
+
+# add arp entry
+arp -s IP MAC
+arp -f FILE_WITH_LIST_IP_MAC
+```
+
+##### arpwatch - keep track of ethernet/ip address pairings
+
+```sh
+#debug mode
+arpwatch -d
 ```
 
 ### 205.2 Advanced Network Configuration and Troubleshooting
