@@ -71,6 +71,7 @@ apt-get install -y hdparm
 apt-get install -y sdparm
 apt-get install -y nvme-cli
 apt-get install -y arpwatch
+apt-get install -y wireless-tools
 
 # Set ssh
 cp -f configs/01-sshd-custom.conf /etc/ssh/sshd_config.d

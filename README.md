@@ -4038,6 +4038,9 @@ ip route add 2001:db8:1::/64 via 2001:db8::3
 
 #del ipv6 route
 ip route del 2001:db8:1::/64 via 2001:db8::3
+
+# clear configs interface
+ip addr flush eth0
 ```
 
 ##### arp - manipulate the system ARP cache
@@ -4060,6 +4063,67 @@ arp -f FILE_WITH_LIST_IP_MAC
 ```sh
 #debug mode
 arpwatch -d
+```
+
+#### iw - show / manipulate wireless devices and their configuration
+
+```sh
+#stop NetworkManager for this examples
+systemctl stop NetworkManager
+
+#show status wirelles network
+ip link show
+iw dev wlp2so link
+
+#scan wirelles network
+iw dev wlp2so scan
+
+#up wirelles network
+iw dev wlp2sop up
+```
+
+#### iwlist - Get more detailed wireless information from a wireless interface
+
+```sh
+#show status wirelles network
+iwlist wlp0s2 scanning
+```
+
+#### iwconfig - configure a wireless network interface
+
+```sh
+#show interface infos
+iwconfig wlp2s0
+
+#configure SSID
+iwconfig wlp2s0 essi TPLINK
+
+#configure password (without WPA)
+iwconfig wlp2s0 key s:mypassword
+
+#configure MAC
+iwconfig wlp2s0 ap 52:54:00:12:35:02
+```
+
+#### wpa_passphrase - Generate a WPA PSK from an ASCII passphrase for a SSID
+
+```sh
+#configure password WPA Wirelles
+wpa_passphrase MY-WIRELLES  MYPASSWORD >/etc/wpa_supplicant.conf
+```
+
+#### wpa_supplicant - Wi-Fi Protected Access client and IEEE 802.1X supplicant
+
+```sh
+#connect in WPA Wirelles
+wpa_supplicant -c /etc/wpa_supplicant.conf -B -d -i wlp2s0
+```
+
+#### dhclient - Dynamic Host Configuration Protocol Client
+
+```sh
+#set dynamic ip in interface
+dhclient wlp2s0
 ```
 
 ### 205.2 Advanced Network Configuration and Troubleshooting
