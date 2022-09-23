@@ -4065,7 +4065,7 @@ arp -f FILE_WITH_LIST_IP_MAC
 arpwatch -d
 ```
 
-#### iw - show / manipulate wireless devices and their configuration
+##### iw - show / manipulate wireless devices and their configuration
 
 ```sh
 #stop NetworkManager for this examples
@@ -4082,14 +4082,14 @@ iw dev wlp2so scan
 iw dev wlp2sop up
 ```
 
-#### iwlist - Get more detailed wireless information from a wireless interface
+##### iwlist - Get more detailed wireless information from a wireless interface
 
 ```sh
 #show status wirelles network
 iwlist wlp0s2 scanning
 ```
 
-#### iwconfig - configure a wireless network interface
+##### iwconfig - configure a wireless network interface
 
 ```sh
 #show interface infos
@@ -4105,21 +4105,21 @@ iwconfig wlp2s0 key s:mypassword
 iwconfig wlp2s0 ap 52:54:00:12:35:02
 ```
 
-#### wpa_passphrase - Generate a WPA PSK from an ASCII passphrase for a SSID
+##### wpa_passphrase - Generate a WPA PSK from an ASCII passphrase for a SSID
 
 ```sh
 #configure password WPA Wirelles
 wpa_passphrase MY-WIRELLES  MYPASSWORD >/etc/wpa_supplicant.conf
 ```
 
-#### wpa_supplicant - Wi-Fi Protected Access client and IEEE 802.1X supplicant
+##### wpa_supplicant - Wi-Fi Protected Access client and IEEE 802.1X supplicant
 
 ```sh
 #connect in WPA Wirelles
 wpa_supplicant -c /etc/wpa_supplicant.conf -B -d -i wlp2s0
 ```
 
-#### dhclient - Dynamic Host Configuration Protocol Client
+##### dhclient - Dynamic Host Configuration Protocol Client
 
 ```sh
 #set dynamic ip in interface
@@ -4154,6 +4154,85 @@ ping, ping6
 nc
 tcpdump
 nmap
+```
+
+#### 205.2 Important Commands
+
+##### ping - send ICMP ECHO_REQUEST to network hosts
+
+```sh
+#simple icmp test ipv4
+ping 192.168.0.100
+ping -4 192.168.0.100
+
+#simple icmp test ipv6
+ping6 2804:431:e7c5:488e:a00:27ff:fe72:19a8/64
+
+#send 3 icmp packages
+ping -c3 192.168.0.1
+```
+
+##### traceroute - print the route packets trace to network host
+
+```sh
+#traceroute with UDP package
+traceroute 192.168.1.111
+traceroute www.google.com
+
+#traceroute with TCP package
+traceroute -I 192.168.1.111
+#traceroute with UDP package
+traceroute -I 192.168.1.111
+```
+
+#### Lab about lans
+
+![image](https://user-images.githubusercontent.com/62715900/191869079-bf162859-7482-4e88-9c24-8eb4de2b1ca9.png)
+
+##### Configure Notebook
+
+```sh
+# add route
+ip route add 172.32.16.0/24 via 192.168.1.111
+```
+
+##### Configure Debian
+
+```sh
+#flush configs in interface
+ip addr flush eth0
+
+#set ip 172.32.16.210
+ip addr add 172.32.16.210/24 dev eth0
+
+#Enable Ip forward
+sysctl -w net.ipv4.ip_forward
+#or
+echo 1 > /proc/sys/net/ipv4/ip_forward
+```
+
+##### Configure Centos
+
+```sh
+#flush configs in interface
+ip addr flush eth0
+
+#set ip 172.32.16.210
+ip addr add 172.32.16.220/24 dev eth0
+
+#set route
+ip route add 192.168.1.0/24 via 172.36.16.210
+```
+
+##### Validate routes
+
+```sh
+#notebook<---->debian
+ping 172.36.16.210
+
+#notebook---->centos
+ping 172.36.16.220
+
 ```
 
 ### 205.3 Troubleshooting Network Issues
