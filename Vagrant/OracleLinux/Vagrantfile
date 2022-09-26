@@ -124,6 +124,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       "ens32",
       "Marvell AQtion 5Gbit Network Adapter",
     ]
+    ol8_lpic_102.vm.network "private_network", ip: "172.36.12.220"
 
     # Forward Port
     # ol8_lpic_102.vm.network "forwarded_port", guest: 8020, host: 9020, adapter: 1, guest_ip: "192.168.0.133" ,host_ip: "192.168.0.33"
@@ -143,11 +144,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.cpus = 2
     end
 
-    # SHELL PROVISIONING
+
     # SSH,FIREWALLD,SELINUX, UPDATES AND PROFILE
+
     ol8_lpic_102.vm.provision "shell", path: "scripts/install.sh"
 
-    # ANSIBLE PROVISIONING
+    #ANSIBLE PROVISIONING
     # ol8_lpic_102.vm.provision "ansible" do |ansible|
     #   ansible.limit = "all"
     #   ansible.inventory_path = "provisioning/hosts"

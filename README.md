@@ -4156,36 +4156,7 @@ tcpdump
 nmap
 ```
 
-#### 205.2 Important Commands
-
-##### ping - send ICMP ECHO_REQUEST to network hosts
-
-```sh
-#simple icmp test ipv4
-ping 192.168.0.100
-ping -4 192.168.0.100
-
-#simple icmp test ipv6
-ping6 2804:431:e7c5:488e:a00:27ff:fe72:19a8/64
-
-#send 3 icmp packages
-ping -c3 192.168.0.1
-```
-
-##### traceroute - print the route packets trace to network host
-
-```sh
-#traceroute with UDP package
-traceroute 192.168.1.111
-traceroute www.google.com
-
-#traceroute with TCP package
-traceroute -I 192.168.1.111
-#traceroute with UDP package
-traceroute -I 192.168.1.111
-```
-
-#### Lab about lans
+#### Lab about network
 
 ![image](https://user-images.githubusercontent.com/62715900/191869079-bf162859-7482-4e88-9c24-8eb4de2b1ca9.png)
 
@@ -4233,6 +4204,85 @@ ping 172.36.16.210
 #notebook---->centos
 ping 172.36.16.220
 
+```
+
+#### 205.2 Important Commands
+
+##### ping - send ICMP ECHO_REQUEST to network hosts
+
+```sh
+#simple icmp test ipv4
+ping 192.168.0.100
+ping -4 192.168.0.100
+
+#simple icmp test ipv6
+ping6 2804:431:e7c5:488e:a00:27ff:fe72:19a8/64
+
+#send 3 icmp packages
+ping -c3 192.168.0.1
+```
+
+##### traceroute - print the route packets trace to network host
+
+```sh
+#traceroute with UDP package
+traceroute 192.168.1.111
+traceroute www.google.com
+
+#traceroute with TCP package
+traceroute -I 192.168.1.111
+
+#traceroute with UDP package
+traceroute -I 192.168.1.111
+```
+
+##### nc - TCP/IP swiss army knife
+
+```sh
+#test connection
+netcat 192.168.0.135 80
+netcat -zv 192.168.0.135 80
+
+#net connection range port
+nc -zv 192.168.0.135 50-100
+
+#open port to connect
+nc -l -p 1234
+```
+
+##### netstat  -  Print  network connections, routing tables, interface statistics
+
+```sh
+#list all connections
+netstat
+
+#viewing a routing table ipv4
+netstat -r
+
+#viewing a routing table ipv6
+netstat -6r
+
+#show listenning ports\sockets udp\tcp
+netstat -lu
+netstat -lt
+netstat -lute
+
+#only established connections
+netstat -ute
+
+#only numeric output
+netstat -uten
+
+#viewing Current Connections
+netstat -tulnp
+netstat -tulnp4
+netstat -tuln6
+
+#any processes are listening on TCP port 80
+netstat -ln | grep ":80"
+
+# find which process is listening on a port
+netstat -lnp | grep ":22"
 ```
 
 ### 205.3 Troubleshooting Network Issues
