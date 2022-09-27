@@ -81,7 +81,6 @@ Installation and configuration of some packages will also be covered\
 - [Bugzila](https://bugzilla.kernel.org/)
 - [Command Not Found](https://command-not-found.com/)
 - [DistroTest](https://distrotest.net/index.php)
-- [Katacoda](https://www.katacoda.com/)
 - [Bash RC Generator](http://bashrcgenerator.com/)
 - [Explainshell](https://explainshell.com/)
 - [Vim Tutorial](https://www.openvim.com/)
@@ -4041,6 +4040,10 @@ ip route del 2001:db8:1::/64 via 2001:db8::3
 
 # clear configs interface
 ip addr flush eth0
+
+# show arp table
+ip neigh show
+
 ```
 
 ##### arp - manipulate the system ARP cache
@@ -4283,6 +4286,52 @@ netstat -ln | grep ":80"
 
 # find which process is listening on a port
 netstat -lnp | grep ":22"
+
+# show interfaces
+netstat -i
+```
+
+##### tcpdump - dump traffic on a network
+
+```sh
+#show trafic of all interfaces
+tcpdump
+tcpdump -n
+tcpdump -n -vvv
+tcpdump -n -q
+
+#show icmp packages
+tcpdump -n icmp
+tcpdump -n icmp -c10
+tcpdump -n icmp -c10 -i eth1
+
+#show packages by interface
+tcpdump -n -i eth1
+tcpdump -n icmp -i eth1
+
+#output packages in file
+tcpdump -n -c20 icmp -i eth1 -w tcpdum.pcap
+
+#read package file
+tcpdump -r tcpdum.pcap
+
+#filter by host
+tcpdump -n host www.lpi.org
+tcpdump -n host 192.168.0.100 and port 22
+tcpdump -n host 192.168.0.100 and not port 22
+tcpdump -n host 192.168.0.100 or port 80
+tcpdump -n src host www.lpi.org
+tcpdump -n src host 192.168.0.100 and port 22
+tcpdump -n dst host www.lpi.org
+
+#filter by port
+tcpdump -n port 80
+tcpdump -n portrange 20-100
+tcpdump -n src 80
+tcpdump -n dst 80
+
+#filter specifi network
+tcpdump -n net 192.168.0.135
 ```
 
 ### 205.3 Troubleshooting Network Issues
