@@ -417,6 +417,9 @@ sudo lsof -N -u vagrant -a
 
 # List locked deleted files
 sudo lsof {path} | grep deleted
+
+#list tcp connectio,but not in LISTEN
+lsof -i tcp|grep -v LISTEN
 ```
 
 ##### top - display Linux processes
@@ -4311,6 +4314,7 @@ tcpdump -n icmp -i eth1
 
 #output packages in file
 tcpdump -n -c20 icmp -i eth1 -w tcpdum.pcap
+tcpdump -n not port 80 and not port 443 -c 100 -w analise.pcap
 
 #read package file
 tcpdump -r tcpdum.pcap
@@ -4332,6 +4336,28 @@ tcpdump -n dst 80
 
 #filter specifi network
 tcpdump -n net 192.168.0.135
+```
+
+##### nmap - Network exploration tool and security / port scanner
+
+```sh
+#scan host
+nmap 192.168.0.134
+
+#scan network
+nmap 192.168.0.134/24
+nmap 192.168.0.134/24 -F
+
+#scan port
+nmap 192.168.0.134 -p 22
+nmap 192.168.0.1/24 -p20-23,80,443
+
+#scan and show operation system
+nmap 192.168.0.100 -O
+nmap 192.168.0.100 -O -F
+
+#scan and get version of applications
+nmap 192.168.0.134 -sV
 ```
 
 ### 205.3 Troubleshooting Network Issues
