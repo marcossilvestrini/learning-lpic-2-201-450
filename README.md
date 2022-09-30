@@ -4399,6 +4399,69 @@ dmesg
 /etc/hosts.allow, /etc/hosts.deny
 ```
 
+#### About Network in distro Debian
+
+Please, stop\disabled the NetworkManager service for set configurations in permanent mode!!!
+
+```sh
+systemctl stop networking
+```
+
+```sh
+#configuration directories
+/etc/network
+/etc/network/interfaces.d
+
+#default configurations files
+/etc/network/interfaces
+
+#restart network service
+systemctl restart networking
+```
+
+#### About Network in distro RPM
+
+```sh
+#configuration directories
+/etc/sysconfig/network-scripts
+
+#defaults configurations files
+/etc/sysconfig/network-scripts/ifcfg-INTERFACE_NAME
+
+#gateway configuration
+/etc/sysconfig/network
+
+#restart network service
+systemctl restart network
+systemctl restart network-online-target
+```
+
+#### About NetworkManager service
+
+```sh
+#open gui configuration
+nmtui
+```
+
+#### 205.3 Important Commands
+
+##### mtr - a network diagnostic tool
+
+```sh
+#show network traffic
+mtr
+
+#show network IPV4 or IPV6 traffic
+mtr -4
+mtr -6
+
+#Use UDP datagrams instead of ICMP ECHO.
+mtr -u
+
+#Use TCP SYN packets instead of ICMP ECHO
+mtr -T
+```
+
 ## Topic 206: System Maintenance
 
 ### 206.1 Make and install programs from source

@@ -73,6 +73,7 @@ apt-get install -y nvme-cli
 apt-get install -y arpwatch
 apt-get install -y wireless-tools
 apt-get install -y tcpdump
+apt-get install -y mtr
 
 # Set ssh
 cp -f configs/01-sshd-custom.conf /etc/ssh/sshd_config.d
