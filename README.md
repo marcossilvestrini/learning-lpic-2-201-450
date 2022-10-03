@@ -4439,8 +4439,17 @@ systemctl restart network-online-target
 #### About NetworkManager service
 
 ```sh
+#configuration directories
+/etc/NetworkManager
+
 #open gui configuration
 nmtui
+
+#NetworkManager client
+nmcli
+
+#show device infos
+nmcli device show
 ```
 
 #### 205.3 Important Commands
@@ -4461,6 +4470,60 @@ mtr -u
 #Use TCP SYN packets instead of ICMP ECHO
 mtr -T
 ```
+
+##### command hostname
+
+```sh
+#show hostname
+hostname
+hostname -f
+
+#show domain
+hostname -d
+
+#show ip
+hostname -i
+hostname -I
+```
+
+##### host - DNS lookup utility
+
+```sh
+#lookup example
+host www.lpi.org
+host lpi.org
+host -a lpi.org
+
+#find mx entries
+host -t mx lpi.org
+
+#find ns entries
+host -t ns lpi.org
+```
+
+##### dig - DNS lookup utility
+
+```sh
+#find A DNS entry
+dig learning.lpi.org
+dig learning.lpi.org @8.8.8.8
+
+#find a specifi DNS entry type
+dig -t mx lpi.org
+dig -t AA lpi.org
+dig -t SOA lpi.org
+
+#print only output
+dig +short lpi.org
+
+#disabled extension EDNS cookies
+dig +nocookie -t MX lpi.org
+
+#looks up the A record for lpi.org and displays only the query and response
+dig +noall +answer +question lpi.org
+
+```
+
 
 ## Topic 206: System Maintenance
 

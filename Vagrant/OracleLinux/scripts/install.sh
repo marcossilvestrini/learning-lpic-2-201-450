@@ -58,15 +58,6 @@ setenforce Permissive
 #Set GnuGP
 echo vagrant | $(su -c "gpg -k" -s /bin/bash vagrant)
 
-#Set DNS Server
-#https://fabianlee.org/2018/10/28/linux-using-sed-to-insert-lines-before-or-after-a-match/
-sed -i '/^nameserver 10.0.2.3/i nameserver 192.168.0.1' /etc/resolv.conf
-
-#Set Networkmanager
-#sed -i '/\[main\]/a dns=none' /etc/NetworkManager/NetworkManager.conf
-cp -f configs/01-NetworkManager-custom.conf /etc/NetworkManager/conf.d/
-systemctl restart NetworkManager
-
 #Install X11 Server
 dnf config-manager --set-enabled ol8_codeready_builder
 #dnf update -y
@@ -77,3 +68,12 @@ dnf install -y xorg-x11-server-Xorg.x86_64 xorg-x11-xauth.x86_64 \
 cp -f configs/sysstat /etc/default/
 systemctl start sysstat sysstat-collect.timer sysstat-summary.timer
 systemctl enable sysstat sysstat-collect.timer sysstat-summary.timer
+
+#Set DNS Server
+#https://fabianlee.org/2018/10/28/linux-using-sed-to-insert-lines-before-or-after-a-match/
+sed -i '/^nameserver 10.0.2.3/i nameserver 192.168.0.1' /etc/resolv.conf
+
+#Set Networkmanager
+#sed -i '/\[main\]/a dns=none' /etc/NetworkManager/NetworkManager.conf
+cp -f configs/01-NetworkManager-custom.conf /etc/NetworkManager/conf.d/
+systemctl restart NetworkManager

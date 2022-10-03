@@ -36,7 +36,9 @@ Vagrant.configure("2") do |config|
   config.vm.box = "debian/bullseye64"
   #config.vm.box = "generic/debian10"
   config.vm.box_download_insecure=true
+  config.vbguest.no_install  = true
   config.vbguest.auto_update = false
+  config.vbguest.no_remote   = true
 
   #STORAGE
 

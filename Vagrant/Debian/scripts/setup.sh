@@ -94,6 +94,12 @@ apt-get install xserver-xorg -y
 Xorg -configure
 mv /root/xorg.conf.new /etc/X11/xorg.conf
 
+#Enable sadc collected system activity
+sed -i 's/false/true/g' /etc/default/sysstat
+cp -f configs/cron.d-sysstat /etc/cron.d/sysstat
+systemctl start sysstat
+systemctl enable sysstat
+
 #set prefered DNS servers
 apt-get install -y resolvconf
 systemctl enable resolvconf.service
@@ -101,9 +107,3 @@ systemctl start resolvconf.service
 cp -f configs/head /etc/resolvconf/resolv.conf.d/
 resolvconf --enable-updates
 resolvconf -u
-
-#Enable sadc collected system activity
-sed -i 's/false/true/g' /etc/default/sysstat
-cp -f configs/cron.d-sysstat /etc/cron.d/sysstat
-systemctl start sysstat
-systemctl enable sysstat

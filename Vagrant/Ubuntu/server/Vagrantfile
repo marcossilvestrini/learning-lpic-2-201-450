@@ -13,6 +13,9 @@ end
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "gusztavvargadr/ubuntu-server-lts"
   config.vm.box_download_insecure=true
+  config.vbguest.no_install  = true
+  config.vbguest.auto_update = false
+  config.vbguest.no_remote   = true
 
   # VM ubuntu-server
   config.vm.define "ubuntuServer-lpic-201"  do |ubuntuServer_lpic_102|

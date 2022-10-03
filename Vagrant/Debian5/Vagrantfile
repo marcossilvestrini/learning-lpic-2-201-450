@@ -11,6 +11,9 @@ Vagrant.configure("2") do |config|
   config.vm.box = "normation/debian-5-64"
   config.vm.box_version = "1.0"
   config.vm.box_download_insecure=true
+  config.vbguest.no_install  = true
+  config.vbguest.auto_update = false
+  config.vbguest.no_remote   = true
 
   # VM Debian Server
   config.vm.define "debian5_lpic_201"  do |debian5_lpic_201|
