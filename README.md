@@ -1,23 +1,30 @@
 # LEARNNING LPIC-2 201-450
 
+<a name="readme-top"></a>
+
 ![201-450_ Linux Engineer - 201 (LPIC-2 201)](https://user-images.githubusercontent.com/62715900/161654855-c16761b1-ae1a-4270-865b-7b1fdafd9dc8.png)
 
 >***Four Essential Freedoms:***\
 >0.The freedom to run the program as you wish, for any purpose (freedom 0).\
->1.The freedom to study how the program works, and change it so it does your computing as you wish (freedom 1).\
+>1.The freedom to study how the program works, and change it so it does\
+your computing as you wish (freedom 1).\
 >Access to the source code is a precondition for this.\
 >2.The freedom to redistribute copies so you can help others (freedom 2).\
 >3.freedom to distribute copies of your modified versions to others (freedom 3).
 
->This project aims to help students or professionals to learn the main concepts of GNU \ Linux and free software\
+>This project aims to help students or professionals to learn the main concepts of GNU \ Linux\
+and free software\
 Some GNU \ Linux distributions like Debian and RPM will be covered\
 Installation and configuration of some packages will also be covered\
 >By doing this you can give the whole community a chance to benefit from your changes.\
 >Access to the source code is a precondition for this.\
 >Use vagrant for up machines and execute labs and practice content in this article.\
->I have published in folder Vagrant a Vagrantfile with what is necessary for you to upload an environment for studies
+>I have published in folder Vagrant a Vagrantfile with what is necessary\
+for you to upload an environment for studies
 
 >Thanks Sue B.V., The Netherlands - Open Sourced 2021 for content of learning
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Authors
 
@@ -4365,7 +4372,8 @@ nmap 192.168.0.134 -sV
 **Weight:** 4
 
 **Description:**
-Candidates should be able to identify and correct common network setup issues, to include knowledge of locations for basic configuration files and commands.
+Candidates should be able to identify and correct common network setup issues,\
+to include knowledge of locations for basic configuration files and commands.
 
 **Key Knowledge Areas:**
 
