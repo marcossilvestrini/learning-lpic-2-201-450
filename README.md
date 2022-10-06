@@ -37,6 +37,8 @@ for you to upload an environment for studies
 
 ## References
 
+<a name="references-top"></a>
+
 - [Richard Stallman's](http://www.stallman.org/)
 - [GNU/Linux FAQ by Richard Stallman](https://www.gnu.org/gnu/gnu-linux-faq.html)
 - [GNU](https://www.gnu.org/)
@@ -98,6 +100,9 @@ for you to upload an environment for studies
 - [LPIC-2 201-450 Wiki](https://wiki.lpi.org/wiki/LPIC-2_Objectives_V4.5#Objectives:_Exam_201)
 - [LPIC-2 201-450 Learning Material](https://lpic2book.github.io/src/)
 - [LPIC-2 201-450 Simulated Exam By ITexams](https://www.itexams.com/exam/201-450)
+
+<p align="right">(<a href="#references-top">back to references</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Inspect commands
 
