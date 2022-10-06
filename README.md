@@ -35,9 +35,9 @@ for you to upload an environment for studies
 
 - This project is licensed under the MIT License - see the LICENSE.md file for details
 
-## References
-
 <a name="references-top"></a>
+
+## References
 
 - [Richard Stallman's](http://www.stallman.org/)
 - [GNU/Linux FAQ by Richard Stallman](https://www.gnu.org/gnu/gnu-linux-faq.html)
@@ -116,14 +116,19 @@ man COMMAND
 
 ```
 
+<a name="topic-200"></a>
+
 ## Topic 200: Capacity Planning
+
+<a name="topic-200.1"></a>
 
 ### 200.1 Measure and Troubleshoot Resource Usage
 
 **Weight:** 6
 
 **Description:**
-Candidates should be able to measure hardware resource and network bandwidth, identify and troubleshoot resource problems.
+Candidates should be able to measure hardware resource and network bandwidth,\
+identify and troubleshoot resource problems.
 
 **Key Knowledge Areas:**
 Measure CPU usage
@@ -213,7 +218,7 @@ mpstat 2 3
 mpstat -o JSON
 ```
 
-##### netstat - Print network connections, routing tables, interface statistics, masquerade connections, and multicast memberships
+##### netstat - Print network connections, routing tables, interface statistics, masquerade connections
 
 ```sh
 #syntaxe
@@ -508,6 +513,12 @@ free
 #output in human form
 free -h
 ```
+
+<p align="right">(<a href="#topic-200.1">back to Sub Topic 200.1</a>)</p>
+<p align="right">(<a href="#topic-200">back to Topic 200</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<a name="topic-200.2"></a>
 
 ### 200.2 Predict Future Resource Needs
 
@@ -1115,7 +1126,15 @@ predict growth
 resource exhaustion
 ```
 
+<p align="right">(<a href="#topic-200.2">back to Sub Topic 200.2</a>)</p>
+<p align="right">(<a href="#topic-200">back to Topic 200</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<a name="topic-201"></a>
+
 ## Topic 201: Linux Kernel
+
+<a name="topic-201.1"></a>
 
 ### 201.1 Kernel Components
 
@@ -1184,6 +1203,12 @@ Get size image of kernel
 ```sh
 ls -lh /boot/vmlinuz-`uname -r`
 ```
+
+<p align="right">(<a href="#topic-201.1">back to Sub Topic 201.1</a>)</p>
+<p align="right">(<a href="#topic-201">back to Topic 201</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<a name="topic-201.2"></a>
 
 ### 201.2 Compiling a kernel
 
@@ -1502,6 +1527,12 @@ dkms remove zfs/2.0.3 --all
 dkms add zfs/2.0.3 --all
 ```
 
+<p align="right">(<a href="#topic-201.2">back to Sub Topic 201.2</a>)</p>
+<p align="right">(<a href="#topic-202">back to Topic 202</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<a name="topic-201.3"></a>
+
 ### 201.3 Kernel runtime management and troubleshooting
 
 **Weight:** 4
@@ -1747,7 +1778,15 @@ udevadm monitor
 /lib/udev/rules.d
 ```
 
+<p align="right">(<a href="#topic-201.3">back to Sub Topic 201.3</a>)</p>
+<p align="right">(<a href="#topic-201">back to Topic 201</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<a name="topic-202"></a>
+
 ## Topic 202: System Startup
+
+<a name="topic-202.1"></a>
 
 ### 202.1 Customizing SysV-init system startup
 
@@ -1991,6 +2030,12 @@ update-rc.d collectd start 10 2 3 4 5 . stop 90 0 1 6 .
 /run/systemd/system
 /lib/systemd/system
 ```
+
+<p align="right">(<a href="#topic-202.1">back to Sub Topic 202.1</a>)</p>
+<p align="right">(<a href="#topic-202">back to Topic 202</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<a name="topic-202"></a>
 
 ### 202.2 System Recovery
 
@@ -2348,6 +2393,12 @@ update-grub
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
+<p align="right">(<a href="#topic-202.2">back to Sub Topic 202.2</a>)</p>
+<p align="right">(<a href="#topic-202">back to Topic 202</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<a name="topic-202.3"></a>
+
 ### 202.3 Alternate Bootloaders
 
 **Weight:** 2
@@ -2431,7 +2482,15 @@ uefi/shim.efi
 uefi/grubx64.efi
 ```
 
+<p align="right">(<a href="#topic-202.3">back to Sub Topic 202.3</a>)</p>
+<p align="right">(<a href="#topic-202">back to Topic 202</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<a name="topic-203"></a>
+
 ## Topic 203: Filesystem and Devices
+
+<a name="topic-203.1"></a>
 
 ### 203.1 Operating the Linux filesystem
 
@@ -2811,6 +2870,12 @@ mkswap -L Swap /dev/sdb1
 mkswap /myswap
 ```
 
+<p align="right">(<a href="#topic-203.1">back to Sub Topic 203.1</a>)</p>
+<p align="right">(<a href="#topic-203">back to Topic 203</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<a name="topic-203.2"></a>
+
 ### 203.2 Maintaining a Linux filesystem​
 
 **Weight:* 3
@@ -3170,6 +3235,12 @@ smartctl -a /dev/sdb
 smartctl -H /dev/sda
 ```
 
+<p align="right">(<a href="#topic-203.2">back to Sub Topic 203.2</a>)</p>
+<p align="right">(<a href="#topic-203">back to Topic 203</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<a name="topic-203.3"></a>
+
 ### 203.3 Creating and configuring filesystem options
 
 **Weight:** 2
@@ -3339,10 +3410,17 @@ reboot
 #close partition LUKS
 umount /dev/mapper/security-partition
 cryptsetup close security-partition
-
 ```
 
+<p align="right">(<a href="#topic-203.3">back to Sub Topic 203.3</a>)</p>
+<p align="right">(<a href="#topic-203">back to Topic 203</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<a name="topic-204"></a>
+
 ## Topic 204: Advanced Storage Device Administration
+
+<a name="topic-204.1"></a>
 
 ### 204.1 Configuring RAID
 
@@ -3462,6 +3540,12 @@ mdadm --zero-superblock /dev/sdb2
 # add raid device
 mdadm  /dev/md1 -a /dev/sdb2
 ```
+
+<p align="right">(<a href="#topic-204.1">back to Sub Topic 204.1</a>)</p>
+<p align="right">(<a href="#topic-204">back to Topic 204</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<a name="topic-204.2"></a>
 
 #### 204.2 Adjusting Storage Device Access
 
@@ -3747,6 +3831,12 @@ iscsiadm -m node -p ipaddress --rescan
 tgt-admin --show
 ```
 
+<p align="right">(<a href="#topic-204.2">back to Sub Topic 204.2</a>)</p>
+<p align="right">(<a href="#topic-204">back to Topic 204</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<a name="topic-204.3"></a>
+
 ### 204.3 Logical Volume Manager
 
 **Weight:** 3
@@ -3939,7 +4029,15 @@ mount
 /dev/mapper/
 lvm.conf
 
+<p align="right">(<a href="#topic-204.3">back to Sub Topic 204.3</a>)</p>
+<p align="right">(<a href="#topic-204">back to Topic 204</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<a name="topic-205"></a>
+
 ## Topic 205: Network Configuration
+
+<a name="topic-205.1"></a>
 
 ### 205.1 Basic networking configuration
 
@@ -4143,6 +4241,12 @@ wpa_supplicant -c /etc/wpa_supplicant.conf -B -d -i wlp2s0
 #set dynamic ip in interface
 dhclient wlp2s0
 ```
+
+<p align="right">(<a href="#topic-205.1">back to Sub Topic 205.1</a>)</p>
+<p align="right">(<a href="#topic-205">back to Topic 205</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<a name="topic-205.2"></a>
 
 ### 205.2 Advanced Network Configuration and Troubleshooting
 
@@ -4372,6 +4476,12 @@ nmap 192.168.0.100 -O -F
 nmap 192.168.0.134 -sV
 ```
 
+<p align="right">(<a href="#topic-205.2">back to Sub Topic 205.2</a>)</p>
+<p align="right">(<a href="#topic-205">back to Topic 205</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<a name="topic-205.3"></a>
+
 ### 205.3 Troubleshooting Network Issues
 
 **Weight:** 4
@@ -4534,10 +4644,17 @@ dig +nocookie -t MX lpi.org
 
 #looks up the A record for lpi.org and displays only the query and response
 dig +noall +answer +question lpi.org
-
 ```
 
+<p align="right">(<a href="#topic-205.3">back to Sub Topic 205.3</a>)</p>
+<p align="right">(<a href="#topic-205">back to Topic 205</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<a name="topic-206"></a>
+
 ## Topic 206: System Maintenance
+
+<a name="topic-206.1"></a>
 
 ### 206.1 Make and install programs from source
 
@@ -4569,6 +4686,12 @@ install
 patch
 ```
 
+<p align="right">(<a href="#topic-206.1">back to Sub Topic 206.1</a>)</p>
+<p align="right">(<a href="#topic-206">back to Topic 206</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<a name="topic-206.2"></a>
+
 ### 206.2 Backup operations
 
 **Weight:** 3
@@ -4596,6 +4719,12 @@ mt
 rsync
 ```
 
+<p align="right">(<a href="#topic-206.2">back to Sub Topic 206.2</a>)</p>
+<p align="right">(<a href="#topic-206">back to Topic 206</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<a name="topic-206.3"></a>
+
 #### 206.3 Notify users on system-related issues
 
 **Weight:** 1
@@ -4616,3 +4745,7 @@ Inform active users of system maintenance
 wall
 /sbin/shutdown
 systemctl
+
+<p align="right">(<a href="#topic-206.3">back to Sub Topic 206.3</a>)</p>
+<p align="right">(<a href="#topic-206">back to Topic 206</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
