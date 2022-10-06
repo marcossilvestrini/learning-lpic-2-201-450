@@ -2035,7 +2035,7 @@ update-rc.d collectd start 10 2 3 4 5 . stop 90 0 1 6 .
 <p align="right">(<a href="#topic-202">back to Topic 202</a>)</p>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<a name="topic-202"></a>
+<a name="topic-202.2"></a>
 
 ### 202.2 System Recovery
 
