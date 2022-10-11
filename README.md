@@ -4686,6 +4686,114 @@ install
 patch
 ```
 
+#### 206.1 Important Commands
+
+##### tar - an archiving utility
+
+```sh
+# Archiving
+tar -cf scripts.tar foo1.sh foo2.sh
+tar -cvf scripts.tar scripts
+tar -cf scripts.tar scripts/*
+tar cfv  tar-file.tar --wildcards bigfile[1-3]
+
+#redirect file to specific folder
+tar cvf arquive/logs.tar logs/
+
+#view content
+tar -tf scripts.tar
+
+# extract
+tar -xf scripts.tar
+tar -xvf scripts.tar
+
+# extract to specific folder
+tar xvf logs.tar -C new-logs/
+
+#update - Add new version for modify files.Not best practice!
+tar -uvf scripts.tar scripts
+
+#update best practice for update tar files
+tar -cvf scripts.tar scripts
+
+#compress \ descompress with gzip
+tar -czvf scripts.tar.gz scripts
+tar -xzvfp scripts.tar.gz
+
+#compress \ descompress with bzip2
+tar -cjvf scripts.tar.bz2 scripts
+tar -xjvfp scripts.tar.bz2
+
+#compress \ descompress with xz
+tar -cJvf scripts.tar.xz scripts
+tar -xJvfp scripts.tar.xz
+```
+
+##### Gzip - compress or expand files
+
+```sh
+#compress
+gzip -v scripts/script1.sh
+gzip -v1 scripts/script1.sh
+gzip -v9 scripts/script1.sh
+gzip -c scripts/script1.sh > scripts/script1.gz
+
+#descompress
+gzip -dv picture1.jpg.gz
+gunzip -v scripts/script1.gz
+
+#list infos
+gzip -l picture1.jpg.gz
+```
+
+##### Bzip2 - a block-sorting file compressor
+
+```sh
+#compress
+bzip2 -v scripts/script1.sh
+bzip2 -v1 picture1.jpg
+bzip2 -v9 picture1.jpg
+
+#descompress
+bunzip2 -v picture1.jpg.bz2
+bzip2 -dv picture1.jpg.bz2
+```
+
+##### xz - Compress or decompress .xz and .lzma files
+
+```sh
+#compress
+xz script1.sh
+xz -1 bigfile bigfile-xz1
+xz -9 bigfile bigfile-xz9
+
+#descompress
+unxz picture1.xz
+xz -d picture1.xz
+```
+
+##### Compile program
+
+```sh
+#Step 1: Download package(some package in internet)
+
+#Step 2: Extract files(tar or others unpacking daemons)
+
+#Step 3: Execute configure
+
+#default
+./configure
+
+# with params
+./configure --prefix=/opt/test
+
+#Step 4: Execute make
+make
+
+#Step 5: Execute make install
+make install
+```
+
 <p align="right">(<a href="#topic-206.1">back to Sub Topic 206.1</a>)</p>
 <p align="right">(<a href="#topic-206">back to Topic 206</a>)</p>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
