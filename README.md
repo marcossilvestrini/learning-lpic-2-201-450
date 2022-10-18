@@ -4661,7 +4661,8 @@ dig +noall +answer +question lpi.org
 **Weight:** 2
 
 **Description:**
-Candidates should be able to build and install an executable program from source. This objective includes being able to unpack a file of sources.
+Candidates should be able to build and install an executable program from source.\
+This objective includes being able to unpack a file of sources.
 
 **Key Knowledge Areas:**
 
@@ -4776,10 +4777,16 @@ xz -d picture1.xz
 
 ```sh
 #Step 1: Download package(some package in internet)
+#Example:
+cd /usr/local/bin
+wget http://links.twibright.com/download/links-2.0.tar.bz2
 
 #Step 2: Extract files(tar or others unpacking daemons)
+#Example:
+tar xjvfp links-2.0.tar.bz2
 
 #Step 3: Execute configure
+cd tar links-2.0
 
 #default
 ./configure
@@ -4792,6 +4799,41 @@ make
 
 #Step 5: Execute make install
 make install
+```
+
+##### Apply Patch in program
+
+This example use links package.Alter string Keys for KEYS in default.c
+
+```sh
+#create patch file
+
+cd /usr/local/bin/links-2.0
+cp default.c new-default.c
+vim new-default.c
+#alter string Keys to KEYS and save file
+diff -u default.c new-default.c > patch-links-keys
+
+#Apply pacth file
+patch < patch-links-keys
+
+#Compile modifications
+make
+
+#Validate (see if string Keys have in Uppercase)
+./links --help
+```
+
+##### Remove Patch in program
+
+This example use links package.Alter string KEYS for Keys  in default.c
+
+```sh
+#Remove pacth file
+patch -R < patch-links-keys
+
+#Compile modifications
+make
 ```
 
 <p align="right">(<a href="#topic-206.1">back to Sub Topic 206.1</a>)</p>
