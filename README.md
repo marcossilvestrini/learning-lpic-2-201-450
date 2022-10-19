@@ -87,6 +87,7 @@ for you to upload an environment for studies
 - [Distro Watch](https://distrowatch.com/)
 - [Comparison Linux Distributions](https://en.wikipedia.org/wiki/Comparison_of_Linux_distributions)
 - [Download Packages](https://pkgs.org/)
+- [Guide Install Packages](https://installati.one/)
 - [Bugzila](https://bugzilla.kernel.org/)
 - [Command Not Found](https://command-not-found.com/)
 - [DistroTest](https://distrotest.net/index.php)
@@ -4785,7 +4786,7 @@ wget http://links.twibright.com/download/links-2.0.tar.bz2
 #Example:
 tar xjvfp links-2.0.tar.bz2
 
-#Step 3: Execute configure
+#Step 3: Execute configure to configure
 cd tar links-2.0
 
 #default
@@ -4794,10 +4795,10 @@ cd tar links-2.0
 # with params
 ./configure --prefix=/opt/test
 
-#Step 4: Execute make
+#Step 4: Execute make to compile package
 make
 
-#Step 5: Execute make install
+#Step 5: Execute make install to install package
 make install
 ```
 
@@ -4867,6 +4868,69 @@ tar
 /dev/st*and /dev/nst*
 mt
 rsync
+```
+
+#### Backups with tar
+
+```sh
+#create a simple backup in disk
+tar -cvf backup.tar /etc
+
+#create a simple backup in tape
+tar -cvf /dev/st0 /home
+tar -cvf /dev/nst0 /var
+
+#extract backup
+tar -xvf backup.tar
+
+#extract backup in tape
+tar -xvf /dev/st0
+
+#create a incremental backup
+
+##create full backup
+tar -cvf backup.tar -g control.txt /etc
+
+##create some file for increment in backup
+echo "some file 1" >/etc/file1
+
+##create backup incremental 1
+tar -cvf backup-incremental-01.tar -g control.txt /etc
+
+##create some file for incrment in backup
+cp /var/log/syslog /etc
+
+##create backup incremental 2
+tar -cvf backup-incremental-02.tar -g control.txt /etc
+
+#check backups size of backups
+ls -lth backup*
+```
+
+#### Backups with cpio
+
+```sh
+#create simple backup
+find /etc/*.conf | cpio -vo > backup.cpio
+
+#create simple backup and compress
+find /etc/*.conf |cpio -o | gzip -c > backup.cpio.gz
+find /etc/*.conf |cpio -o | xz -c > backup.cpio.xz
+find /etc/*.conf |cpio -o | bzip2 -c > backup.cpio.bz2
+
+#extrac cpio backup file
+cpio -ivdm < backup.cpio
+```
+
+#### Backups with dd
+
+```sh
+#create simple backup of partition
+dd if=/dev/sdd1 of=backup.img
+
+#restore partition
+dd if=backup.img of=/dev/sdXY #(sdXY=[device][partition])
+
 ```
 
 <p align="right">(<a href="#topic-206.2">back to Sub Topic 206.2</a>)</p>
