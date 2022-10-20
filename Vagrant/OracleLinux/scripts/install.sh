@@ -32,6 +32,7 @@ dnf install -y udftools
 dnf install -y bash-completion
 dnf install -y usbutils
 dnf install -y vim
+dnf install -y rsync
 dnf install -y tree
 dnf install -y python3-pip
 dnf install -y net-tools
@@ -48,6 +49,7 @@ yum install -y htop
 
 # SSH,FIREWALLD AND SELINUX
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+sed -i 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/g' /etc/ssh/sshd_config
 cat security/id_ecdsa.pub >>.ssh/authorized_keys
 echo vagrant | $(su -c "ssh-keygen -q -t ecdsa -b 521 -N '' -f .ssh/id_ecdsa <<<y >/dev/null 2>&1" -s /bin/bash vagrant)
 systemctl restart sshd

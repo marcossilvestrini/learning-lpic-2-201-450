@@ -4880,6 +4880,9 @@ tar -cvf backup.tar /etc
 tar -cvf /dev/st0 /home
 tar -cvf /dev/nst0 /var
 
+#create backup for home dir ann exclude ~/Downloads folder
+tar zcvpf $HOME/backup-home-`date +%Y-%m-%d`.tgz --exclude=$HOME/Downloads --exclude=$HOME/backup-home*.tgz $HOME
+
 #extract backup
 tar -xvf backup.tar
 
@@ -4930,7 +4933,30 @@ dd if=/dev/sdd1 of=backup.img
 
 #restore partition
 dd if=backup.img of=/dev/sdXY #(sdXY=[device][partition])
+```
 
+#### Copy Files Backup Remotly
+
+```sh
+#use scp for copy files
+scp backup.tar vagrant@192.168.0.135:~/backups
+scp -i ~/.ssh/id_ecdsa backup.tar vagrant@192.168.0.135:~/backups
+
+#user tar and ssh for copy
+tar cf - /etc | ssh vagrant@192.168.0.135 'cat > ~vagrant/backups/new-backup.tar'
+```
+
+#### Working with rsync
+
+```sh
+#create a backup file remotly
+rsync -aruzv /etc vagrant@192.168.0.135:~/backups/rsync-debian-etc
+
+#create a backup file remotly  and delete files remote if not have in origin
+rsync -aruzv --delete /etc vagrant@192.168.0.135:~/backups/rsync-debian-etc
+
+#create a backup file remotly and use ssh for tranfer file
+rsync -e ssh -aruzv /etc vagrant@192.168.0.135:~/backups/rsync-debian-etc
 ```
 
 <p align="right">(<a href="#topic-206.2">back to Sub Topic 206.2</a>)</p>
