@@ -17,7 +17,7 @@ rm .bashrc
 cp -f configs/.bashrc .
 
 # Set properties for user root
-cp .bashrc .vimrc .profile /root/
+cp .bashrc .vimrc /root/
 
 # # Enable Epel repo
 dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y
@@ -49,7 +49,6 @@ yum install -y htop
 
 # SSH,FIREWALLD AND SELINUX
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
-sed -i 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/g' /etc/ssh/sshd_config
 cat security/id_ecdsa.pub >>.ssh/authorized_keys
 echo vagrant | $(su -c "ssh-keygen -q -t ecdsa -b 521 -N '' -f .ssh/id_ecdsa <<<y >/dev/null 2>&1" -s /bin/bash vagrant)
 systemctl restart sshd

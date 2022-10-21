@@ -4986,6 +4986,55 @@ wall
 /sbin/shutdown
 systemctl
 
+#### Abount logins messages
+
+- /etc/issue
+Message before login local
+
+- /etc/issue.net
+Message before login remotly\
+For enable in ssh, configure file /etc/ssh/sshd_config, key Banner.\
+Example: Banner /etc/issue.net
+
+- /etc/motd
+Message after login local or remotly
+
+#### 206.3 Important Commands
+
+##### wall - write a message to all users
+
+```sh
+#send message for all users
+wall "Helo guys!!!"
+
+#use file with messages
+wall < wall-message.txt
+cat message  | wall
+
+#use command
+cat /etc/passwd | wall
+```
+
+##### shutdown - Halt, power-off or reboot the machine
+
+```sh
+#reboot system
+shutdown -r
+shutdown -r now
+
+#reboot without message for users
+shutdown -r --no-wall
+
+#reboot system with custom time and message
+shutdown -t +7 "Reboot system in 7 minutes..."
+
+#stop system, but not poweroff machine
+shutdown --halt
+
+#power off system
+shutdown --poweroff
+```
+
 <p align="right">(<a href="#topic-206.3">back to Sub Topic 206.3</a>)</p>
 <p align="right">(<a href="#topic-206">back to Topic 206</a>)</p>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

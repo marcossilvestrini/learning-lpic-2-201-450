@@ -21,7 +21,7 @@ rm .bashrc
 cp -f configs/.bashrc .
 
 # Set properties for user root
-cp .bashrc .vimrc .profile /root/
+cp .bashrc .vimrc /root/
 
 # Set Swap memory
 fallocate -l 4G /swapfile
