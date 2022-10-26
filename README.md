@@ -4959,6 +4959,107 @@ rsync -aruzv --delete /etc vagrant@192.168.0.135:~/backups/rsync-debian-etc
 rsync -e ssh -aruzv /etc vagrant@192.168.0.135:~/backups/rsync-debian-etc
 ```
 
+#### [Working with BackupPC(Debian)](https://kifarunix.com/install-backuppc-on-debian-11/)
+
+##### Install
+
+```sh
+#update index and packages
+apt update -y && apt upgrade -y
+
+#find package
+apt-cache policy backuppc
+
+#install package
+apt install backuppc
+```
+
+##### Define BackupPC Backup User and Backup Protocol
+
+BackupPC uses different protocols to get backup data from devices being backed up:
+
+- smb – used for backing up windows machines
+- tar – used for backing up Linux/Unix/MacOSX systems
+- rsync – used for backing up Linux/Unix/MacOSX systems. This
+can also be used to backup Windows systems.
+
+In this tutorial we are going to configure BackupPC to use the rsync protocol as a backup method.
+
+```sh
+sed -i '/RsyncSshArgs/s/-l root/-l backuppc/' /etc/backuppc/config.pl
+
+#install rsync in server and clients
+apt install rsync -y
+```
+
+##### Configure BackupPC Apache Authentication
+
+```sh
+htpasswd /etc/backuppc/htpasswd backuppc
+sed -i 's/local/all granted/' /etc/backuppc/apache.conf
+systemctl restart backuppc apache2
+```
+
+##### Generate Backup User SSH Keys
+
+```sh
+su backuppc
+ssh-keygen -q -t ecdsa -b 521
+```
+
+##### Create Backup User Account On Clients
+
+```sh
+useradd -m backuppc
+passwd backuppc
+su backuppc
+ssh-keygen -q -t ecdsa -b 521
+```
+
+##### Copy BackupPC Server SSH Keys
+
+```sh
+ssh-copy-id backuppc@192.168.0.135
+
+#validate key
+ssh -l backuppc 192.168.0.135 whoami
+```
+
+##### Others settings
+
+```sh
+#update sudoers in server and client server(login as root)
+echo "backuppc ALL=NOPASSWD: /usr/bin/rsync" | sudo tee /etc/sudoers.d/backuppc
+
+#To do this, login to client, edit the ssh authorized key file and add the line below
+#before the ssh-rsa keyword.
+
+from="backuppc_server_ip",no-agent-forwarding,no-port-forwarding,no-pty
+#Replace the backuppc_server_ip with the IP address of the backuppc server.
+
+vim /home/backuppc/.ssh/authorized_keys
+from="192.168.0.138",no-agent-forwarding,no-port-forwarding,no-pty  ecdsa-sha2-nistp521 AAAAE2VjZHNhLXNoYTItbmlzdHA1MjEAAAAIbmlzdHA1Mj
+
+#Next, you can also configure ssh logins to backuppc user accounts on clients hosts from the BackupPC
+#server only. This can be done by editing sshd_config file on the client and configuring as shown below;
+
+sudo vim /etc/ssh/sshd_config
+# Add the line below to SSHd configuration to allow login to the client as backuppc
+#from the BackupPC server only.
+
+Match Host 192.168.0.138
+         AllowUsers backuppc
+
+#Reload SSH configurations
+systemctl reload sshd
+```
+
+##### Accessing BackupPC Web User Interface
+
+```sh
+http://backuppc_server_IP or hostname/backuppc
+```
+
 <p align="right">(<a href="#topic-206.2">back to Sub Topic 206.2</a>)</p>
 <p align="right">(<a href="#topic-206">back to Topic 206</a>)</p>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -5026,7 +5127,7 @@ shutdown -r now
 shutdown -r --no-wall
 
 #reboot system with custom time and message
-shutdown -t +7 "Reboot system in 7 minutes..."
+shutdown -r +7 "Reboot system in 7 minutes..."
 
 #stop system, but not poweroff machine
 shutdown --halt
