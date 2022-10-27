@@ -152,6 +152,8 @@ processes blocked on I/O
 /var/log/sa (rhel)
 ```
 
+![Mind Map](MindMaps/mindmap-200.1.png)
+
 #### 200.1 Important Commands
 
 ##### iostat - Report Central Processing Unit (CPU) statistics and input/output statistics for devices and partitions
@@ -353,7 +355,8 @@ It does include memory from shared libraries as long as the pages from those lib
 It does include all stack and heap memory.
 
 VSZ is the Virtual Memory Size.\
-It includes all memory that the process can access, including memory that is swapped out, memory that is allocated, but not used, and memory that is from shared libraries.
+It includes all memory that the process can access, including memory that is swapped out,\
+memory that is allocated, but not used, and memory that is from shared libraries.
 
 ```sh
 #Select all process full-format listing
@@ -368,6 +371,9 @@ ps axms
 
 #get a process by name
 ps axu | grep vim
+
+#list process in Dormant ou "Uninterruptible Sleep" state
+ps -ely | grep "^D"
 ```
 
 ##### lsof - list open files
