@@ -152,7 +152,7 @@ processes blocked on I/O
 /var/log/sa (rhel)
 ```
 
-![Mind Map](MindMaps/mindmap-200.1.png)
+![Mind Map](Images/mindmap-200.1.png)
 
 #### 200.1 Important Commands
 
@@ -541,6 +541,16 @@ Predict capacity break point of a configuration
 Observe growth rate of capacity usage
 Graph the trend of capacity usage
 Awareness of monitoring solutions such as Icinga2, Nagios, collectd, MRTG and Cacti
+
+#### 200.2 Cited Objects
+
+```sh
+diagnose
+predict growth
+resource exhaustion
+```
+
+![Mind Map](IMages/mindmap-200.2.png)
 
 #### Icinga2
 
@@ -1125,14 +1135,6 @@ http:// IP or FQDN /cacti
 #Enter default username and password which is admin and admin
 ```
 
-#### 200.2 Cited Objects
-
-```sh
-diagnose
-predict growth
-resource exhaustion
-```
-
 <p align="right">(<a href="#topic-200.2">back to Sub Topic 200.2</a>)</p>
 <p align="right">(<a href="#topic-200">back to Topic 200</a>)</p>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -1148,7 +1150,9 @@ resource exhaustion
 **Weight:** 2
 
 **Description:**
-Candidates should be able to utilize kernel components that are necessary to specific hardware, hardware drivers, system resources and requirements. This objective includes implementing different types of kernel images, identifying stable and development kernels and patches, as well as using kernel modules.
+Candidates should be able to utilize kernel components that are necessary to specific hardware,\
+hardware drivers, system resources and requirements. This objective includes implementing different\
+types of kernel images, identifying stable and development kernels and patches, as well as using kernel modules.
 
 **Key Knowledge Areas:**
 
@@ -1187,6 +1191,10 @@ gzip
 ##### xz compression
 
 Compress method of kernel sources
+
+![Kernel Architecture](Images/201.1-kernel.jpg)
+
+![Mind Map](Images/mindmap-201.1.png)
 
 #### 201.1 Important Commands
 
@@ -1247,6 +1255,8 @@ make targets (all, config, xconfig, menuconfig, gconfig, oldconfig,
 mrproper, zImage, bzImage, modules, modules_install, rpm-pkg, binrpm-pkg,
 module tools
 ```
+
+![Mind Map](Images/mindmap-201.2.png)
 
 #### Compile Kernel in Debian(as root user)
 
@@ -1585,6 +1595,8 @@ udevmonitor
 udevadm monitor
 /etc/udev/
 ```
+
+![Mind Map](Images/mindmap-201.3.png)
 
 #### 201.3 Important Commands
 
