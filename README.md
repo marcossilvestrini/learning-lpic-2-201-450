@@ -550,7 +550,7 @@ predict growth
 resource exhaustion
 ```
 
-![Mind Map](IMages/mindmap-200.2.png)
+![Mind Map](Images/mindmap-200.2.png)
 
 #### Icinga2
 
