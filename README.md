@@ -2966,7 +2966,8 @@ mkswap /myswap
 **Weight:* 3
 
 **Description:**
-Candidates should be able to properly maintain a Linux filesystem using system utilities. This objective includes manipulating standard filesystems and monitoring SMART devices.
+Candidates should be able to properly maintain a Linux filesystem using system utilities.\
+This objective includes manipulating standard filesystems and monitoring SMART devices.
 
 **Key Knowledge Areas:**
 
@@ -2974,6 +2975,20 @@ Tools and utilities to manipulate and ext2, ext3 and ext4
 Tools and utilities to perform basic Btrfs operations, including subvolumes and snapshots
 Tools and utilities to manipulate XFS
 Awareness of ZFS
+
+#### 203.2 Cited Objects
+
+```sh
+mkfs (mkfs.*)
+mkswap
+fsck (fsck.*)
+tune2fs, dumpe2fs and debugfs
+btrfs, btrfs-convert
+xfs_info, xfs_check, xfs_repair, xfsdump and xfsrestore
+smartd, smartctl
+```
+
+![Mind Map](Images/mindmap-203.2.png)
 
 #### About btrfs fylesystem
 
@@ -3033,18 +3048,6 @@ xfsdump -l 0 -f /dev/device /path/to/filesystem
 
 #restore xfs filesystem
 xfsrestore -f /dev/sdc -S session-ID /path/to/destination
-```
-
-#### 203.2 Cited Objects
-
-```sh
-mkfs (mkfs.*)
-mkswap
-fsck (fsck.*)
-tune2fs, dumpe2fs and debugfs
-btrfs, btrfs-convert
-xfs_info, xfs_check, xfs_repair, xfsdump and xfsrestore
-smartd, smartctl
 ```
 
 #### Important Commands
@@ -3344,6 +3347,17 @@ Awareness of other CD-ROM filesystems (HFS)
 Awareness of CD-ROM filesystem extensions (Joliet, Rock Ridge, El Torito)
 Basic feature knowledge of data encryption (dm-crypt / LUKS)
 
+#### 203.3 Cited Objects
+
+```sh
+/etc/auto.master
+/etc/auto.[dir]
+mkisofs
+cryptsetup
+```
+
+![Mind Map](Images/mindmap-203.3.png)
+
 #### About autofs
 
 ```sh
@@ -3409,15 +3423,6 @@ systemctl start mnt-automount.automount
 
 #check status unit
 systemctl status mnt-automount.automount
-```
-
-#### 203.3 Cited Objects
-
-```sh
-/etc/auto.master
-/etc/auto.[dir]
-mkisofs
-cryptsetup
 ```
 
 #### 203.3 Important Commands
@@ -3512,11 +3517,23 @@ cryptsetup close security-partition
 **Weight:** 3
 
 **Description:**
-Candidates should be able to configure and implement software RAID. This objective includes using and configuring RAID 0, 1 and 5.
+Candidates should be able to configure and implement software RAID. This objective includes\
+using and configuring RAID 0, 1 and 5.
 
 **Key Knowledge Areas:**
 
 Software raid configuration files and utilities
+
+#### 204.1 Cited Objects
+
+```sh
+mdadm.conf
+mdadm
+/proc/mdstat
+partition type 0xFD
+```
+
+![Mind Map](Images/mindmap-204.1.png)
 
 #### Configure RAID 0
 
@@ -3564,15 +3581,6 @@ mkfs.ext4 -L "FS_RAID5" /dev/md0
 # mount raid5 device
 mkdir /mnt/raid5
 mount /dev/md0 /mnt/raid5
-```
-
-#### 204.1 Cited Objects
-
-```sh
-mdadm.conf
-mdadm
-/proc/mdstat
-partition type 0xFD
 ```
 
 #### 204.1 Important commands
@@ -3637,7 +3645,8 @@ mdadm  /dev/md1 -a /dev/sdb2
 **Weight:** 2
 
 **Description:**
-Candidates should be able to configure kernel options to support various drives. This objective includes software tools to view & modify hard disk settings including iSCSI devices.
+Candidates should be able to configure kernel options to support various drives.\
+This objective includes software tools to view & modify hard disk settings including iSCSI devices.
 
 **Key Knowledge Areas:**
 
@@ -3647,6 +3656,21 @@ Tools and utilities to manipulate or analyse system resources (e.g. interrupts)
 Awareness of sdparm command and its uses
 Tools and utilities for iSCSI
 Awareness of SAN, including relevant protocols (AoE, FCoE)
+
+#### 204.2 Cited Objects
+
+```sh
+hdparm, sdparm
+nvme
+tune2fs
+fstrim
+sysctl
+/dev/hd*, /dev/sd*, /dev/nvme*
+iscsiadm, scsi_id, iscsid and iscsid.conf
+WWID, WWN, LUN numbers
+```
+
+![Mind Map](Images/mindmap-204.2.png)
 
 #### About NAS
 
@@ -3812,19 +3836,6 @@ lsblk -f
 df -h
 ```
 
-#### 204.2 Cited Objects
-
-```sh
-hdparm, sdparm
-nvme
-tune2fs
-fstrim
-sysctl
-/dev/hd*, /dev/sd*, /dev/nvme*
-iscsiadm, scsi_id, iscsid and iscsid.conf
-WWID, WWN, LUN numbers
-```
-
 #### 204.2 Important Commands
 
 ##### hdparm - get/set SATA/IDE device parameters
@@ -3927,7 +3938,8 @@ tgt-admin --show
 **Weight:** 3
 
 **Description:**
-Candidates should be able to create and remove logical volumes, volume groups, and physical volumes. This objective includes snapshots and resizing logical volumes.
+Candidates should be able to create and remove logical volumes, volume groups, and physical volumes.\
+This objective includes snapshots and resizing logical volumes.
 
 **Key Knowledge Areas:**
 
@@ -3935,6 +3947,17 @@ Tools in the /dev/graft suite
 Resizing, renaming, creating, and removing logical volumes, volume groups, and physical volumes
 Creating and maintaining snapshots
 Activating volume groups
+
+#### 204.3  Cited Object
+
+/sbin/pv*
+/sbin/lv*
+/sbin/vg*
+mount
+/dev/mapper/
+lvm.conf
+
+![Mind Map](Images/mindmap-204.3.png)
 
 ![image](https://user-images.githubusercontent.com/62715900/189220451-c757d969-4e0e-405f-84f5-82ad192177fa.png)
 
@@ -4105,15 +4128,6 @@ lvrename /dev/vg_primary/lv_test1 /dev/vg_primary/lv_app
 lvcreate -L1G -s -n test-snapshot /dev/vg_primary/lv_app
 ```
 
-#### 204.3  Cited Object
-
-/sbin/pv*
-/sbin/lv*
-/sbin/vg*
-mount
-/dev/mapper/
-lvm.conf
-
 <p align="right">(<a href="#topic-204.3">back to Sub Topic 204.3</a>)</p>
 <p align="right">(<a href="#topic-204">back to Topic 204</a>)</p>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -4129,7 +4143,9 @@ lvm.conf
 **Weight:** 3
 
 **Description:**
-Candidates should be able to configure a network device to be able to connect to a local, wired or wireless, and a wide-area network. This objective includes being able to communicate between various subnets within a single network including both IPv4 and IPv6 networks.
+Candidates should be able to configure a network device to be able to connect to a local,\
+wired or wireless, and a wide-area network. This objective includes being able to communicate between\
+various subnets within a single network including both IPv4 and IPv6 networks.
 
 **Key Knowledge Areas:**
 
@@ -4145,6 +4161,8 @@ arp
 iw
 iwconfig
 iwlist
+
+![Mind Map](Images/mindmap-205.1.png)
 
 #### 205.1 Important Commands
 
@@ -4338,7 +4356,8 @@ dhclient wlp2s0
 **Weight:** 4
 
 **Description:**
-Candidates should be able to configure a network device to implement various network authentication schemes. This objective includes configuring a multi-homed network device and resolving communication problems.
+Candidates should be able to configure a network device to implement various network authentication schemes.\
+This objective includes configuring a multi-homed network device and resolving communication problems.
 
 **Key Knowledge Areas:**
 
@@ -4362,6 +4381,8 @@ nc
 tcpdump
 nmap
 ```
+
+![Mind Map](Images/mindmap-205.2.png)
 
 #### Lab about network
 
@@ -4607,6 +4628,8 @@ dmesg
 /etc/hosts.allow, /etc/hosts.deny
 ```
 
+![Mind Map](Images/mindmap-205.3.png)
+
 #### About Network in distro Debian
 
 Please, stop\disabled the NetworkManager service for set configurations in permanent mode!!!
@@ -4771,6 +4794,8 @@ uname
 install
 patch
 ```
+
+![Mind Map](Images/mindmap-206.1.png)
 
 #### 206.1 Important Commands
 
@@ -4953,6 +4978,8 @@ tar
 mt
 rsync
 ```
+
+![Mind Map](Images/mindmap-206.2.png)
 
 #### Backups with tar
 
@@ -5164,12 +5191,16 @@ Inform active users of system maintenance
 
 #### 206.3 Cited Objetcs
 
+```sh
 /etc/issue
 /etc/issue.net
 /etc/motd
 wall
 /sbin/shutdown
 systemctl
+```
+
+![Mind Map](Images/mindmap-206.3.png)
 
 #### Abount logins messages
 
