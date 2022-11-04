@@ -1,0 +1,12 @@
+Some answers that are not correct in site.
+
+Which of the following commands displays the physical path of the kernel module named dummy?
+A. modprobe -i dummy
+B. modinfo -n dummy
+C. modpath -v dummy
+D. depmod -n dummy
+E. modshow -p dummy
+
+Answer : A
+Correct: B
+------------------------------------------------------------
