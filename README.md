@@ -446,9 +446,45 @@ sudo lsof {path} | grep deleted
 lsof -i tcp|grep -v LISTEN
 ```
 
+##### cifsiostat - Report CIFS statistics
+
+```sh
+# show human-readable CIFS IO stats in megabytes every 1sec
+cifsiostat -h -m 1
+```
+
+##### nfsiostat - Emulate iostat for NFS mount points using /proc/self/mountstats
+
+```sh
+# show default statistic
+nfsiostat
+
+# show with interval and continuous\repeat
+nfsiostat 5
+nfsiostat 5 10
+
+#specific mount point
+nfsiostat 2 5 /particular/mount/point
+
+#Sorting output by operations per second
+nfsiostat -s
+```
+
 ##### top - display Linux processes
 
 ```sh
+#Explaining  %Cpu(s)
+us - Time spent in user space
+sy - Time spent in kernel space
+ni - Time spent running niced user processes (User defined priority)
+id - Time spent in idle operations
+wa - Time spent on waiting on IO peripherals (eg. disk)
+hi - Time spent handling hardware interrupt routines. (Whenever a peripheral unit want attention form the CPU,\
+it literally pulls a line, to signal the CPU to service it)
+si - Time spent handling software interrupt routines. (a piece of code, calls an interrupt routine...)
+st - Time spent on involuntary waits by virtual cpu while hypervisor is servicing another processor\
+(stolen from a virtual machine)
+
 #Explaining the columns
 
 PID: Process ID.
@@ -4980,6 +5016,12 @@ rsync
 ```
 
 ![Mind Map](Images/mindmap-206.2.png)
+
+#### /dev/st*and /dev/nst*
+
+/dev/st*: The /dev/nst0 device is a non rewinding tape device
+
+/dev/nst*: The /dev/st0 device is a rewinding tape device.
 
 #### Backups with tar
 
