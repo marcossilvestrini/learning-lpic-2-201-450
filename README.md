@@ -3676,7 +3676,7 @@ mdadm  /dev/md1 -a /dev/sdb2
 
 <a name="topic-204.2"></a>
 
-#### 204.2 Adjusting Storage Device Access
+### 204.2 Adjusting Storage Device Access
 
 **Weight:** 2
 
